@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizza 2 — Choose Your Style</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .choose-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+            text-align: center;
+        }
+        .choose-page h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        .choose-page p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 3rem;
+        }
+        .choose-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 700px;
+            width: 100%;
+        }
+        .choose-card {
+            padding: 3rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .choose-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+        }
+        .choose-card h2 {
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .choose-card p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            margin-bottom: 0;
+        }
+        .choose-classic {
+            background: linear-gradient(135deg, #e63946 0%, #c62828 100%);
+        }
+        .choose-vegan {
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+        }
+        @media (max-width: 600px) {
+            .choose-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="choose-page">
+            <h1>Pizza 2</h1>
+            <p>Choose your experience</p>
+            <div class="choose-grid">
+                <a href="classic/index.html" class="choose-card choose-classic">
+                    <h2>Classic</h2>
+                    <p>Traditional pies, meat lovers, and all the favourites</p>
+                </a>
+                <a href="vegan/index.html" class="choose-card choose-vegan">
+                    <h2>Vegan</h2>
+                    <p>Plant-based pizzas, dairy-free cheese, and fresh vegetables</p>
+                </a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
