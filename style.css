@@ -1,3 +1,19 @@
+:root {
+    --accent: #e63946;
+    --accent-dark: #c62828;
+    --bg: #faf7f2;
+}
+
+[data-mode="classic"] {
+    --accent: #e63946;
+    --accent-dark: #c62828;
+}
+
+[data-mode="vegan"] {
+    --accent: #2e7d32;
+    --accent-dark: #1b5e20;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,7 +23,7 @@
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     color: #2d2d2d;
-    background: #faf7f2;
+    background: var(--bg);
     line-height: 1.6;
 }
 
@@ -30,8 +46,18 @@ nav {
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #e63946;
+    color: var(--accent);
     font-style: italic;
+}
+
+.mode-badge {
+    font-size: 0.7rem;
+    background: var(--accent);
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    vertical-align: middle;
+    font-style: normal;
 }
 
 nav ul {
@@ -44,11 +70,22 @@ nav a {
     color: #f1f1f1;
     text-decoration: none;
     font-size: 1rem;
+    cursor: pointer;
     transition: color 0.2s;
 }
 
+nav a:hover,
+nav a.active {
+    color: var(--accent);
+}
+
+.switch-link {
+    opacity: 0.7;
+    font-size: 0.9rem !important;
+}
+
 .lang-toggle {
-    background: #e63946;
+    background: var(--accent);
     color: white;
     border: none;
     padding: 0.4rem 0.8rem;
@@ -60,12 +97,13 @@ nav a {
 }
 
 .lang-toggle:hover {
-    background: #c62828;
+    background: var(--accent-dark);
 }
 
-nav a:hover,
-nav a.active {
-    color: #e63946;
+.lang-toggle-choose {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
 }
 
 main {
@@ -95,7 +133,7 @@ h3 {
 .hero {
     text-align: center;
     padding: 4rem 1rem;
-    background: linear-gradient(135deg, #e63946 0%, #c62828 100%);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
     color: white;
     border-radius: 12px;
     margin-bottom: 3rem;
@@ -116,11 +154,13 @@ h3 {
     display: inline-block;
     padding: 0.8rem 2rem;
     background: white;
-    color: #e63946;
+    color: var(--accent);
     text-decoration: none;
+    border: none;
     border-radius: 6px;
     font-weight: bold;
     font-size: 1rem;
+    cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -151,78 +191,33 @@ h3 {
 
 .hours-card h3 {
     margin-bottom: 0.8rem;
-    color: #e63946;
+    color: var(--accent);
 }
 
-/* Specials */
-.specials {
-    margin-bottom: 3rem;
-    text-align: center;
+/* Menu tables */
+.menu-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
 }
 
-.specials-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1.5rem;
-}
-
-.special-card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    border-left: 4px solid #e63946;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+.menu-table th,
+.menu-table td {
+    padding: 0.75rem 1rem;
     text-align: left;
+    border-bottom: 1px solid #e0e0e0;
 }
 
-.special-card h3 {
-    margin-bottom: 0.5rem;
-}
-
-.special-card .time {
-    display: inline-block;
-    margin-top: 0.5rem;
-    font-size: 0.85rem;
-    color: #666;
-    font-style: italic;
-}
-
-/* Menu */
-.menu-section {
-    margin-bottom: 3rem;
-}
-
-.menu-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    margin-top: 1rem;
-}
-
-.menu-item {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.menu-item-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 0.5rem;
-}
-
-.price {
-    color: #e63946;
+.menu-table th {
+    background: #f5f5f5;
     font-weight: bold;
-    font-size: 1.1rem;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #666;
 }
 
-.menu-item p {
-    color: #555;
-    font-size: 0.95rem;
+.menu-table tr:hover {
+    background: #fafafa;
 }
 
 .menu-note {
@@ -272,39 +267,70 @@ h3 {
     content: "~";
     position: absolute;
     left: 0;
-    color: #e63946;
+    color: var(--accent);
     font-weight: bold;
 }
 
-/* Menu tables (loaded from markdown) */
-.menu-table-wrapper {
-    overflow-x: auto;
-    margin-bottom: 2rem;
+/* Choose page */
+.choose-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    position: relative;
 }
 
-.menu-table {
+.choose-page h1 {
+    font-size: 3rem;
+}
+
+.choose-subtitle {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 3rem;
+}
+
+.choose-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 700px;
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
 }
 
-.menu-table th,
-.menu-table td {
-    padding: 0.75rem 1rem;
-    text-align: left;
-    border-bottom: 1px solid #e0e0e0;
+.choose-card {
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.menu-table th {
-    background: #f5f5f5;
-    font-weight: bold;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    color: #666;
+.choose-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
-.menu-table tr:hover {
-    background: #fafafa;
+.choose-card h2 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.choose-card p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+}
+
+.choose-classic {
+    background: linear-gradient(135deg, #e63946 0%, #c62828 100%);
+}
+
+.choose-vegan {
+    background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
 }
 
 /* Footer */
@@ -333,5 +359,13 @@ footer {
 
     h1 {
         font-size: 2rem;
+    }
+
+    .choose-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .choose-page h1 {
+        font-size: 2.2rem;
     }
 }
