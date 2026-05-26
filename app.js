@@ -1,7 +1,7 @@
-const { createApp, ref, computed, onMounted, watch } = Vue;
+const { createApp, ref, computed, onMounted, watch, nextTick } = Vue;
 
 const translations = {
-    nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, about: { da: 'Om os', en: 'About' } },
+    nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, about: { da: 'Om os', en: 'About' }, findUs: { da: 'Find os', en: 'Find Us' } },
     choose: {
         title: { da: 'Pizza 2', en: 'Pizza 2' },
         subtitle: { da: 'Vælg din oplevelse', en: 'Choose your experience' },
@@ -46,6 +46,11 @@ const translations = {
         communityTitle: { da: 'Fællesskab', en: 'Community' },
         communityText: { da: 'Vi sponsorerer det lokale ungdomshold, afholder fredags open-mic, og hver jul giver vi 200 gratis pizzaer væk til familier i nabolaget.', en: 'We sponsor the local youth team, host Friday night open-mic, and every Christmas we give away 200 free pies to families in the neighbourhood.' },
     },
+    findUs: {
+        title: { da: 'Find os', en: 'Find Us' },
+        subtitle: { da: 'Vesterbrogade 42, 1620 København V', en: 'Vesterbrogade 42, 1620 Copenhagen V' },
+        directions: { da: 'Vi ligger tæt på København H — 5 minutters gang fra stationen.', en: "We're a 5-minute walk from Copenhagen Central Station." },
+    },
     footer: { da: '© 2026 Pizza 2. Alle rettigheder forbeholdes.', en: '© 2026 Pizza 2. All rights reserved.' },
     switchStyle: { da: 'Skift stil', en: 'Switch Style' },
 };
@@ -65,9 +70,27 @@ createApp({
             return obj[lang.value];
         }
 
+        let map = null;
+
         function navigate(p) {
             page.value = p;
             if (p === 'menu') loadMenu();
+            if (p === 'findus') {
+                nextTick(() => { initMap(); });
+            }
+        }
+
+        function initMap() {
+            if (map) { map.remove(); map = null; }
+            const lat = 55.6722;
+            const lng = 12.5574;
+            map = L.map('map').setView([lat, lng], 16);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            L.marker([lat, lng]).addTo(map)
+                .bindPopup('<strong>Pizza 2</strong><br>Vesterbrogade 42<br>1620 København V<br>+45 33 12 04 56')
+                .openPopup();
         }
 
         function selectMode(m) {
@@ -166,6 +189,7 @@ createApp({
                         <li><a :class="{ active: page === 'home' }" @click.prevent="navigate('home')">{{ t('nav.home') }}</a></li>
                         <li><a :class="{ active: page === 'menu' }" @click.prevent="navigate('menu')">{{ t('nav.menu') }}</a></li>
                         <li><a :class="{ active: page === 'about' }" @click.prevent="navigate('about')">{{ t('nav.about') }}</a></li>
+                        <li><a :class="{ active: page === 'findus' }" @click.prevent="navigate('findus')">{{ t('nav.findUs') }}</a></li>
                         <li><a class="switch-link" @click.prevent="backToChoose">{{ t('switchStyle') }}</a></li>
                     </ul>
                     <button class="lang-toggle" @click="toggleLang">{{ lang === 'da' ? 'EN' : 'DA' }}</button>
@@ -205,6 +229,16 @@ createApp({
                     <h1>{{ t('menu.title') }}</h1>
                     <div v-html="menuHtml"></div>
                     <p class="menu-note">{{ t('menu.note') }}</p>
+                </template>
+
+                <!-- Find Us -->
+                <template v-if="page === 'findus'">
+                    <section class="findus-page">
+                        <h1>{{ t('findUs.title') }}</h1>
+                        <p class="findus-address">{{ t('findUs.subtitle') }}</p>
+                        <p class="findus-directions">{{ t('findUs.directions') }}</p>
+                        <div id="map"></div>
+                    </section>
                 </template>
 
                 <!-- About -->
