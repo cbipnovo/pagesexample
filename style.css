@@ -47,6 +47,22 @@ nav a {
     transition: color 0.2s;
 }
 
+.lang-toggle {
+    background: #e63946;
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.lang-toggle:hover {
+    background: #c62828;
+}
+
 nav a:hover,
 nav a.active {
     color: #e63946;
