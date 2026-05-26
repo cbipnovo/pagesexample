@@ -260,6 +260,37 @@ h3 {
     font-weight: bold;
 }
 
+/* Menu tables (loaded from markdown) */
+.menu-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 2rem;
+}
+
+.menu-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.menu-table th,
+.menu-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.menu-table th {
+    background: #f5f5f5;
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #666;
+}
+
+.menu-table tr:hover {
+    background: #fafafa;
+}
+
 /* Footer */
 footer {
     text-align: center;

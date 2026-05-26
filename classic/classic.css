@@ -1,0 +1,34 @@
+.logo {
+    color: #e63946;
+}
+
+.mode-badge {
+    font-size: 0.7rem;
+    background: #e63946;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    vertical-align: middle;
+    font-style: normal;
+}
+
+.hero {
+    background: linear-gradient(135deg, #e63946 0%, #c62828 100%);
+}
+
+.hours-card h3 {
+    color: #e63946;
+}
+
+.special-card {
+    border-left-color: #e63946;
+}
+
+.price {
+    color: #e63946;
+}
+
+nav a:hover,
+nav a.active {
+    color: #e63946;
+}
