@@ -1,6 +1,4 @@
-# Vegan Menu
-
-## Plant-Based Pizzas
+# Plant-Based Pizzas
 
 | Pizza | Small (30 cm) | Large (45 cm) | Description |
 |-------|---------------|---------------|-------------|
@@ -9,7 +7,7 @@
 | Mushroom Truffle | 135 kr | 185 kr | Mixed wild mushrooms, truffle oil, cashew cream, rocket |
 | Spicy Arrabbiata | 119 kr | 165 kr | Spicy tomato sauce, chilli flakes, roasted garlic, vegan mozzarella |
 
-## Specialty Pizzas
+# Specialty Pizzas
 
 | Pizza | Small (30 cm) | Large (45 cm) | Description |
 |-------|---------------|---------------|-------------|
@@ -18,7 +16,7 @@
 | Pesto Supreme | 129 kr | 179 kr | House-made basil pesto, cherry tomatoes, pine nuts, rocket |
 | Thai Chilli | 139 kr | 189 kr | Sweet chilli sauce, tofu, red peppers, spring onion, sesame |
 
-## Sides & Extras
+# Sides & Extras
 
 | Item | Price | Description |
 |------|-------|-------------|
@@ -27,7 +25,7 @@
 | Mixed Green Salad | 55 kr | Seasonal greens, avocado, seeds, lemon dressing |
 | Chocolate Avocado Mousse | 35 kr | Rich dark chocolate mousse with avocado base |
 
-## Drinks
+# Drinks
 
 | Item | Price | Description |
 |------|-------|-------------|
@@ -35,7 +33,3 @@
 | Oat Milk Latte | 40 kr | Espresso with organic oat milk |
 | Kombucha | 45 kr | Ginger, berry, or original |
 | Sparkling Water | 15 kr | Bottled sparkling water |
-
----
-
-*All items are 100% plant-based. No animal products used in our vegan kitchen.*

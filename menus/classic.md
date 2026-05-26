@@ -1,6 +1,4 @@
-# Classic Menu
-
-## Classic Pizzas
+# Classic Pizzas
 
 | Pizza | Small (30 cm) | Large (45 cm) | Description |
 |-------|---------------|---------------|-------------|
@@ -9,7 +7,7 @@
 | Cheese | 99 kr | 139 kr | Classic cheese — tomato sauce, mozzarella blend |
 | Meat Lovers | 135 kr | 185 kr | Pepperoni, sausage, bacon, ham, mozzarella |
 
-## Specialty Pizzas
+# Specialty Pizzas
 
 | Pizza | Small (30 cm) | Large (45 cm) | Description |
 |-------|---------------|---------------|-------------|
@@ -18,7 +16,7 @@
 | Vodka Pie | 135 kr | 175 kr | Creamy vodka sauce, mozzarella, pecorino romano, basil |
 | BBQ Chicken | 135 kr | 175 kr | BBQ sauce, grilled chicken, red onion, cilantro, smoked gouda |
 
-## Sides & Extras
+# Sides & Extras
 
 | Item | Price | Description |
 |------|-------|-------------|
@@ -27,7 +25,7 @@
 | Caesar Salad | 65 kr | Romaine, parmesan, croutons, house caesar dressing |
 | Cannoli | 30 kr | Crispy shell, sweet ricotta filling, chocolate chips |
 
-## Drinks
+# Drinks
 
 | Item | Price | Description |
 |------|-------|-------------|
@@ -35,7 +33,3 @@
 | Italian Soda | 30 kr | Blood orange, lemon, or mixed berry |
 | 1.5L Bottle | 30 kr | Coke, Sprite, or Fanta |
 | Water | 15 kr | Bottled spring water |
-
----
-
-*Slices available for all pies: 25 kr each.*
