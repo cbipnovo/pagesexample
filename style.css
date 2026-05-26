@@ -333,6 +333,29 @@ h3 {
     background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
 }
 
+/* Find Us / Map */
+.findus-page {
+    text-align: center;
+}
+
+.findus-address {
+    font-size: 1.2rem;
+    color: #444;
+    margin-bottom: 0.5rem;
+}
+
+.findus-directions {
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+#map {
+    width: 100%;
+    height: 450px;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
 /* Footer */
 footer {
     text-align: center;
