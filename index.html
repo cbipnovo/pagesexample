@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="da">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,63 +11,65 @@
         <nav>
             <div class="logo">Pizza 2</div>
             <ul>
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="history.html">History</a></li>
+                <li><a href="index.html" class="active" data-da="Hjem" data-en="Home">Hjem</a></li>
+                <li><a href="menu.html" data-da="Menu" data-en="Menu">Menu</a></li>
+                <li><a href="about.html" data-da="Om os" data-en="About">Om os</a></li>
+                <li><a href="history.html" data-da="Historie" data-en="History">Historie</a></li>
             </ul>
+            <button class="lang-toggle" onclick="toggleLanguage()">EN</button>
         </nav>
     </header>
 
     <main>
         <section class="hero">
-            <h1>New York Style Pizza, Made Fresh Daily</h1>
-            <p>Family-owned since 1987. Hand-tossed dough, homemade sauce, and the finest ingredients.</p>
-            <a href="menu.html" class="btn">View Our Menu</a>
+            <h1 data-da="Friskbagt pizza hver dag" data-en="Fresh Pizza, Made Daily">Friskbagt pizza hver dag</h1>
+            <p data-da="Familiedrevet siden 1987. Håndrullet dej, hjemmelavet sauce og de fineste ingredienser." data-en="Family-owned since 1987. Hand-tossed dough, homemade sauce, and the finest ingredients.">Familiedrevet siden 1987. Håndrullet dej, hjemmelavet sauce og de fineste ingredienser.</p>
+            <a href="menu.html" class="btn" data-da="Se vores menu" data-en="View Our Menu">Se vores menu</a>
         </section>
 
         <section class="hours">
-            <h2>Hours & Location</h2>
+            <h2 data-da="Åbningstider & Beliggenhed" data-en="Hours & Location">Åbningstider & Beliggenhed</h2>
             <div class="hours-grid">
                 <div class="hours-card">
-                    <h3>Hours</h3>
-                    <p>Mon - Thu: 11:00 - 22:00</p>
-                    <p>Fri - Sat: 11:00 - 00:00</p>
-                    <p>Sunday: 12:00 - 21:00</p>
+                    <h3 data-da="Åbningstider" data-en="Hours">Åbningstider</h3>
+                    <p>Man - Tor: 11:00 - 22:00</p>
+                    <p>Fre - Lør: 11:00 - 00:00</p>
+                    <p data-da="Søndag: 12:00 - 21:00" data-en="Sunday: 12:00 - 21:00">Søndag: 12:00 - 21:00</p>
                 </div>
                 <div class="hours-card">
-                    <h3>Location</h3>
+                    <h3 data-da="Beliggenhed" data-en="Location">Beliggenhed</h3>
                     <p>Vesterbrogade 42</p>
                     <p>1620 København V</p>
-                    <p>Phone: +45 33 12 04 56</p>
+                    <p data-da="Tlf: +45 33 12 04 56" data-en="Phone: +45 33 12 04 56">Tlf: +45 33 12 04 56</p>
                 </div>
             </div>
         </section>
 
         <section class="specials">
-            <h2>Today's Specials</h2>
+            <h2 data-da="Dagens tilbud" data-en="Today's Specials">Dagens tilbud</h2>
             <div class="specials-grid">
                 <div class="special-card">
-                    <h3>Lunch Deal</h3>
-                    <p>2 slices + a drink for 55 kr</p>
+                    <h3 data-da="Frokosttilbud" data-en="Lunch Deal">Frokosttilbud</h3>
+                    <p data-da="2 stykker + en drink for 55 kr" data-en="2 slices + a drink for 55 kr">2 stykker + en drink for 55 kr</p>
                     <span class="time">11:00 - 15:00</span>
                 </div>
                 <div class="special-card">
-                    <h3>Family Night</h3>
-                    <p>Large pie + garlic knots + 2L soda for 179 kr</p>
-                    <span class="time">Tuesdays only</span>
+                    <h3 data-da="Familieaften" data-en="Family Night">Familieaften</h3>
+                    <p data-da="Stor pizza + hvidløgsbrød + 2L sodavand for 179 kr" data-en="Large pie + garlic knots + 2L soda for 179 kr">Stor pizza + hvidløgsbrød + 2L sodavand for 179 kr</p>
+                    <span class="time" data-da="Kun tirsdage" data-en="Tuesdays only">Kun tirsdage</span>
                 </div>
                 <div class="special-card">
-                    <h3>Late Night Slice</h3>
-                    <p>Any slice for 20 kr after 22:00</p>
-                    <span class="time">Fri & Sat</span>
+                    <h3 data-da="Sen aften stykke" data-en="Late Night Slice">Sen aften stykke</h3>
+                    <p data-da="Et stykke for 20 kr efter 22:00" data-en="Any slice for 20 kr after 22:00">Et stykke for 20 kr efter 22:00</p>
+                    <span class="time" data-da="Fre & Lør" data-en="Fri & Sat">Fre & Lør</span>
                 </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2026 Pizza 2. All rights reserved.</p>
+        <p data-da="&copy; 2026 Pizza 2. Alle rettigheder forbeholdes." data-en="&copy; 2026 Pizza 2. All rights reserved.">&copy; 2026 Pizza 2. Alle rettigheder forbeholdes.</p>
     </footer>
+    <script src="lang.js"></script>
 </body>
 </html>
