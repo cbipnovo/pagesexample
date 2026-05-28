@@ -3,7 +3,7 @@ const { createApp, ref, computed, onMounted, watch, nextTick } = Vue;
 const translations = {
     nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, about: { da: 'Om os', en: 'About' }, findUs: { da: 'Find os', en: 'Find Us' } },
     choose: {
-        title: { da: 'Pizza 2', en: 'Pizza 2' },
+        title: { da: 'Cool Pizza', en: 'Cool Pizza' },
         subtitle: { da: 'Vælg din oplevelse', en: 'Choose your experience' },
         classic: { da: 'Klassisk', en: 'Classic' },
         classicDesc: { da: 'Traditionelle pizzaer, kødelsker og alle favoritterne', en: 'Traditional pies, meat lovers, and all the favourites' },
@@ -36,7 +36,7 @@ const translations = {
         title: { da: 'Vores historie', en: 'Our Story' },
         tagline: { da: 'Tre generationer af pizza-perfektion.', en: 'Three generations of pizza perfection.' },
         naplesTitle: { da: 'Fra Napoli til København', en: 'From Naples to Copenhagen' },
-        naplesP1: { da: 'Sal Moretti åbnede dørene til Pizza 2 i 1987 med intet andet end en familieopskrift, en brugt ovn og en drøm. Hans far havde drevet et lille pizzeria i Napoli, og Sal bragte de traditioner til København.', en: 'Sal Moretti opened the doors to Pizza 2 in 1987 with nothing but a family recipe, a secondhand oven, and a dream. His father had run a small pizzeria in Naples, and Sal brought those traditions to Copenhagen.' },
+        naplesP1: { da: 'Sal Moretti åbnede dørene til Cool Pizza i 1987 med intet andet end en familieopskrift, en brugt ovn og en drøm. Hans far havde drevet et lille pizzeria i Napoli, og Sal bragte de traditioner til København.', en: 'Sal Moretti opened the doors to Cool Pizza in 1987 with nothing but a family recipe, a secondhand oven, and a dream. His father had run a small pizzeria in Naples, and Sal brought those traditions to Copenhagen.' },
         naplesP2: { da: 'Næsten fire årtier senere er opskriften ikke ændret. Sals søn Marco driver nu køkkenet, og hans barnebarn Sofia tager sig af gæsterne i weekenderne.', en: "Nearly four decades later, the recipe hasn't changed. Sal's son Marco now runs the kitchen, and his granddaughter Sofia handles the front of house on weekends." },
         diffTitle: { da: 'Hvad gør os anderledes', en: 'What Makes Us Different' },
         diffItems: {
@@ -51,7 +51,7 @@ const translations = {
         subtitle: { da: 'Vesterbrogade 42, 1620 København V', en: 'Vesterbrogade 42, 1620 Copenhagen V' },
         directions: { da: 'Vi ligger tæt på København H — 5 minutters gang fra stationen.', en: "We're a 5-minute walk from Copenhagen Central Station." },
     },
-    footer: { da: '© 2026 Pizza 2. Alle rettigheder forbeholdes.', en: '© 2026 Pizza 2. All rights reserved.' },
+    footer: { da: '© 2026 Cool Pizza. Alle rettigheder forbeholdes.', en: '© 2026 Cool Pizza. All rights reserved.' },
     switchStyle: { da: 'Skift stil', en: 'Switch Style' },
 };
 
@@ -89,7 +89,7 @@ createApp({
                 attribution: '© OpenStreetMap contributors'
             }).addTo(map);
             L.marker([lat, lng]).addTo(map)
-                .bindPopup('<strong>Pizza 2</strong><br>Vesterbrogade 42<br>1620 København V<br>+45 33 12 04 56')
+                .bindPopup('<strong>Cool Pizza</strong><br>Vesterbrogade 42<br>1620 København V<br>+45 33 12 04 56')
                 .openPopup();
         }
 
@@ -184,7 +184,7 @@ createApp({
         <template v-if="mode">
             <header>
                 <nav>
-                    <div class="logo">Pizza 2 <span class="mode-badge">{{ mode === 'classic' ? t('choose.classic') : t('choose.vegan') }}</span></div>
+                    <div class="logo">Cool Pizza <span class="mode-badge">{{ mode === 'classic' ? t('choose.classic') : t('choose.vegan') }}</span></div>
                     <ul>
                         <li><a :class="{ active: page === 'home' }" @click.prevent="navigate('home')">{{ t('nav.home') }}</a></li>
                         <li><a :class="{ active: page === 'menu' }" @click.prevent="navigate('menu')">{{ t('nav.menu') }}</a></li>
