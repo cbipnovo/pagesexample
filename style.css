@@ -614,6 +614,8 @@ h3 {
     max-height: 85vh;
     border-radius: 8px;
     object-fit: contain;
+    transition: transform 0.1s ease-out;
+    touch-action: none;
 }
 
 .lightbox-share {
