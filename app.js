@@ -55,6 +55,9 @@ const translations = {
         title: { da: 'Galleri', en: 'Gallery' },
         subtitle: { da: 'Se vores pizzaer', en: 'See our pizzas' },
     },
+    testimonials: {
+        title: { da: 'Hvad vores gæster siger', en: 'What Our Guests Say' },
+    },
     footer: { da: '© 2026 Cool Pizza. Alle rettigheder forbeholdes.', en: '© 2026 Cool Pizza. All rights reserved.' },
     switchStyle: { da: 'Skift stil', en: 'Switch Style' },
 };
@@ -66,6 +69,14 @@ createApp({
         const lang = ref(localStorage.getItem('pizza2-lang') || 'da');
         const menuHtml = ref('');
         const lightboxPhoto = ref(null);
+
+        const testimonials = [
+            { id: 'FB-001', quote: { da: 'Elsker at I har en hel vegansk menu! De fleste pizzasteder smider bare én mulighed på menuen. Den separate oplevelse føles premium.', en: 'Love that you have a full vegan menu! Most pizza places just throw one option on the menu as an afterthought. The separate experience feels premium.' }, source: 'Google Reviews' },
+            { id: 'FB-009', quote: { da: 'Charmerende historie på Om os-siden. Elsker at lære om familiehistorien. Det fik mig til at føle mig forbundet med stedet, før jeg overhovedet gik ind.', en: 'Charming story on the About page. Love learning about the family history. Made me feel connected to the place before I even walked in.' }, source: 'Google Reviews' },
+            { id: 'FB-015', quote: { da: 'Har lige opdaget at man kan skifte mellem klassisk og vegansk! Min partner og jeg skændes altid om det — nu kan vi hver browse vores egen menu. Genialt.', en: "Just discovered you can switch between classic and vegan! My partner and I always argue about this — now we can each browse our own menu. Genius." }, source: 'Instagram' },
+            { id: 'FB-025', quote: { da: 'Fedt navn i øvrigt. Cool Pizza. Får mig til at smile hver gang. Hele sitet har en fin moderne stemning uden at være prætentiøs.', en: "Cool name btw. Cool Pizza. Makes me smile every time. The whole site has a nice modern vibe without being pretentious." }, source: 'Google Reviews' },
+            { id: 'FB-006', quote: { da: 'Mit dansk er ikke så godt, så jeg sætter virkelig pris på den engelske mulighed på hjemmesiden! Det gjorde det nemt at læse menuen før jeg kom.', en: "My Danish isn't great so I really appreciate the English option on the website! Made it so easy to read the menu before coming in." }, source: 'In-store' },
+        ];
 
         const galleryPhotos = [
             { id: 1, src: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200&fit=crop', alt: { da: 'Margherita med frisk basilikum', en: 'Margherita with fresh basil' } },
@@ -182,7 +193,7 @@ createApp({
             }
         });
 
-        return { page, mode, lang, menuHtml, galleryPhotos, lightboxPhoto, t, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox };
+        return { page, mode, lang, menuHtml, testimonials, galleryPhotos, lightboxPhoto, t, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox };
     },
 
     template: `
@@ -244,6 +255,16 @@ createApp({
                                 <p>Vesterbrogade 42</p>
                                 <p>1620 København V</p>
                                 <p>{{ t('home.phone') }}: +45 33 12 04 56</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="testimonials">
+                        <h2>{{ t('testimonials.title') }}</h2>
+                        <div class="testimonials-grid">
+                            <div class="testimonial-card" v-for="item in testimonials" :key="item.id">
+                                <p class="testimonial-quote">"{{ item.quote[lang] }}"</p>
+                                <span class="testimonial-source">— {{ item.source }}</span>
                             </div>
                         </div>
                     </section>
