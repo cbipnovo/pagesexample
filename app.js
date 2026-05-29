@@ -74,6 +74,7 @@ createApp({
 
         function navigate(p) {
             page.value = p;
+            mobileMenuOpen.value = false;
             if (p === 'menu') loadMenu();
             if (p === 'findus') {
                 nextTick(() => { initMap(); });
@@ -158,7 +159,17 @@ createApp({
             }
         });
 
-        return { page, mode, lang, menuHtml, t, navigate, selectMode, toggleLang, backToChoose };
+        const mobileMenuOpen = ref(false);
+
+        function toggleMobileMenu() {
+            mobileMenuOpen.value = !mobileMenuOpen.value;
+        }
+
+        function closeMobileMenu() {
+            mobileMenuOpen.value = false;
+        }
+
+        return { page, mode, lang, menuHtml, mobileMenuOpen, t, navigate, selectMode, toggleLang, backToChoose, toggleMobileMenu, closeMobileMenu };
     },
 
     template: `
@@ -185,16 +196,21 @@ createApp({
             <header>
                 <nav>
                     <div class="logo">Cool Pizza <span class="mode-badge">{{ mode === 'classic' ? t('choose.classic') : t('choose.vegan') }}</span></div>
-                    <ul>
+                    <button class="hamburger" :class="{ open: mobileMenuOpen }" @click="toggleMobileMenu" aria-label="Menu">
+                        <span></span><span></span><span></span>
+                    </button>
+                    <ul :class="{ 'nav-open': mobileMenuOpen }">
                         <li><a :class="{ active: page === 'home' }" @click.prevent="navigate('home')">{{ t('nav.home') }}</a></li>
                         <li><a :class="{ active: page === 'menu' }" @click.prevent="navigate('menu')">{{ t('nav.menu') }}</a></li>
                         <li><a :class="{ active: page === 'about' }" @click.prevent="navigate('about')">{{ t('nav.about') }}</a></li>
                         <li><a :class="{ active: page === 'findus' }" @click.prevent="navigate('findus')">{{ t('nav.findUs') }}</a></li>
                         <li><a class="switch-link" @click.prevent="backToChoose">{{ t('switchStyle') }}</a></li>
+                        <li class="nav-lang-mobile"><button class="lang-toggle" @click="toggleLang">{{ lang === 'da' ? 'EN' : 'DA' }}</button></li>
                     </ul>
-                    <button class="lang-toggle" @click="toggleLang">{{ lang === 'da' ? 'EN' : 'DA' }}</button>
+                    <button class="lang-toggle lang-toggle-desktop" @click="toggleLang">{{ lang === 'da' ? 'EN' : 'DA' }}</button>
                 </nav>
             </header>
+            <div class="nav-overlay" :class="{ visible: mobileMenuOpen }" @click="closeMobileMenu"></div>
 
             <main>
                 <!-- Home -->
