@@ -1,7 +1,7 @@
 const { createApp, ref, computed, onMounted, watch, nextTick } = Vue;
 
 const translations = {
-    nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, about: { da: 'Om os', en: 'About' }, findUs: { da: 'Find os', en: 'Find Us' } },
+    nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, gallery: { da: 'Galleri', en: 'Gallery' }, about: { da: 'Om os', en: 'About' }, findUs: { da: 'Find os', en: 'Find Us' } },
     choose: {
         title: { da: 'Cool Pizza', en: 'Cool Pizza' },
         subtitle: { da: 'Vælg din oplevelse', en: 'Choose your experience' },
@@ -51,6 +51,13 @@ const translations = {
         subtitle: { da: 'Vesterbrogade 42, 1620 København V', en: 'Vesterbrogade 42, 1620 Copenhagen V' },
         directions: { da: 'Vi ligger tæt på København H — 5 minutters gang fra stationen.', en: "We're a 5-minute walk from Copenhagen Central Station." },
     },
+    gallery: {
+        title: { da: 'Galleri', en: 'Gallery' },
+        subtitle: { da: 'Se vores pizzaer', en: 'See our pizzas' },
+    },
+    testimonials: {
+        title: { da: 'Hvad vores gæster siger', en: 'What Our Guests Say' },
+    },
     footer: { da: '© 2026 Cool Pizza. Alle rettigheder forbeholdes.', en: '© 2026 Cool Pizza. All rights reserved.' },
     switchStyle: { da: 'Skift stil', en: 'Switch Style' },
 };
@@ -61,6 +68,27 @@ createApp({
         const mode = ref(localStorage.getItem('pizza2-mode') || null);
         const lang = ref(localStorage.getItem('pizza2-lang') || 'da');
         const menuHtml = ref('');
+        const lightboxPhoto = ref(null);
+        const pizzaOfTheWeek = ref(null);
+
+        const testimonials = [
+            { id: 'FB-001', quote: { da: 'Elsker at I har en hel vegansk menu! De fleste pizzasteder smider bare én mulighed på menuen. Den separate oplevelse føles premium.', en: 'Love that you have a full vegan menu! Most pizza places just throw one option on the menu as an afterthought. The separate experience feels premium.' }, source: 'Google Reviews' },
+            { id: 'FB-009', quote: { da: 'Charmerende historie på Om os-siden. Elsker at lære om familiehistorien. Det fik mig til at føle mig forbundet med stedet, før jeg overhovedet gik ind.', en: 'Charming story on the About page. Love learning about the family history. Made me feel connected to the place before I even walked in.' }, source: 'Google Reviews' },
+            { id: 'FB-015', quote: { da: 'Har lige opdaget at man kan skifte mellem klassisk og vegansk! Min partner og jeg skændes altid om det — nu kan vi hver browse vores egen menu. Genialt.', en: "Just discovered you can switch between classic and vegan! My partner and I always argue about this — now we can each browse our own menu. Genius." }, source: 'Instagram' },
+            { id: 'FB-025', quote: { da: 'Fedt navn i øvrigt. Cool Pizza. Får mig til at smile hver gang. Hele sitet har en fin moderne stemning uden at være prætentiøs.', en: "Cool name btw. Cool Pizza. Makes me smile every time. The whole site has a nice modern vibe without being pretentious." }, source: 'Google Reviews' },
+            { id: 'FB-006', quote: { da: 'Mit dansk er ikke så godt, så jeg sætter virkelig pris på den engelske mulighed på hjemmesiden! Det gjorde det nemt at læse menuen før jeg kom.', en: "My Danish isn't great so I really appreciate the English option on the website! Made it so easy to read the menu before coming in." }, source: 'In-store' },
+        ];
+
+        const galleryPhotos = [
+            { id: 1, src: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200&fit=crop', alt: { da: 'Margherita med frisk basilikum', en: 'Margherita with fresh basil' } },
+            { id: 2, src: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=1200&fit=crop', alt: { da: 'Pepperoni klassiker', en: 'Classic pepperoni' } },
+            { id: 3, src: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&fit=crop', alt: { da: 'Friskbagt pizza fra ovnen', en: 'Fresh pizza from the oven' } },
+            { id: 4, src: 'https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=1200&fit=crop', alt: { da: 'Vegansk pizza med grøntsager', en: 'Vegan pizza with vegetables' } },
+            { id: 5, src: 'https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?w=1200&fit=crop', alt: { da: 'Pizza med trøffel og svampe', en: 'Truffle and mushroom pizza' } },
+            { id: 6, src: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=1200&fit=crop', alt: { da: 'Vores kulfyrede ovn', en: 'Our coal-fired oven' } },
+            { id: 7, src: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=1200&fit=crop', alt: { da: 'Capricciosa med artiskok', en: 'Capricciosa with artichoke' } },
+            { id: 8, src: 'https://images.unsplash.com/photo-1585238342024-78d387f4132e?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1585238342024-78d387f4132e?w=1200&fit=crop', alt: { da: 'Dejen forberedes', en: 'Preparing the dough' } },
+        ];
 
         function t(key) {
             const keys = key.split('.');
@@ -152,11 +180,23 @@ createApp({
             return html;
         }
 
+        function openLightbox(photo) {
+            lightboxPhoto.value = photo;
+        }
+
+        function closeLightbox() {
+            lightboxPhoto.value = null;
+        }
+
         onMounted(() => {
             if (mode.value) {
                 document.documentElement.setAttribute('data-mode', mode.value);
                 page.value = 'home';
             }
+            fetch('data/pizza-of-the-week.json')
+                .then(r => r.json())
+                .then(data => { pizzaOfTheWeek.value = data; })
+                .catch(() => {});
         });
 
         const mobileMenuOpen = ref(false);
@@ -169,7 +209,7 @@ createApp({
             mobileMenuOpen.value = false;
         }
 
-        return { page, mode, lang, menuHtml, mobileMenuOpen, t, navigate, selectMode, toggleLang, backToChoose, toggleMobileMenu, closeMobileMenu };
+        return { page, mode, lang, menuHtml, testimonials, galleryPhotos, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, t, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, toggleMobileMenu, closeMobileMenu };
     },
 
     template: `
@@ -202,6 +242,7 @@ createApp({
                     <ul :class="{ 'nav-open': mobileMenuOpen }">
                         <li><a :class="{ active: page === 'home' }" @click.prevent="navigate('home')">{{ t('nav.home') }}</a></li>
                         <li><a :class="{ active: page === 'menu' }" @click.prevent="navigate('menu')">{{ t('nav.menu') }}</a></li>
+                        <li><a :class="{ active: page === 'gallery' }" @click.prevent="navigate('gallery')">{{ t('nav.gallery') }}</a></li>
                         <li><a :class="{ active: page === 'about' }" @click.prevent="navigate('about')">{{ t('nav.about') }}</a></li>
                         <li><a :class="{ active: page === 'findus' }" @click.prevent="navigate('findus')">{{ t('nav.findUs') }}</a></li>
                         <li><a class="switch-link" @click.prevent="backToChoose">{{ t('switchStyle') }}</a></li>
@@ -221,6 +262,18 @@ createApp({
                         <button class="btn" @click="navigate('menu')">{{ t('home.viewMenu') }}</button>
                     </section>
 
+                    <section class="potw" v-if="pizzaOfTheWeek">
+                        <div class="potw-card">
+                            <img :src="pizzaOfTheWeek.image" :alt="pizzaOfTheWeek.name[lang]">
+                            <div class="potw-content">
+                                <span class="potw-badge">{{ pizzaOfTheWeek.badge[lang] }}</span>
+                                <h3>{{ pizzaOfTheWeek.name[lang] }}</h3>
+                                <p>{{ pizzaOfTheWeek.description[lang] }}</p>
+                                <span class="potw-price">{{ pizzaOfTheWeek.price }}</span>
+                            </div>
+                        </div>
+                    </section>
+
                     <section class="hours">
                         <h2>{{ t('home.hoursTitle') }}</h2>
                         <div class="hours-grid">
@@ -235,6 +288,16 @@ createApp({
                                 <p>Vesterbrogade 42</p>
                                 <p>1620 København V</p>
                                 <p>{{ t('home.phone') }}: +45 33 12 04 56</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="testimonials">
+                        <h2>{{ t('testimonials.title') }}</h2>
+                        <div class="testimonials-grid">
+                            <div class="testimonial-card" v-for="item in testimonials" :key="item.id">
+                                <p class="testimonial-quote">"{{ item.quote[lang] }}"</p>
+                                <span class="testimonial-source">— {{ item.source }}</span>
                             </div>
                         </div>
                     </section>
@@ -255,6 +318,23 @@ createApp({
                         <p class="findus-directions">{{ t('findUs.directions') }}</p>
                         <div id="map"></div>
                     </section>
+                </template>
+
+                <!-- Gallery -->
+                <template v-if="page === 'gallery'">
+                    <section class="gallery-page">
+                        <h1>{{ t('gallery.title') }}</h1>
+                        <p class="gallery-subtitle">{{ t('gallery.subtitle') }}</p>
+                        <div class="gallery-grid">
+                            <div class="gallery-item" v-for="photo in galleryPhotos" :key="photo.id" @click="openLightbox(photo)">
+                                <img :src="photo.src" :alt="photo.alt[lang]" loading="lazy">
+                            </div>
+                        </div>
+                    </section>
+                    <div class="lightbox" v-if="lightboxPhoto" @click.self="closeLightbox">
+                        <button class="lightbox-close" @click="closeLightbox">&times;</button>
+                        <img :src="lightboxPhoto.full" :alt="lightboxPhoto.alt[lang]">
+                    </div>
                 </template>
 
                 <!-- About -->
@@ -284,6 +364,17 @@ createApp({
             </main>
 
             <footer>
+                <div class="social-links">
+                    <a href="https://instagram.com/coolpizzacph" target="_blank" rel="noopener" aria-label="Instagram">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                    </a>
+                    <a href="https://facebook.com/coolpizzacph" target="_blank" rel="noopener" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="https://tripadvisor.com/coolpizza" target="_blank" rel="noopener" aria-label="TripAdvisor">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.006 4.295c-2.67 0-5.338.784-7.645 2.353H0l1.963 2.135a5.997 5.997 0 004.04 10.43 5.976 5.976 0 004.075-1.6L12 19.535l1.918-1.918a5.98 5.98 0 004.078 1.6 5.997 5.997 0 004.04-10.43L24 6.648h-4.35a13.573 13.573 0 00-7.644-2.353zM6.003 17.213a3.997 3.997 0 110-7.994 3.997 3.997 0 010 7.994zm11.994 0a3.997 3.997 0 110-7.994 3.997 3.997 0 010 7.994zM6.003 11.219a2 2 0 100 4 2 2 0 000-4zm11.994 0a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                    </a>
+                </div>
                 <p>{{ t('footer') }}</p>
             </footer>
         </template>
