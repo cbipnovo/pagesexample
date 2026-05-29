@@ -102,6 +102,19 @@ createApp({
             return obj[lang.value];
         }
 
+        const testimonialsUpdated = ref('');
+
+        function relativeDate(dateStr) {
+            const date = new Date(dateStr);
+            const now = new Date();
+            const days = Math.floor((now - date) / 86400000);
+            if (days === 0) return lang.value === 'da' ? 'I dag' : 'Today';
+            if (days === 1) return lang.value === 'da' ? 'I går' : 'Yesterday';
+            if (days < 7) return lang.value === 'da' ? days + ' dage siden' : days + ' days ago';
+            if (days < 14) return lang.value === 'da' ? '1 uge siden' : '1 week ago';
+            return dateStr;
+        }
+
         let map = null;
 
         function navigate(p) {
@@ -212,6 +225,7 @@ createApp({
                     const shuffled = positive.sort(() => Math.random() - 0.5);
                     picked.push(...shuffled.slice(0, 3));
                     testimonials.value = picked.sort(() => Math.random() - 0.5);
+                    testimonialsUpdated.value = data.updated || '';
                 })
                 .catch(() => {});
             fetch('data/pizza-of-the-week.json')
@@ -287,7 +301,7 @@ createApp({
                 .catch(() => { contactStatus.value = 'error'; });
         }
 
-        return { page, mode, lang, menuHtml, testimonials, galleryPhotos, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, t, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact };
+        return { page, mode, lang, menuHtml, testimonials, testimonialsUpdated, galleryPhotos, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact };
     },
 
     template: `
@@ -350,6 +364,7 @@ createApp({
                                 <h3>{{ pizzaOfTheWeek.name[lang] }}</h3>
                                 <p>{{ pizzaOfTheWeek.description[lang] }}</p>
                                 <span class="potw-price">{{ pizzaOfTheWeek.price }}</span>
+                                <span class="updated-label" v-if="pizzaOfTheWeek.updated">{{ lang === 'da' ? 'Opdateret' : 'Updated' }}: {{ relativeDate(pizzaOfTheWeek.updated) }}</span>
                             </div>
                         </div>
                     </section>
@@ -374,6 +389,7 @@ createApp({
 
                     <section class="testimonials">
                         <h2>{{ t('testimonials.title') }}</h2>
+                        <p class="updated-label" v-if="testimonialsUpdated">{{ lang === 'da' ? 'Sidst opdateret' : 'Last refreshed' }}: {{ relativeDate(testimonialsUpdated) }}</p>
                         <div class="testimonials-grid">
                             <div class="testimonial-card" v-for="item in testimonials" :key="item.id">
                                 <p class="testimonial-quote">"{{ item.quote[lang] }}"</p>
