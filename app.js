@@ -69,6 +69,7 @@ createApp({
         const lang = ref(localStorage.getItem('pizza2-lang') || 'da');
         const menuHtml = ref('');
         const lightboxPhoto = ref(null);
+        const pizzaOfTheWeek = ref(null);
 
         const testimonials = [
             { id: 'FB-001', quote: { da: 'Elsker at I har en hel vegansk menu! De fleste pizzasteder smider bare én mulighed på menuen. Den separate oplevelse føles premium.', en: 'Love that you have a full vegan menu! Most pizza places just throw one option on the menu as an afterthought. The separate experience feels premium.' }, source: 'Google Reviews' },
@@ -191,9 +192,13 @@ createApp({
                 document.documentElement.setAttribute('data-mode', mode.value);
                 page.value = 'home';
             }
+            fetch('data/pizza-of-the-week.json')
+                .then(r => r.json())
+                .then(data => { pizzaOfTheWeek.value = data; })
+                .catch(() => {});
         });
 
-        return { page, mode, lang, menuHtml, testimonials, galleryPhotos, lightboxPhoto, t, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox };
+        return { page, mode, lang, menuHtml, testimonials, galleryPhotos, lightboxPhoto, pizzaOfTheWeek, t, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox };
     },
 
     template: `
@@ -239,6 +244,18 @@ createApp({
                         <h1>{{ t('home.heroTitle') }}</h1>
                         <p>{{ t('home.heroText') }}</p>
                         <button class="btn" @click="navigate('menu')">{{ t('home.viewMenu') }}</button>
+                    </section>
+
+                    <section class="potw" v-if="pizzaOfTheWeek">
+                        <div class="potw-card">
+                            <img :src="pizzaOfTheWeek.image" :alt="pizzaOfTheWeek.name[lang]">
+                            <div class="potw-content">
+                                <span class="potw-badge">{{ pizzaOfTheWeek.badge[lang] }}</span>
+                                <h3>{{ pizzaOfTheWeek.name[lang] }}</h3>
+                                <p>{{ pizzaOfTheWeek.description[lang] }}</p>
+                                <span class="potw-price">{{ pizzaOfTheWeek.price }}</span>
+                            </div>
+                        </div>
                     </section>
 
                     <section class="hours">
