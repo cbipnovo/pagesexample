@@ -1,10 +1,40 @@
 {
-  "name": { "da": "Tartufo Bianco", "en": "Tartufo Bianco" },
-  "description": {
-    "da": "Hvid pizza med trøffelolie, mozzarella di bufala, svampe og rucola. En sæsonklassiker fra vores køkken.",
-    "en": "White pizza with truffle oil, buffalo mozzarella, mushrooms, and rocket. A seasonal classic from our kitchen."
-  },
-  "price": "149 kr",
-  "image": "https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?w=600&h=400&fit=crop",
-  "badge": { "da": "Ugens Pizza", "en": "Pizza of the Week" }
+  "updated": "2026-06-12",
+  "schedule": [
+    {
+      "week": 22,
+      "name": { "da": "Tartufo Bianco", "en": "Tartufo Bianco" },
+      "description": { "da": "Hvid pizza med trøffelolie, mozzarella di bufala, svampe og rucola.", "en": "White pizza with truffle oil, buffalo mozzarella, mushrooms, and rocket." },
+      "price": "149 kr",
+      "image": "https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?w=600&h=400&fit=crop"
+    },
+    {
+      "week": 23,
+      "name": { "da": "Diavola Picante", "en": "Diavola Picante" },
+      "description": { "da": "Spicy salami, jalapeños, chiliolie og frisk mozzarella. For de modige.", "en": "Spicy salami, jalapeños, chili oil, and fresh mozzarella. For the brave." },
+      "price": "139 kr",
+      "image": "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&h=400&fit=crop"
+    },
+    {
+      "week": 24,
+      "name": { "da": "Primavera Verde", "en": "Primavera Verde" },
+      "description": { "da": "Sæsonens grøntsager, pesto, gedeost og ristede pinjekerner.", "en": "Seasonal vegetables, pesto, goat cheese, and toasted pine nuts." },
+      "price": "145 kr",
+      "image": "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=600&h=400&fit=crop"
+    },
+    {
+      "week": 25,
+      "name": { "da": "Quattro Formaggi", "en": "Quattro Formaggi" },
+      "description": { "da": "Fire oste: mozzarella, gorgonzola, parmesan og fontina. Drysset med valnødder.", "en": "Four cheeses: mozzarella, gorgonzola, parmesan, and fontina. Topped with walnuts." },
+      "price": "155 kr",
+      "image": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&h=400&fit=crop"
+    },
+    {
+      "week": 26,
+      "name": { "da": "Prosciutto e Rucola", "en": "Prosciutto e Rucola" },
+      "description": { "da": "Parmaskinke, frisk rucola, parmesanflager og en smule balsamico.", "en": "Parma ham, fresh rocket, parmesan shavings, and a drizzle of balsamic." },
+      "price": "152 kr",
+      "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&h=400&fit=crop"
+    }
+  ]
 }

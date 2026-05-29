@@ -81,13 +81,7 @@ createApp({
         const lightboxPhoto = ref(null);
         const pizzaOfTheWeek = ref(null);
 
-        const testimonials = [
-            { id: 'FB-001', quote: { da: 'Elsker at I har en hel vegansk menu! De fleste pizzasteder smider bare én mulighed på menuen. Den separate oplevelse føles premium.', en: 'Love that you have a full vegan menu! Most pizza places just throw one option on the menu as an afterthought. The separate experience feels premium.' }, source: 'Google Reviews' },
-            { id: 'FB-009', quote: { da: 'Charmerende historie på Om os-siden. Elsker at lære om familiehistorien. Det fik mig til at føle mig forbundet med stedet, før jeg overhovedet gik ind.', en: 'Charming story on the About page. Love learning about the family history. Made me feel connected to the place before I even walked in.' }, source: 'Google Reviews' },
-            { id: 'FB-015', quote: { da: 'Har lige opdaget at man kan skifte mellem klassisk og vegansk! Min partner og jeg skændes altid om det — nu kan vi hver browse vores egen menu. Genialt.', en: "Just discovered you can switch between classic and vegan! My partner and I always argue about this — now we can each browse our own menu. Genius." }, source: 'Instagram' },
-            { id: 'FB-025', quote: { da: 'Fedt navn i øvrigt. Cool Pizza. Får mig til at smile hver gang. Hele sitet har en fin moderne stemning uden at være prætentiøs.', en: "Cool name btw. Cool Pizza. Makes me smile every time. The whole site has a nice modern vibe without being pretentious." }, source: 'Google Reviews' },
-            { id: 'FB-006', quote: { da: 'Mit dansk er ikke så godt, så jeg sætter virkelig pris på den engelske mulighed på hjemmesiden! Det gjorde det nemt at læse menuen før jeg kom.', en: "My Danish isn't great so I really appreciate the English option on the website! Made it so easy to read the menu before coming in." }, source: 'In-store' },
-        ];
+        const testimonials = ref([]);
 
         const galleryPhotos = [
             { id: 1, src: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200&fit=crop', alt: { da: 'Margherita med frisk basilikum', en: 'Margherita with fresh basil' } },
@@ -192,10 +186,12 @@ createApp({
 
         function openLightbox(photo) {
             lightboxPhoto.value = photo;
+            lockScroll();
         }
 
         function closeLightbox() {
             lightboxPhoto.value = null;
+            unlockScroll();
         }
 
         onMounted(() => {
@@ -206,9 +202,31 @@ createApp({
             if (darkMode.value) {
                 document.documentElement.setAttribute('data-theme', 'dark');
             }
+            fetch('data/testimonials.json')
+                .then(r => r.json())
+                .then(data => {
+                    const pool = data.testimonials;
+                    const mixed = pool.filter(t => t.sentiment === 'mixed');
+                    const positive = pool.filter(t => t.sentiment === 'positive');
+                    const picked = [mixed[Math.floor(Math.random() * mixed.length)]];
+                    const shuffled = positive.sort(() => Math.random() - 0.5);
+                    picked.push(...shuffled.slice(0, 3));
+                    testimonials.value = picked.sort(() => Math.random() - 0.5);
+                })
+                .catch(() => {});
             fetch('data/pizza-of-the-week.json')
                 .then(r => r.json())
-                .then(data => { pizzaOfTheWeek.value = data; })
+                .then(data => {
+                    const now = new Date();
+                    const startOfYear = new Date(now.getFullYear(), 0, 1);
+                    const currentWeek = Math.ceil(((now - startOfYear) / 86400000 + startOfYear.getDay() + 1) / 7);
+                    const match = data.schedule.find(p => p.week === currentWeek);
+                    const fallback = data.schedule.filter(p => p.week <= currentWeek).pop() || data.schedule[0];
+                    const entry = match || fallback;
+                    entry.badge = { da: 'Ugens Pizza', en: 'Pizza of the Week' };
+                    entry.updated = data.updated;
+                    pizzaOfTheWeek.value = entry;
+                })
                 .catch(() => {});
         });
 
@@ -217,12 +235,30 @@ createApp({
         const contactForm = ref({ name: '', email: '', message: '' });
         const contactStatus = ref(null);
 
+        function lockScroll() {
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.top = '-' + window.scrollY + 'px';
+            document.body.style.width = '100%';
+        }
+
+        function unlockScroll() {
+            const scrollY = document.body.style.top;
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            window.scrollTo(0, parseInt(scrollY || '0') * -1);
+        }
+
         function toggleMobileMenu() {
             mobileMenuOpen.value = !mobileMenuOpen.value;
+            if (mobileMenuOpen.value) { lockScroll(); } else { unlockScroll(); }
         }
 
         function closeMobileMenu() {
             mobileMenuOpen.value = false;
+            unlockScroll();
         }
 
         function toggleDarkMode() {
