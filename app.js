@@ -1,7 +1,7 @@
 const { createApp, ref, computed, onMounted, watch, nextTick } = Vue;
 
 const translations = {
-    nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, gallery: { da: 'Galleri', en: 'Gallery' }, about: { da: 'Om os', en: 'About' }, findUs: { da: 'Find os', en: 'Find Us' } },
+    nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, gallery: { da: 'Galleri', en: 'Gallery' }, about: { da: 'Om os', en: 'About' }, contact: { da: 'Kontakt', en: 'Contact' }, findUs: { da: 'Find os', en: 'Find Us' } },
     choose: {
         title: { da: 'Cool Pizza', en: 'Cool Pizza' },
         subtitle: { da: 'Vælg din oplevelse', en: 'Choose your experience' },
@@ -57,6 +57,16 @@ const translations = {
     },
     testimonials: {
         title: { da: 'Hvad vores gæster siger', en: 'What Our Guests Say' },
+    },
+    contact: {
+        title: { da: 'Kontakt os', en: 'Contact Us' },
+        subtitle: { da: 'Har du spørgsmål, feedback eller en cateringforespørgsel? Skriv til os!', en: 'Have a question, feedback, or catering inquiry? Drop us a message!' },
+        name: { da: 'Navn', en: 'Name' },
+        email: { da: 'E-mail', en: 'Email' },
+        message: { da: 'Besked', en: 'Message' },
+        send: { da: 'Send besked', en: 'Send Message' },
+        success: { da: 'Tak! Din besked er sendt. Vi vender tilbage hurtigst muligt.', en: 'Thanks! Your message has been sent. We\'ll get back to you soon.' },
+        error: { da: 'Noget gik galt. Prøv venligst igen.', en: 'Something went wrong. Please try again.' },
     },
     footer: { da: '© 2026 Cool Pizza. Alle rettigheder forbeholdes.', en: '© 2026 Cool Pizza. All rights reserved.' },
     switchStyle: { da: 'Skift stil', en: 'Switch Style' },
@@ -200,6 +210,8 @@ createApp({
         });
 
         const mobileMenuOpen = ref(false);
+        const contactForm = ref({ name: '', email: '', message: '' });
+        const contactStatus = ref(null);
 
         function toggleMobileMenu() {
             mobileMenuOpen.value = !mobileMenuOpen.value;
@@ -209,7 +221,27 @@ createApp({
             mobileMenuOpen.value = false;
         }
 
-        return { page, mode, lang, menuHtml, testimonials, galleryPhotos, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, t, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, toggleMobileMenu, closeMobileMenu };
+        function submitContact() {
+            contactStatus.value = 'sending';
+            const formData = new FormData();
+            formData.append('access_key', 'demo-key-cool-pizza');
+            formData.append('name', contactForm.value.name);
+            formData.append('email', contactForm.value.email);
+            formData.append('message', contactForm.value.message);
+            fetch('https://api.web3forms.com/submit', { method: 'POST', body: formData })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.success) {
+                        contactStatus.value = 'success';
+                        contactForm.value = { name: '', email: '', message: '' };
+                    } else {
+                        contactStatus.value = 'error';
+                    }
+                })
+                .catch(() => { contactStatus.value = 'error'; });
+        }
+
+        return { page, mode, lang, menuHtml, testimonials, galleryPhotos, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, contactForm, contactStatus, t, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, toggleMobileMenu, closeMobileMenu, submitContact };
     },
 
     template: `
@@ -244,6 +276,7 @@ createApp({
                         <li><a :class="{ active: page === 'menu' }" @click.prevent="navigate('menu')">{{ t('nav.menu') }}</a></li>
                         <li><a :class="{ active: page === 'gallery' }" @click.prevent="navigate('gallery')">{{ t('nav.gallery') }}</a></li>
                         <li><a :class="{ active: page === 'about' }" @click.prevent="navigate('about')">{{ t('nav.about') }}</a></li>
+                        <li><a :class="{ active: page === 'contact' }" @click.prevent="navigate('contact')">{{ t('nav.contact') }}</a></li>
                         <li><a :class="{ active: page === 'findus' }" @click.prevent="navigate('findus')">{{ t('nav.findUs') }}</a></li>
                         <li><a class="switch-link" @click.prevent="backToChoose">{{ t('switchStyle') }}</a></li>
                         <li class="nav-lang-mobile"><button class="lang-toggle" @click="toggleLang">{{ lang === 'da' ? 'EN' : 'DA' }}</button></li>
@@ -335,6 +368,31 @@ createApp({
                         <button class="lightbox-close" @click="closeLightbox">&times;</button>
                         <img :src="lightboxPhoto.full" :alt="lightboxPhoto.alt[lang]">
                     </div>
+                </template>
+
+                <!-- Contact -->
+                <template v-if="page === 'contact'">
+                    <section class="contact-page">
+                        <h1>{{ t('contact.title') }}</h1>
+                        <p class="contact-subtitle">{{ t('contact.subtitle') }}</p>
+                        <form class="contact-form" @submit.prevent="submitContact">
+                            <div class="form-group">
+                                <label :for="'contact-name'">{{ t('contact.name') }}</label>
+                                <input id="contact-name" type="text" v-model="contactForm.name" required>
+                            </div>
+                            <div class="form-group">
+                                <label :for="'contact-email'">{{ t('contact.email') }}</label>
+                                <input id="contact-email" type="email" v-model="contactForm.email" required>
+                            </div>
+                            <div class="form-group">
+                                <label :for="'contact-message'">{{ t('contact.message') }}</label>
+                                <textarea id="contact-message" v-model="contactForm.message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn" :disabled="contactStatus === 'sending'">{{ t('contact.send') }}</button>
+                        </form>
+                        <p v-if="contactStatus === 'success'" class="contact-success">{{ t('contact.success') }}</p>
+                        <p v-if="contactStatus === 'error'" class="contact-error">{{ t('contact.error') }}</p>
+                    </section>
                 </template>
 
                 <!-- About -->
