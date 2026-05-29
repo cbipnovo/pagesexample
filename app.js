@@ -203,6 +203,9 @@ createApp({
                 document.documentElement.setAttribute('data-mode', mode.value);
                 page.value = 'home';
             }
+            if (darkMode.value) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
             fetch('data/pizza-of-the-week.json')
                 .then(r => r.json())
                 .then(data => { pizzaOfTheWeek.value = data; })
@@ -210,6 +213,7 @@ createApp({
         });
 
         const mobileMenuOpen = ref(false);
+        const darkMode = ref(localStorage.getItem('pizza2-dark') === 'true');
         const contactForm = ref({ name: '', email: '', message: '' });
         const contactStatus = ref(null);
 
@@ -219,6 +223,12 @@ createApp({
 
         function closeMobileMenu() {
             mobileMenuOpen.value = false;
+        }
+
+        function toggleDarkMode() {
+            darkMode.value = !darkMode.value;
+            localStorage.setItem('pizza2-dark', darkMode.value);
+            document.documentElement.setAttribute('data-theme', darkMode.value ? 'dark' : 'light');
         }
 
         function submitContact() {
@@ -241,7 +251,7 @@ createApp({
                 .catch(() => { contactStatus.value = 'error'; });
         }
 
-        return { page, mode, lang, menuHtml, testimonials, galleryPhotos, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, contactForm, contactStatus, t, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, toggleMobileMenu, closeMobileMenu, submitContact };
+        return { page, mode, lang, menuHtml, testimonials, galleryPhotos, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, t, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact };
     },
 
     template: `
@@ -279,8 +289,9 @@ createApp({
                         <li><a :class="{ active: page === 'contact' }" @click.prevent="navigate('contact')">{{ t('nav.contact') }}</a></li>
                         <li><a :class="{ active: page === 'findus' }" @click.prevent="navigate('findus')">{{ t('nav.findUs') }}</a></li>
                         <li><a class="switch-link" @click.prevent="backToChoose">{{ t('switchStyle') }}</a></li>
-                        <li class="nav-lang-mobile"><button class="lang-toggle" @click="toggleLang">{{ lang === 'da' ? 'EN' : 'DA' }}</button></li>
+                        <li class="nav-lang-mobile"><button class="dark-toggle" @click="toggleDarkMode">{{ darkMode ? '☀' : '☾' }}</button> <button class="lang-toggle" @click="toggleLang">{{ lang === 'da' ? 'EN' : 'DA' }}</button></li>
                     </ul>
+                    <button class="dark-toggle" @click="toggleDarkMode" :aria-label="darkMode ? 'Light mode' : 'Dark mode'">{{ darkMode ? '☀' : '☾' }}</button>
                     <button class="lang-toggle lang-toggle-desktop" @click="toggleLang">{{ lang === 'da' ? 'EN' : 'DA' }}</button>
                 </nav>
             </header>
