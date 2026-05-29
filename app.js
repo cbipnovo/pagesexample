@@ -1,7 +1,7 @@
 const { createApp, ref, computed, onMounted, watch, nextTick } = Vue;
 
 const translations = {
-    nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, about: { da: 'Om os', en: 'About' }, findUs: { da: 'Find os', en: 'Find Us' } },
+    nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, gallery: { da: 'Galleri', en: 'Gallery' }, about: { da: 'Om os', en: 'About' }, findUs: { da: 'Find os', en: 'Find Us' } },
     choose: {
         title: { da: 'Cool Pizza', en: 'Cool Pizza' },
         subtitle: { da: 'Vælg din oplevelse', en: 'Choose your experience' },
@@ -51,6 +51,10 @@ const translations = {
         subtitle: { da: 'Vesterbrogade 42, 1620 København V', en: 'Vesterbrogade 42, 1620 Copenhagen V' },
         directions: { da: 'Vi ligger tæt på København H — 5 minutters gang fra stationen.', en: "We're a 5-minute walk from Copenhagen Central Station." },
     },
+    gallery: {
+        title: { da: 'Galleri', en: 'Gallery' },
+        subtitle: { da: 'Se vores pizzaer', en: 'See our pizzas' },
+    },
     footer: { da: '© 2026 Cool Pizza. Alle rettigheder forbeholdes.', en: '© 2026 Cool Pizza. All rights reserved.' },
     switchStyle: { da: 'Skift stil', en: 'Switch Style' },
 };
@@ -61,6 +65,18 @@ createApp({
         const mode = ref(localStorage.getItem('pizza2-mode') || null);
         const lang = ref(localStorage.getItem('pizza2-lang') || 'da');
         const menuHtml = ref('');
+        const lightboxPhoto = ref(null);
+
+        const galleryPhotos = [
+            { id: 1, src: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200&fit=crop', alt: { da: 'Margherita med frisk basilikum', en: 'Margherita with fresh basil' } },
+            { id: 2, src: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=1200&fit=crop', alt: { da: 'Pepperoni klassiker', en: 'Classic pepperoni' } },
+            { id: 3, src: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&fit=crop', alt: { da: 'Friskbagt pizza fra ovnen', en: 'Fresh pizza from the oven' } },
+            { id: 4, src: 'https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=1200&fit=crop', alt: { da: 'Vegansk pizza med grøntsager', en: 'Vegan pizza with vegetables' } },
+            { id: 5, src: 'https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?w=1200&fit=crop', alt: { da: 'Pizza med trøffel og svampe', en: 'Truffle and mushroom pizza' } },
+            { id: 6, src: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=1200&fit=crop', alt: { da: 'Vores kulfyrede ovn', en: 'Our coal-fired oven' } },
+            { id: 7, src: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=1200&fit=crop', alt: { da: 'Capricciosa med artiskok', en: 'Capricciosa with artichoke' } },
+            { id: 8, src: 'https://images.unsplash.com/photo-1585238342024-78d387f4132e?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1585238342024-78d387f4132e?w=1200&fit=crop', alt: { da: 'Dejen forberedes', en: 'Preparing the dough' } },
+        ];
 
         function t(key) {
             const keys = key.split('.');
@@ -151,6 +167,14 @@ createApp({
             return html;
         }
 
+        function openLightbox(photo) {
+            lightboxPhoto.value = photo;
+        }
+
+        function closeLightbox() {
+            lightboxPhoto.value = null;
+        }
+
         onMounted(() => {
             if (mode.value) {
                 document.documentElement.setAttribute('data-mode', mode.value);
@@ -158,7 +182,7 @@ createApp({
             }
         });
 
-        return { page, mode, lang, menuHtml, t, navigate, selectMode, toggleLang, backToChoose };
+        return { page, mode, lang, menuHtml, galleryPhotos, lightboxPhoto, t, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox };
     },
 
     template: `
@@ -188,6 +212,7 @@ createApp({
                     <ul>
                         <li><a :class="{ active: page === 'home' }" @click.prevent="navigate('home')">{{ t('nav.home') }}</a></li>
                         <li><a :class="{ active: page === 'menu' }" @click.prevent="navigate('menu')">{{ t('nav.menu') }}</a></li>
+                        <li><a :class="{ active: page === 'gallery' }" @click.prevent="navigate('gallery')">{{ t('nav.gallery') }}</a></li>
                         <li><a :class="{ active: page === 'about' }" @click.prevent="navigate('about')">{{ t('nav.about') }}</a></li>
                         <li><a :class="{ active: page === 'findus' }" @click.prevent="navigate('findus')">{{ t('nav.findUs') }}</a></li>
                         <li><a class="switch-link" @click.prevent="backToChoose">{{ t('switchStyle') }}</a></li>
@@ -239,6 +264,23 @@ createApp({
                         <p class="findus-directions">{{ t('findUs.directions') }}</p>
                         <div id="map"></div>
                     </section>
+                </template>
+
+                <!-- Gallery -->
+                <template v-if="page === 'gallery'">
+                    <section class="gallery-page">
+                        <h1>{{ t('gallery.title') }}</h1>
+                        <p class="gallery-subtitle">{{ t('gallery.subtitle') }}</p>
+                        <div class="gallery-grid">
+                            <div class="gallery-item" v-for="photo in galleryPhotos" :key="photo.id" @click="openLightbox(photo)">
+                                <img :src="photo.src" :alt="photo.alt[lang]" loading="lazy">
+                            </div>
+                        </div>
+                    </section>
+                    <div class="lightbox" v-if="lightboxPhoto" @click.self="closeLightbox">
+                        <button class="lightbox-close" @click="closeLightbox">&times;</button>
+                        <img :src="lightboxPhoto.full" :alt="lightboxPhoto.alt[lang]">
+                    </div>
                 </template>
 
                 <!-- About -->
