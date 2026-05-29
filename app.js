@@ -83,16 +83,25 @@ createApp({
 
         const testimonials = ref([]);
 
+        const galleryFilter = ref('all');
         const galleryPhotos = [
-            { id: 1, src: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200&fit=crop', alt: { da: 'Margherita med frisk basilikum', en: 'Margherita with fresh basil' } },
-            { id: 2, src: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=1200&fit=crop', alt: { da: 'Pepperoni klassiker', en: 'Classic pepperoni' } },
-            { id: 3, src: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&fit=crop', alt: { da: 'Friskbagt pizza fra ovnen', en: 'Fresh pizza from the oven' } },
-            { id: 4, src: 'https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=1200&fit=crop', alt: { da: 'Vegansk pizza med grøntsager', en: 'Vegan pizza with vegetables' } },
-            { id: 5, src: 'https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?w=1200&fit=crop', alt: { da: 'Pizza med trøffel og svampe', en: 'Truffle and mushroom pizza' } },
-            { id: 6, src: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=1200&fit=crop', alt: { da: 'Vores kulfyrede ovn', en: 'Our coal-fired oven' } },
-            { id: 7, src: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=1200&fit=crop', alt: { da: 'Capricciosa med artiskok', en: 'Capricciosa with artichoke' } },
-            { id: 8, src: 'https://images.unsplash.com/photo-1585238342024-78d387f4132e?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1585238342024-78d387f4132e?w=1200&fit=crop', alt: { da: 'Dejen forberedes', en: 'Preparing the dough' } },
+            { id: 1, category: 'pizzas', src: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1200&fit=crop', alt: { da: 'Margherita med frisk basilikum', en: 'Margherita with fresh basil' } },
+            { id: 2, category: 'pizzas', src: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=1200&fit=crop', alt: { da: 'Pepperoni klassiker', en: 'Classic pepperoni' } },
+            { id: 3, category: 'pizzas', src: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1200&fit=crop', alt: { da: 'Friskbagt pizza fra ovnen', en: 'Fresh pizza from the oven' } },
+            { id: 4, category: 'pizzas', src: 'https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=1200&fit=crop', alt: { da: 'Vegansk pizza med grøntsager', en: 'Vegan pizza with vegetables' } },
+            { id: 5, category: 'pizzas', src: 'https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?w=1200&fit=crop', alt: { da: 'Pizza med trøffel og svampe', en: 'Truffle and mushroom pizza' } },
+            { id: 6, category: 'restaurant', src: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=1200&fit=crop', alt: { da: 'Vores kulfyrede ovn', en: 'Our coal-fired oven' } },
+            { id: 7, category: 'pizzas', src: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=1200&fit=crop', alt: { da: 'Capricciosa med artiskok', en: 'Capricciosa with artichoke' } },
+            { id: 8, category: 'people', src: 'https://images.unsplash.com/photo-1585238342024-78d387f4132e?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1585238342024-78d387f4132e?w=1200&fit=crop', alt: { da: 'Dejen forberedes', en: 'Preparing the dough' } },
+            { id: 9, category: 'restaurant', src: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&fit=crop', alt: { da: 'Restaurantens interiør', en: 'Restaurant interior' } },
+            { id: 10, category: 'restaurant', src: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&fit=crop', alt: { da: 'Hyggelig stemning om aftenen', en: 'Cozy evening atmosphere' } },
+            { id: 11, category: 'people', src: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&fit=crop', alt: { da: 'Gæster nyder deres mad', en: 'Guests enjoying their meal' } },
+            { id: 12, category: 'people', src: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=600&h=400&fit=crop', full: 'https://images.unsplash.com/photo-1552566626-52f8b828add9?w=1200&fit=crop', alt: { da: 'Vores team i køkkenet', en: 'Our team in the kitchen' } },
         ];
+        const filteredPhotos = computed(() => {
+            if (galleryFilter.value === 'all') return galleryPhotos;
+            return galleryPhotos.filter(p => p.category === galleryFilter.value);
+        });
 
         function t(key) {
             const keys = key.split('.');
@@ -324,7 +333,7 @@ createApp({
                 .catch(() => { contactStatus.value = 'error'; });
         }
 
-        return { page, mode, lang, menuHtml, testimonials, testimonialsUpdated, galleryPhotos, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, copied, shareUrl, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact };
+        return { page, mode, lang, menuHtml, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, copied, shareUrl, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact };
     },
 
     template: `
@@ -444,8 +453,14 @@ createApp({
                     <section class="gallery-page">
                         <h1>{{ t('gallery.title') }}</h1>
                         <p class="gallery-subtitle">{{ t('gallery.subtitle') }}</p>
+                        <div class="gallery-filters">
+                            <button :class="{ active: galleryFilter === 'all' }" @click="galleryFilter = 'all'">{{ lang === 'da' ? 'Alle' : 'All' }}</button>
+                            <button :class="{ active: galleryFilter === 'pizzas' }" @click="galleryFilter = 'pizzas'">{{ lang === 'da' ? 'Pizzaer' : 'Pizzas' }}</button>
+                            <button :class="{ active: galleryFilter === 'restaurant' }" @click="galleryFilter = 'restaurant'">{{ lang === 'da' ? 'Restaurant' : 'Restaurant' }}</button>
+                            <button :class="{ active: galleryFilter === 'people' }" @click="galleryFilter = 'people'">{{ lang === 'da' ? 'Mennesker' : 'People' }}</button>
+                        </div>
                         <div class="gallery-grid">
-                            <div class="gallery-item" v-for="photo in galleryPhotos" :key="photo.id" @click="openLightbox(photo)">
+                            <div class="gallery-item" v-for="photo in filteredPhotos" :key="photo.id" @click="openLightbox(photo)">
                                 <img :src="photo.src" :alt="photo.alt[lang]" loading="lazy">
                             </div>
                         </div>

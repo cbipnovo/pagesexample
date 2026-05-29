@@ -538,8 +538,37 @@ h3 {
 
 .gallery-subtitle {
     font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 2rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+}
+
+.gallery-filters {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.gallery-filters button {
+    padding: 0.5rem 1.2rem;
+    border: 1px solid var(--input-border);
+    border-radius: 20px;
+    background: var(--card-bg);
+    color: var(--text);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.gallery-filters button.active {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+.gallery-filters button:hover:not(.active) {
+    border-color: var(--accent);
 }
 
 .gallery-grid {
