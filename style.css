@@ -587,6 +587,31 @@ h3 {
     object-fit: contain;
 }
 
+.lightbox-share {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    justify-content: center;
+}
+
+.lightbox-share a,
+.lightbox-share button {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.lightbox-share a:hover,
+.lightbox-share button:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
 .lightbox-close {
     position: absolute;
     top: 1.5rem;

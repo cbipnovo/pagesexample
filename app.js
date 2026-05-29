@@ -197,14 +197,28 @@ createApp({
             return html;
         }
 
+        const copied = ref(false);
+        const shareUrl = computed(() => {
+            if (!lightboxPhoto.value) return '';
+            return window.location.origin + window.location.pathname + '#photo=' + lightboxPhoto.value.id;
+        });
+
         function openLightbox(photo) {
             lightboxPhoto.value = photo;
             lockScroll();
+            copied.value = false;
         }
 
         function closeLightbox() {
             lightboxPhoto.value = null;
             unlockScroll();
+        }
+
+        function copyShareLink() {
+            navigator.clipboard.writeText(shareUrl.value).then(() => {
+                copied.value = true;
+                setTimeout(() => { copied.value = false; }, 2000);
+            });
         }
 
         onMounted(() => {
@@ -242,6 +256,15 @@ createApp({
                     pizzaOfTheWeek.value = entry;
                 })
                 .catch(() => {});
+            const hash = window.location.hash;
+            if (hash.startsWith('#photo=')) {
+                const photoId = parseInt(hash.split('=')[1]);
+                const photo = galleryPhotos.find(p => p.id === photoId);
+                if (photo) {
+                    page.value = 'gallery';
+                    nextTick(() => { openLightbox(photo); });
+                }
+            }
         });
 
         const mobileMenuOpen = ref(false);
@@ -301,7 +324,7 @@ createApp({
                 .catch(() => { contactStatus.value = 'error'; });
         }
 
-        return { page, mode, lang, menuHtml, testimonials, testimonialsUpdated, galleryPhotos, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact };
+        return { page, mode, lang, menuHtml, testimonials, testimonialsUpdated, galleryPhotos, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, copied, shareUrl, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact };
     },
 
     template: `
@@ -430,6 +453,11 @@ createApp({
                     <div class="lightbox" v-if="lightboxPhoto" @click.self="closeLightbox">
                         <button class="lightbox-close" @click="closeLightbox">&times;</button>
                         <img :src="lightboxPhoto.full" :alt="lightboxPhoto.alt[lang]">
+                        <div class="lightbox-share">
+                            <a :href="'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl)" target="_blank" rel="noopener" aria-label="Share on Facebook">Facebook</a>
+                            <a :href="'https://twitter.com/intent/tweet?url=' + encodeURIComponent(shareUrl) + '&text=' + encodeURIComponent(lightboxPhoto.alt[lang])" target="_blank" rel="noopener" aria-label="Share on Twitter">Twitter</a>
+                            <button @click="copyShareLink" aria-label="Copy link">{{ copied ? (lang === 'da' ? 'Kopieret!' : 'Copied!') : (lang === 'da' ? 'Kopier link' : 'Copy link') }}</button>
+                        </div>
                     </div>
                 </template>
 
