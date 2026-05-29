@@ -194,6 +194,44 @@ h3 {
     color: var(--accent);
 }
 
+/* Testimonials */
+.testimonials {
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.testimonial-quote {
+    font-size: 1rem;
+    color: #444;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.testimonial-source {
+    font-size: 0.85rem;
+    color: var(--accent);
+    font-weight: 600;
+}
+
 /* Menu tables */
 .menu-table {
     width: 100%;
