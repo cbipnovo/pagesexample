@@ -282,6 +282,13 @@ h3 {
     color: var(--accent);
 }
 
+.updated-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+}
+
 @media (max-width: 600px) {
     .potw-card {
         flex-direction: column;
