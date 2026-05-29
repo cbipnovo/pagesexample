@@ -1,0 +1,10 @@
+{
+  "name": { "da": "Tartufo Bianco", "en": "Tartufo Bianco" },
+  "description": {
+    "da": "Hvid pizza med trøffelolie, mozzarella di bufala, svampe og rucola. En sæsonklassiker fra vores køkken.",
+    "en": "White pizza with truffle oil, buffalo mozzarella, mushrooms, and rocket. A seasonal classic from our kitchen."
+  },
+  "price": "149 kr",
+  "image": "https://images.unsplash.com/photo-1588315029754-2dd089d39a1a?w=600&h=400&fit=crop",
+  "badge": { "da": "Ugens Pizza", "en": "Pizza of the Week" }
+}
