@@ -212,15 +212,46 @@ createApp({
             return window.location.origin + window.location.pathname + '#photo=' + lightboxPhoto.value.id;
         });
 
+        const zoomLevel = ref(1);
+        let lastPinchDist = 0;
+
         function openLightbox(photo) {
             lightboxPhoto.value = photo;
+            zoomLevel.value = 1;
             lockScroll();
             copied.value = false;
         }
 
         function closeLightbox() {
             lightboxPhoto.value = null;
+            zoomLevel.value = 1;
             unlockScroll();
+        }
+
+        function onLightboxWheel(e) {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? -0.1 : 0.1;
+            zoomLevel.value = Math.min(4, Math.max(1, zoomLevel.value + delta));
+        }
+
+        function onLightboxTouchStart(e) {
+            if (e.touches.length === 2) {
+                lastPinchDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+            }
+        }
+
+        function onLightboxTouchMove(e) {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+                const scale = dist / lastPinchDist;
+                zoomLevel.value = Math.min(4, Math.max(1, zoomLevel.value * scale));
+                lastPinchDist = dist;
+            }
+        }
+
+        function onLightboxDblClick() {
+            zoomLevel.value = zoomLevel.value > 1 ? 1 : 2.5;
         }
 
         function copyShareLink() {
@@ -333,7 +364,7 @@ createApp({
                 .catch(() => { contactStatus.value = 'error'; });
         }
 
-        return { page, mode, lang, menuHtml, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, copied, shareUrl, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact };
+        return { page, mode, lang, menuHtml, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, copied, shareUrl, zoomLevel, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, onLightboxWheel, onLightboxTouchStart, onLightboxTouchMove, onLightboxDblClick, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact };
     },
 
     template: `
@@ -465,9 +496,9 @@ createApp({
                             </div>
                         </div>
                     </section>
-                    <div class="lightbox" v-if="lightboxPhoto" @click.self="closeLightbox">
+                    <div class="lightbox" v-if="lightboxPhoto" @click.self="closeLightbox" @wheel.prevent="onLightboxWheel" @touchstart="onLightboxTouchStart" @touchmove="onLightboxTouchMove">
                         <button class="lightbox-close" @click="closeLightbox">&times;</button>
-                        <img :src="lightboxPhoto.full" :alt="lightboxPhoto.alt[lang]">
+                        <img :src="lightboxPhoto.full" :alt="lightboxPhoto.alt[lang]" :style="{ transform: 'scale(' + zoomLevel + ')' }" @dblclick="onLightboxDblClick">
                         <div class="lightbox-share">
                             <a :href="'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(shareUrl)" target="_blank" rel="noopener" aria-label="Share on Facebook">Facebook</a>
                             <a :href="'https://twitter.com/intent/tweet?url=' + encodeURIComponent(shareUrl) + '&text=' + encodeURIComponent(lightboxPhoto.alt[lang])" target="_blank" rel="noopener" aria-label="Share on Twitter">Twitter</a>
