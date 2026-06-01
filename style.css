@@ -1357,3 +1357,57 @@ footer {
         padding: 1.5rem 1rem;
     }
 }
+
+/* Print Menu Button */
+.print-menu-btn {
+    margin-bottom: 1.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Print Styles */
+@media print {
+    /* Hide non-essential elements */
+    header, footer, .hamburger, .nav-overlay,
+    .lang-toggle, .dark-toggle, .print-menu-btn,
+    .mode-badge {
+        display: none !important;
+    }
+
+    /* Clean background */
+    body {
+        background: white;
+        color: black;
+    }
+
+    main {
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Ink-friendly tables */
+    .menu-table {
+        width: 100%;
+    }
+
+    .menu-table th {
+        background: #eee;
+        color: #333;
+    }
+
+    .menu-table tr:hover {
+        background: none;
+    }
+
+    .menu-table th,
+    .menu-table td {
+        border: 1px solid #ccc;
+    }
+
+    /* Remove shadows and transforms */
+    * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+}

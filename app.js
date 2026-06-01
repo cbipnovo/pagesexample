@@ -27,6 +27,7 @@ const translations = {
     },
     menu: {
         title: { da: 'Vores menu', en: 'Our Menu' },
+        print: { da: 'Print menu', en: 'Print Menu' },
         note: {
             classic: { da: 'Stykker af alle pizzaer: 25 kr stk.', en: 'Slices available for all pies: 25 kr each.' },
             vegan: { da: 'Alle retter er 100% plantebaserede.', en: 'All items are 100% plant-based.' },
@@ -510,7 +511,9 @@ createApp({
                 .catch(() => { contactStatus.value = 'error'; });
         }
 
-        return { page, mode, lang, menuHtml, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, copied, shareUrl, zoomLevel, pizzaBuilder, builderIngredients, builderSizes, builderToppingPositions, featureRegistry, featureStates, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, onLightboxWheel, onLightboxTouchStart, onLightboxTouchMove, onLightboxDblClick, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact, builderFilteredIngredients, builderPrice, builderToggleTopping, builderReset, featureEnabled, toggleFeature };
+        function printMenu() { window.print(); }
+
+        return { page, mode, lang, menuHtml, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, copied, shareUrl, zoomLevel, pizzaBuilder, builderIngredients, builderSizes, builderToppingPositions, featureRegistry, featureStates, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, onLightboxWheel, onLightboxTouchStart, onLightboxTouchMove, onLightboxDblClick, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact, builderFilteredIngredients, builderPrice, builderToggleTopping, builderReset, featureEnabled, toggleFeature, printMenu };
     },
 
     template: `
@@ -613,6 +616,7 @@ createApp({
                 <!-- Menu -->
                 <template v-if="page === 'menu'">
                     <h1>{{ t('menu.title') }}</h1>
+                    <button class="btn-outline print-menu-btn" @click="printMenu">🖨️ {{ t('menu.print') }}</button>
                     <div v-html="menuHtml"></div>
                     <p class="menu-note">{{ t('menu.note') }}</p>
                 </template>
