@@ -19,6 +19,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+      - name: Generate version.json
+        run: |
+          printf '{\n  "version": "1.0.%s",\n  "built": "%s",\n  "commit": "%s"\n}\n' \
+            "${{ github.run_number }}" \
+            "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" \
+            "${GITHUB_SHA::7}" > version.json
       - uses: actions/upload-pages-artifact@v3
         with:
           path: '.'
