@@ -1,7 +1,7 @@
 const { createApp, ref, reactive, computed, onMounted, watch, nextTick } = Vue;
 
 const translations = {
-    nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, builder: { da: 'Byg pizza', en: 'Build Pizza' }, gallery: { da: 'Galleri', en: 'Gallery' }, about: { da: 'Om os', en: 'About' }, contact: { da: 'Kontakt', en: 'Contact' }, findUs: { da: 'Find os', en: 'Find Us' } },
+    nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, builder: { da: 'Byg pizza', en: 'Build Pizza' }, gallery: { da: 'Galleri', en: 'Gallery' }, about: { da: 'Om os', en: 'About' }, contact: { da: 'Kontakt', en: 'Contact' }, findUs: { da: 'Find os', en: 'Find Us' }, features: { da: 'Funktioner', en: 'Features' } },
     choose: {
         title: { da: 'Cool Pizza', en: 'Cool Pizza' },
         subtitle: { da: 'Vælg din oplevelse', en: 'Choose your experience' },
@@ -80,6 +80,13 @@ const translations = {
         preview: { da: 'Din pizza', en: 'Your Pizza' },
         reset: { da: 'Start forfra', en: 'Start Over' },
         note: { da: 'Kun til sjov — ingen bestilling. Kom forbi og bestil din drømmepizza!', en: 'For fun only — no ordering. Come visit and order your dream pizza!' },
+    },
+    features: {
+        title: { da: 'Funktioner', en: 'Features' },
+        subtitle: { da: 'Slå funktioner til og fra for at tilpasse din oplevelse', en: 'Toggle features on and off to customise your experience' },
+        issue: { da: 'Issue', en: 'Issue' },
+        on: { da: 'Til', en: 'On' },
+        off: { da: 'Fra', en: 'Off' },
     },
     footer: { da: '© 2026 Cool Pizza. Alle rettigheder forbeholdes.', en: '© 2026 Cool Pizza. All rights reserved.' },
     switchStyle: { da: 'Skift stil', en: 'Switch Style' },
@@ -330,6 +337,34 @@ createApp({
         const contactForm = ref({ name: '', email: '', message: '' });
         const contactStatus = ref(null);
 
+        // Feature Toggles
+        const featureRegistry = [
+            { key: 'gallery', issue: 20, name: { da: 'Galleri', en: 'Gallery' }, description: { da: 'Fotogalleri med lightbox og deling', en: 'Photo gallery with lightbox and sharing' } },
+            { key: 'builder', issue: 28, name: { da: 'Byg pizza', en: 'Build Pizza' }, description: { da: 'Interaktiv pizza-bygger med live forhåndsvisning', en: 'Interactive pizza builder with live preview' } },
+            { key: 'testimonials', issue: 25, name: { da: 'Anmeldelser', en: 'Testimonials' }, description: { da: 'Hvad vores gæster siger', en: 'What our guests say' } },
+            { key: 'potw', issue: 22, name: { da: 'Ugens pizza', en: 'Pizza of the Week' }, description: { da: 'Ugentlig fremhævet pizza', en: 'Weekly featured pizza highlight' } },
+            { key: 'contact', issue: 23, name: { da: 'Kontakt', en: 'Contact' }, description: { da: 'Kontaktformular til forespørgsler', en: 'Contact form for enquiries' } },
+            { key: 'findus', issue: null, name: { da: 'Find os', en: 'Find Us' }, description: { da: 'Kort og rutevejledning', en: 'Map and directions' } },
+            { key: 'socials', issue: 29, name: { da: 'Sociale medier', en: 'Social Links' }, description: { da: 'Links til sociale medier i footer', en: 'Social media links in footer' } },
+        ];
+
+        const savedFeatures = JSON.parse(localStorage.getItem('pizza2-features') || '{}');
+        const featureStates = reactive(
+            Object.fromEntries(featureRegistry.map(f => [f.key, savedFeatures[f.key] !== undefined ? savedFeatures[f.key] : true]))
+        );
+
+        function featureEnabled(key) {
+            return featureStates[key] !== false;
+        }
+
+        function toggleFeature(key) {
+            featureStates[key] = !featureStates[key];
+            localStorage.setItem('pizza2-features', JSON.stringify(featureStates));
+            if (!featureEnabled(page.value)) {
+                page.value = 'home';
+            }
+        }
+
         // Pizza Builder
         const builderIngredients = {
             bases: {
@@ -475,7 +510,7 @@ createApp({
                 .catch(() => { contactStatus.value = 'error'; });
         }
 
-        return { page, mode, lang, menuHtml, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, copied, shareUrl, zoomLevel, pizzaBuilder, builderIngredients, builderSizes, builderToppingPositions, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, onLightboxWheel, onLightboxTouchStart, onLightboxTouchMove, onLightboxDblClick, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact, builderFilteredIngredients, builderPrice, builderToggleTopping, builderReset };
+        return { page, mode, lang, menuHtml, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, copied, shareUrl, zoomLevel, pizzaBuilder, builderIngredients, builderSizes, builderToppingPositions, featureRegistry, featureStates, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, onLightboxWheel, onLightboxTouchStart, onLightboxTouchMove, onLightboxDblClick, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact, builderFilteredIngredients, builderPrice, builderToggleTopping, builderReset, featureEnabled, toggleFeature };
     },
 
     template: `
@@ -508,11 +543,12 @@ createApp({
                     <ul :class="{ 'nav-open': mobileMenuOpen }">
                         <li><a :class="{ active: page === 'home' }" @click.prevent="navigate('home')">{{ t('nav.home') }}</a></li>
                         <li><a :class="{ active: page === 'menu' }" @click.prevent="navigate('menu')">{{ t('nav.menu') }}</a></li>
-                        <li><a :class="{ active: page === 'builder' }" @click.prevent="navigate('builder')">{{ t('nav.builder') }}</a></li>
-                        <li><a :class="{ active: page === 'gallery' }" @click.prevent="navigate('gallery')">{{ t('nav.gallery') }}</a></li>
+                        <li v-if="featureEnabled('builder')"><a :class="{ active: page === 'builder' }" @click.prevent="navigate('builder')">{{ t('nav.builder') }}</a></li>
+                        <li v-if="featureEnabled('gallery')"><a :class="{ active: page === 'gallery' }" @click.prevent="navigate('gallery')">{{ t('nav.gallery') }}</a></li>
                         <li><a :class="{ active: page === 'about' }" @click.prevent="navigate('about')">{{ t('nav.about') }}</a></li>
-                        <li><a :class="{ active: page === 'contact' }" @click.prevent="navigate('contact')">{{ t('nav.contact') }}</a></li>
-                        <li><a :class="{ active: page === 'findus' }" @click.prevent="navigate('findus')">{{ t('nav.findUs') }}</a></li>
+                        <li v-if="featureEnabled('contact')"><a :class="{ active: page === 'contact' }" @click.prevent="navigate('contact')">{{ t('nav.contact') }}</a></li>
+                        <li v-if="featureEnabled('findus')"><a :class="{ active: page === 'findus' }" @click.prevent="navigate('findus')">{{ t('nav.findUs') }}</a></li>
+                        <li><a :class="{ active: page === 'features' }" @click.prevent="navigate('features')">{{ t('nav.features') }}</a></li>
                         <li><a class="switch-link" @click.prevent="backToChoose">{{ t('switchStyle') }}</a></li>
                         <li class="nav-lang-mobile"><button class="dark-toggle" @click="toggleDarkMode">{{ darkMode ? '☀' : '☾' }}</button> <button class="lang-toggle" @click="toggleLang">{{ lang === 'da' ? 'EN' : 'DA' }}</button></li>
                     </ul>
@@ -531,7 +567,7 @@ createApp({
                         <button class="btn" @click="navigate('menu')">{{ t('home.viewMenu') }}</button>
                     </section>
 
-                    <section class="potw" v-if="pizzaOfTheWeek">
+                    <section class="potw" v-if="pizzaOfTheWeek && featureEnabled('potw')">
                         <div class="potw-card">
                             <img :src="pizzaOfTheWeek.image" :alt="pizzaOfTheWeek.name[lang]">
                             <div class="potw-content">
@@ -562,7 +598,7 @@ createApp({
                         </div>
                     </section>
 
-                    <section class="testimonials">
+                    <section class="testimonials" v-if="featureEnabled('testimonials')">
                         <h2>{{ t('testimonials.title') }}</h2>
                         <p class="updated-label" v-if="testimonialsUpdated">{{ lang === 'da' ? 'Sidst opdateret' : 'Last refreshed' }}: {{ relativeDate(testimonialsUpdated) }}</p>
                         <div class="testimonials-grid">
@@ -582,7 +618,7 @@ createApp({
                 </template>
 
                 <!-- Find Us -->
-                <template v-if="page === 'findus'">
+                <template v-if="page === 'findus' && featureEnabled('findus')">
                     <section class="findus-page">
                         <h1>{{ t('findUs.title') }}</h1>
                         <p class="findus-address">{{ t('findUs.subtitle') }}</p>
@@ -592,7 +628,7 @@ createApp({
                 </template>
 
                 <!-- Gallery -->
-                <template v-if="page === 'gallery'">
+                <template v-if="page === 'gallery' && featureEnabled('gallery')">
                     <section class="gallery-page">
                         <h1>{{ t('gallery.title') }}</h1>
                         <p class="gallery-subtitle">{{ t('gallery.subtitle') }}</p>
@@ -620,7 +656,7 @@ createApp({
                 </template>
 
                 <!-- Pizza Builder -->
-                <template v-if="page === 'builder'">
+                <template v-if="page === 'builder' && featureEnabled('builder')">
                     <section class="builder-page">
                         <h1>{{ t('builder.title') }}</h1>
                         <p class="builder-subtitle">{{ t('builder.subtitle') }}</p>
@@ -705,7 +741,7 @@ createApp({
                 </template>
 
                 <!-- Contact -->
-                <template v-if="page === 'contact'">
+                <template v-if="page === 'contact' && featureEnabled('contact')">
                     <section class="contact-page">
                         <h1>{{ t('contact.title') }}</h1>
                         <p class="contact-subtitle">{{ t('contact.subtitle') }}</p>
@@ -753,10 +789,32 @@ createApp({
                         </div>
                     </section>
                 </template>
+
+                <!-- Features -->
+                <template v-if="page === 'features'">
+                    <section class="features-page">
+                        <h1>{{ t('features.title') }}</h1>
+                        <p class="features-subtitle">{{ t('features.subtitle') }}</p>
+                        <div class="features-list">
+                            <div class="feature-card" v-for="feature in featureRegistry" :key="feature.key">
+                                <div class="feature-info">
+                                    <h3>{{ feature.name[lang] }}</h3>
+                                    <p>{{ feature.description[lang] }}</p>
+                                    <a v-if="feature.issue" class="feature-issue" :href="'https://github.com/cbipnovo/pagesexample/issues/' + feature.issue" target="_blank" rel="noopener">#{{ feature.issue }}</a>
+                                </div>
+                                <label class="feature-toggle">
+                                    <input type="checkbox" :checked="featureStates[feature.key]" @change="toggleFeature(feature.key)">
+                                    <span class="toggle-slider"></span>
+                                    <span class="toggle-label">{{ featureStates[feature.key] ? t('features.on') : t('features.off') }}</span>
+                                </label>
+                            </div>
+                        </div>
+                    </section>
+                </template>
             </main>
 
             <footer>
-                <div class="social-links">
+                <div class="social-links" v-if="featureEnabled('socials')">
                     <a href="https://instagram.com/coolpizzacph" target="_blank" rel="noopener" aria-label="Instagram">
                         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
                     </a>
