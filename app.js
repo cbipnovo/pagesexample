@@ -1,7 +1,7 @@
-const { createApp, ref, computed, onMounted, watch, nextTick } = Vue;
+const { createApp, ref, reactive, computed, onMounted, watch, nextTick } = Vue;
 
 const translations = {
-    nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, gallery: { da: 'Galleri', en: 'Gallery' }, about: { da: 'Om os', en: 'About' }, contact: { da: 'Kontakt', en: 'Contact' }, findUs: { da: 'Find os', en: 'Find Us' } },
+    nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, builder: { da: 'Byg pizza', en: 'Build Pizza' }, gallery: { da: 'Galleri', en: 'Gallery' }, about: { da: 'Om os', en: 'About' }, contact: { da: 'Kontakt', en: 'Contact' }, findUs: { da: 'Find os', en: 'Find Us' } },
     choose: {
         title: { da: 'Cool Pizza', en: 'Cool Pizza' },
         subtitle: { da: 'Vælg din oplevelse', en: 'Choose your experience' },
@@ -68,6 +68,19 @@ const translations = {
         success: { da: 'Tak! Din besked er sendt. Vi vender tilbage hurtigst muligt.', en: 'Thanks! Your message has been sent. We\'ll get back to you soon.' },
         error: { da: 'Noget gik galt. Prøv venligst igen.', en: 'Something went wrong. Please try again.' },
     },
+    builder: {
+        title: { da: 'Byg din pizza', en: 'Build Your Pizza' },
+        subtitle: { da: 'Vælg dine ingredienser og se din pizza blive til', en: 'Choose your ingredients and watch your pizza come to life' },
+        size: { da: 'Størrelse', en: 'Size' },
+        base: { da: 'Bund', en: 'Base' },
+        sauce: { da: 'Sauce', en: 'Sauce' },
+        cheese: { da: 'Ost', en: 'Cheese' },
+        toppings: { da: 'Toppings', en: 'Toppings' },
+        total: { da: 'Total', en: 'Total' },
+        preview: { da: 'Din pizza', en: 'Your Pizza' },
+        reset: { da: 'Start forfra', en: 'Start Over' },
+        note: { da: 'Kun til sjov — ingen bestilling. Kom forbi og bestil din drømmepizza!', en: 'For fun only — no ordering. Come visit and order your dream pizza!' },
+    },
     footer: { da: '© 2026 Cool Pizza. Alle rettigheder forbeholdes.', en: '© 2026 Cool Pizza. All rights reserved.' },
     switchStyle: { da: 'Skift stil', en: 'Switch Style' },
 };
@@ -132,6 +145,11 @@ createApp({
             if (p === 'menu') loadMenu();
             if (p === 'findus') {
                 nextTick(() => { initMap(); });
+            }
+            if (p === 'builder') {
+                if (!pizzaBuilder.cheese) {
+                    pizzaBuilder.cheese = mode.value === 'vegan' ? 'vegan' : 'mozzarella';
+                }
             }
         }
 
@@ -312,6 +330,99 @@ createApp({
         const contactForm = ref({ name: '', email: '', message: '' });
         const contactStatus = ref(null);
 
+        // Pizza Builder
+        const builderIngredients = {
+            bases: {
+                thin: { name: { da: 'Tynd', en: 'Thin crust' }, price: 0, classic: true, vegan: true },
+                thick: { name: { da: 'Tyk', en: 'Thick crust' }, price: 10, classic: true, vegan: true },
+                glutenFree: { name: { da: 'Glutenfri', en: 'Gluten-free' }, price: 15, classic: true, vegan: true },
+            },
+            sauces: {
+                tomato: { name: { da: 'Tomat', en: 'Tomato' }, price: 0, classic: true, vegan: true, color: '#d32f2f' },
+                pesto: { name: { da: 'Pesto', en: 'Pesto' }, price: 5, classic: true, vegan: true, color: '#558b2f' },
+                white: { name: { da: 'Hvidløg', en: 'Garlic white' }, price: 5, classic: true, vegan: false, color: '#f5f0e0' },
+            },
+            cheeses: {
+                mozzarella: { name: { da: 'Mozzarella', en: 'Mozzarella' }, price: 0, classic: true, vegan: false, color: '#fffde7' },
+                vegan: { name: { da: 'Vegansk', en: 'Vegan' }, price: 10, classic: false, vegan: true, color: '#fff8e1' },
+            },
+            toppings: {
+                pepperoni: { name: { da: 'Pepperoni', en: 'Pepperoni' }, price: 15, classic: true, vegan: false, color: '#b71c1c' },
+                mushrooms: { name: { da: 'Svampe', en: 'Mushrooms' }, price: 10, classic: true, vegan: true, color: '#8d6e63' },
+                peppers: { name: { da: 'Peberfrugt', en: 'Bell peppers' }, price: 10, classic: true, vegan: true, color: '#ff9800' },
+                olives: { name: { da: 'Oliven', en: 'Olives' }, price: 10, classic: true, vegan: true, color: '#37474f' },
+                onions: { name: { da: 'Rødløg', en: 'Red onions' }, price: 8, classic: true, vegan: true, color: '#7b1fa2' },
+                tomatoes: { name: { da: 'Tomater', en: 'Tomatoes' }, price: 8, classic: true, vegan: true, color: '#e53935' },
+                spinach: { name: { da: 'Spinat', en: 'Spinach' }, price: 8, classic: true, vegan: true, color: '#43a047' },
+                bacon: { name: { da: 'Bacon', en: 'Bacon' }, price: 20, classic: true, vegan: false, color: '#6d4c41' },
+                pineapple: { name: { da: 'Ananas', en: 'Pineapple' }, price: 12, classic: true, vegan: true, color: '#f9a825' },
+                jalapenos: { name: { da: 'Jalapeño', en: 'Jalapeño' }, price: 8, classic: true, vegan: true, color: '#558b2f' },
+            },
+        };
+
+        const builderSizes = {
+            small: { base: 89, label: { da: '30 cm', en: '30 cm' } },
+            large: { base: 129, label: { da: '45 cm', en: '45 cm' } },
+        };
+
+        const pizzaBuilder = reactive({
+            size: 'small',
+            base: 'thin',
+            sauce: 'tomato',
+            cheese: null,
+            toppings: [],
+        });
+
+        function builderFilteredIngredients(category) {
+            const items = builderIngredients[category];
+            const result = {};
+            for (const [key, item] of Object.entries(items)) {
+                if (mode.value === 'vegan' && item.vegan) result[key] = item;
+                else if (mode.value === 'classic' && item.classic) result[key] = item;
+            }
+            return result;
+        }
+
+        function builderPrice() {
+            let total = builderSizes[pizzaBuilder.size].base;
+            if (pizzaBuilder.base && builderIngredients.bases[pizzaBuilder.base]) total += builderIngredients.bases[pizzaBuilder.base].price;
+            if (pizzaBuilder.sauce && builderIngredients.sauces[pizzaBuilder.sauce]) total += builderIngredients.sauces[pizzaBuilder.sauce].price;
+            if (pizzaBuilder.cheese && builderIngredients.cheeses[pizzaBuilder.cheese]) total += builderIngredients.cheeses[pizzaBuilder.cheese].price;
+            pizzaBuilder.toppings.forEach(t => { if (builderIngredients.toppings[t]) total += builderIngredients.toppings[t].price; });
+            return total;
+        }
+
+        function builderToggleTopping(key) {
+            const idx = pizzaBuilder.toppings.indexOf(key);
+            if (idx >= 0) pizzaBuilder.toppings.splice(idx, 1);
+            else pizzaBuilder.toppings.push(key);
+        }
+
+        function builderReset() {
+            pizzaBuilder.size = 'small';
+            pizzaBuilder.base = 'thin';
+            pizzaBuilder.sauce = 'tomato';
+            pizzaBuilder.cheese = mode.value === 'vegan' ? 'vegan' : 'mozzarella';
+            pizzaBuilder.toppings = [];
+        }
+
+        const builderToppingPositions = computed(() => {
+            const positions = [];
+            const centerX = 140;
+            const centerY = 140;
+            pizzaBuilder.toppings.forEach((topping, index) => {
+                const count = 4;
+                for (let i = 0; i < count; i++) {
+                    const angle = ((index * 137.5) + (i * 90)) * (3.14159 / 180);
+                    const radius = 40 + ((index * 17 + i * 23) % 60);
+                    const x = centerX + Math.cos(angle) * radius - 8;
+                    const y = centerY + Math.sin(angle) * radius - 8;
+                    positions.push({ type: topping, x, y });
+                }
+            });
+            return positions;
+        });
+
         function lockScroll() {
             document.body.style.overflow = 'hidden';
             document.body.style.position = 'fixed';
@@ -364,7 +475,7 @@ createApp({
                 .catch(() => { contactStatus.value = 'error'; });
         }
 
-        return { page, mode, lang, menuHtml, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, copied, shareUrl, zoomLevel, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, onLightboxWheel, onLightboxTouchStart, onLightboxTouchMove, onLightboxDblClick, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact };
+        return { page, mode, lang, menuHtml, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, copied, shareUrl, zoomLevel, pizzaBuilder, builderIngredients, builderSizes, builderToppingPositions, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, onLightboxWheel, onLightboxTouchStart, onLightboxTouchMove, onLightboxDblClick, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact, builderFilteredIngredients, builderPrice, builderToggleTopping, builderReset };
     },
 
     template: `
@@ -397,6 +508,7 @@ createApp({
                     <ul :class="{ 'nav-open': mobileMenuOpen }">
                         <li><a :class="{ active: page === 'home' }" @click.prevent="navigate('home')">{{ t('nav.home') }}</a></li>
                         <li><a :class="{ active: page === 'menu' }" @click.prevent="navigate('menu')">{{ t('nav.menu') }}</a></li>
+                        <li><a :class="{ active: page === 'builder' }" @click.prevent="navigate('builder')">{{ t('nav.builder') }}</a></li>
                         <li><a :class="{ active: page === 'gallery' }" @click.prevent="navigate('gallery')">{{ t('nav.gallery') }}</a></li>
                         <li><a :class="{ active: page === 'about' }" @click.prevent="navigate('about')">{{ t('nav.about') }}</a></li>
                         <li><a :class="{ active: page === 'contact' }" @click.prevent="navigate('contact')">{{ t('nav.contact') }}</a></li>
@@ -505,6 +617,91 @@ createApp({
                             <button @click="copyShareLink" aria-label="Copy link">{{ copied ? (lang === 'da' ? 'Kopieret!' : 'Copied!') : (lang === 'da' ? 'Kopier link' : 'Copy link') }}</button>
                         </div>
                     </div>
+                </template>
+
+                <!-- Pizza Builder -->
+                <template v-if="page === 'builder'">
+                    <section class="builder-page">
+                        <h1>{{ t('builder.title') }}</h1>
+                        <p class="builder-subtitle">{{ t('builder.subtitle') }}</p>
+
+                        <div class="builder-grid">
+                            <div class="pizza-preview-card">
+                                <h3>{{ t('builder.preview') }}</h3>
+                                <div class="pizza-canvas" :class="{ 'pizza-large': pizzaBuilder.size === 'large' }">
+                                    <div class="pizza-crust">
+                                        <div class="pizza-base" :class="pizzaBuilder.base"></div>
+                                        <div class="pizza-sauce" :style="{ background: pizzaBuilder.sauce ? builderIngredients.sauces[pizzaBuilder.sauce].color : 'transparent' }"></div>
+                                        <div class="pizza-cheese" v-if="pizzaBuilder.cheese" :style="{ background: builderIngredients.cheeses[pizzaBuilder.cheese].color }"></div>
+                                        <div class="pizza-toppings">
+                                            <span v-for="(pos, i) in builderToppingPositions" :key="i" class="topping-dot" :style="{ left: pos.x + 'px', top: pos.y + 'px', background: builderIngredients.toppings[pos.type].color }"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="builder-price">
+                                    <span class="builder-price-label">{{ t('builder.total') }}</span>
+                                    <span class="builder-price-value">{{ builderPrice() }} kr</span>
+                                </div>
+                                <button class="btn btn-outline builder-reset" @click="builderReset">{{ t('builder.reset') }}</button>
+                            </div>
+
+                            <div class="builder-controls">
+                                <div class="builder-section">
+                                    <h4>{{ t('builder.size') }}</h4>
+                                    <div class="builder-options">
+                                        <button v-for="(s, key) in builderSizes" :key="key" class="builder-btn" :class="{ active: pizzaBuilder.size === key }" @click="pizzaBuilder.size = key">
+                                            {{ s.label[lang] }}
+                                            <span class="builder-btn-price">{{ s.base }} kr</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="builder-section">
+                                    <h4>{{ t('builder.base') }}</h4>
+                                    <div class="builder-options">
+                                        <button v-for="(item, key) in builderFilteredIngredients('bases')" :key="key" class="builder-btn" :class="{ active: pizzaBuilder.base === key }" @click="pizzaBuilder.base = key">
+                                            {{ item.name[lang] }}
+                                            <span class="builder-btn-price" v-if="item.price">+{{ item.price }} kr</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="builder-section">
+                                    <h4>{{ t('builder.sauce') }}</h4>
+                                    <div class="builder-options">
+                                        <button v-for="(item, key) in builderFilteredIngredients('sauces')" :key="key" class="builder-btn" :class="{ active: pizzaBuilder.sauce === key }" @click="pizzaBuilder.sauce = key">
+                                            <span class="builder-swatch" :style="{ background: item.color }"></span>
+                                            {{ item.name[lang] }}
+                                            <span class="builder-btn-price" v-if="item.price">+{{ item.price }} kr</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="builder-section">
+                                    <h4>{{ t('builder.cheese') }}</h4>
+                                    <div class="builder-options">
+                                        <button v-for="(item, key) in builderFilteredIngredients('cheeses')" :key="key" class="builder-btn" :class="{ active: pizzaBuilder.cheese === key }" @click="pizzaBuilder.cheese = key">
+                                            {{ item.name[lang] }}
+                                            <span class="builder-btn-price" v-if="item.price">+{{ item.price }} kr</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="builder-section">
+                                    <h4>{{ t('builder.toppings') }}</h4>
+                                    <div class="builder-options builder-options-wrap">
+                                        <button v-for="(item, key) in builderFilteredIngredients('toppings')" :key="key" class="builder-btn" :class="{ active: pizzaBuilder.toppings.includes(key) }" @click="builderToggleTopping(key)">
+                                            <span class="builder-swatch" :style="{ background: item.color }"></span>
+                                            {{ item.name[lang] }}
+                                            <span class="builder-btn-price">+{{ item.price }} kr</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="builder-note">{{ t('builder.note') }}</p>
+                    </section>
                 </template>
 
                 <!-- Contact -->
