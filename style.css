@@ -1196,3 +1196,164 @@ footer {
         padding: 1.5rem 1rem;
     }
 }
+
+/* ===== Features Page ===== */
+.features-page {
+    padding: 2rem 1rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.features-page h1 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.features-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2.5rem;
+    font-size: 1.1rem;
+}
+
+.features-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.feature-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: var(--card-bg, white);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.2s;
+}
+
+.feature-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.feature-info {
+    flex: 1;
+}
+
+.feature-info h3 {
+    margin: 0 0 0.25rem;
+    font-size: 1.05rem;
+    color: var(--text, #2d2d2d);
+}
+
+.feature-info p {
+    margin: 0 0 0.4rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.feature-issue {
+    font-size: 0.8rem;
+    color: var(--accent, #e63946);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.feature-issue:hover {
+    text-decoration: underline;
+}
+
+/* Toggle switch */
+.feature-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.feature-toggle input {
+    display: none;
+}
+
+.toggle-slider {
+    width: 48px;
+    height: 26px;
+    background: #ccc;
+    border-radius: 13px;
+    position: relative;
+    transition: background 0.3s;
+}
+
+.toggle-slider::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.feature-toggle input:checked + .toggle-slider {
+    background: var(--accent, #e63946);
+}
+
+.feature-toggle input:checked + .toggle-slider::after {
+    transform: translateX(22px);
+}
+
+.toggle-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #888;
+    min-width: 2rem;
+}
+
+/* Dark mode */
+[data-theme="dark"] .feature-card {
+    background: #2a2a2a;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .feature-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .feature-info h3 {
+    color: #eee;
+}
+
+[data-theme="dark"] .feature-info p {
+    color: #aaa;
+}
+
+[data-theme="dark"] .features-subtitle {
+    color: #aaa;
+}
+
+[data-theme="dark"] .toggle-slider {
+    background: #555;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .feature-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .feature-toggle {
+        align-self: flex-end;
+    }
+
+    .features-page {
+        padding: 1.5rem 1rem;
+    }
+}
