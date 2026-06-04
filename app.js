@@ -369,6 +369,12 @@ createApp({
                     nextTick(() => { openLightbox(photo); });
                 }
             }
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    if (lightboxPhoto.value) { closeLightbox(); }
+                    else if (mobileMenuOpen.value) { closeMobileMenu(); }
+                }
+            });
         });
 
         const mobileMenuOpen = ref(false);
@@ -387,6 +393,7 @@ createApp({
             { key: 'socials', issue: 29, name: { da: 'Sociale medier', en: 'Social Links' }, description: { da: 'Links til sociale medier i footer', en: 'Social media links in footer' } },
             { key: 'events', issue: 27, name: { da: 'Begivenheder', en: 'Events' }, description: { da: 'Kalender med kommende begivenheder', en: 'Calendar of upcoming events' } },
             { key: 'allergenFilter', issue: 41, name: { da: 'Allergenfilter', en: 'Allergen Filter' }, description: { da: 'Filtrer menuen efter allergener', en: 'Filter menu by allergens' } },
+            { key: 'keyboardNav', issue: 46, name: { da: 'Tastaturnavigation', en: 'Keyboard Navigation' }, description: { da: 'Fokusindikatorer og tastaturnavigation', en: 'Focus indicators and keyboard navigation' } },
         ];
 
         const savedFeatures = JSON.parse(localStorage.getItem('pizza2-features') || '{}');
@@ -718,7 +725,7 @@ createApp({
                             <button :class="{ active: galleryFilter === 'people' }" @click="galleryFilter = 'people'">{{ lang === 'da' ? 'Mennesker' : 'People' }}</button>
                         </div>
                         <div class="gallery-grid">
-                            <div class="gallery-item" v-for="photo in filteredPhotos" :key="photo.id" @click="openLightbox(photo)">
+                            <div class="gallery-item" v-for="photo in filteredPhotos" :key="photo.id" tabindex="0" role="button" :aria-label="photo.alt[lang]" @click="openLightbox(photo)" @keydown.enter="openLightbox(photo)">
                                 <img :src="photo.src" :alt="photo.alt[lang]" loading="lazy">
                             </div>
                         </div>

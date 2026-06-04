@@ -61,6 +61,26 @@
     box-sizing: border-box;
 }
 
+/* Keyboard Focus Indicators (WCAG 2.1 AA) */
+*:focus-visible {
+    outline: 3px solid var(--accent, #e63946);
+    outline-offset: 2px;
+}
+
+[data-theme="dark"] *:focus-visible {
+    outline-color: #ff8a80;
+}
+
+a:focus-visible,
+button:focus-visible {
+    border-radius: 4px;
+}
+
+.gallery-item:focus-visible {
+    outline-offset: 4px;
+    border-radius: 8px;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     color: var(--text);
@@ -698,8 +718,8 @@ h3 {
 
 .form-group input:focus,
 .form-group textarea:focus {
-    outline: none;
-    border-color: var(--accent);
+    border-color: var(--accent, #e63946);
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.2);
 }
 
 .contact-form .btn {
