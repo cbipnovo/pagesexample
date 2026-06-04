@@ -1524,6 +1524,246 @@ footer {
     }
 }
 
+/* Menu Page */
+.menu-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.menu-page h1 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+/* Menu Filters */
+.menu-filters {
+    margin: 1.5rem 0;
+    padding: 1.25rem;
+    background: #f9f9f9;
+    border-radius: 12px;
+    border: 1px solid #eee;
+}
+
+.menu-filters h3 {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    color: #555;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid #ddd;
+    border-radius: 20px;
+    background: #fff;
+    color: #333;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-btn:hover {
+    border-color: var(--accent, #e63946);
+    background: #fff5f5;
+}
+
+.filter-btn.active {
+    background: var(--accent, #e63946);
+    color: #fff;
+    border-color: var(--accent, #e63946);
+}
+
+.filter-btn.filter-clear {
+    background: transparent;
+    border-color: #999;
+    color: #666;
+}
+
+.filter-btn.filter-clear:hover {
+    background: #f5f5f5;
+    border-color: #666;
+}
+
+.filter-icon {
+    font-size: 1.1em;
+}
+
+.filter-active-msg {
+    margin: 0.75rem 0 0;
+    font-size: 0.85rem;
+    color: var(--accent, #e63946);
+    font-weight: 500;
+}
+
+/* Menu Content */
+.menu-content {
+    margin-top: 2rem;
+}
+
+.menu-section {
+    margin-bottom: 2.5rem;
+}
+
+.menu-section h2 {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent, #e63946);
+    color: var(--accent, #e63946);
+}
+
+.menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.menu-item {
+    padding: 1rem 1.25rem;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.menu-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+.menu-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+}
+
+.menu-item-name {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.menu-item-prices {
+    display: flex;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+.menu-price {
+    font-weight: 600;
+    color: var(--accent, #e63946);
+    white-space: nowrap;
+}
+
+.menu-item-desc {
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.4;
+}
+
+.allergen-badges {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.allergen-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.allergen-badge.gluten { background: #fff3cd; color: #856404; }
+.allergen-badge.dairy { background: #d1ecf1; color: #0c5460; }
+.allergen-badge.nuts { background: #f8d7da; color: #721c24; }
+.allergen-badge.soy { background: #d4edda; color: #155724; }
+
+.menu-no-results {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 3rem 1rem;
+    font-size: 1.1rem;
+}
+
+/* Menu dark mode */
+[data-theme="dark"] .menu-filters {
+    background: #2a2a2a;
+    border-color: #444;
+}
+
+[data-theme="dark"] .menu-filters h3 {
+    color: #ccc;
+}
+
+[data-theme="dark"] .filter-btn {
+    background: #333;
+    border-color: #555;
+    color: #ddd;
+}
+
+[data-theme="dark"] .filter-btn:hover {
+    background: #3a2a2a;
+}
+
+[data-theme="dark"] .filter-btn.filter-clear {
+    background: transparent;
+    color: #aaa;
+}
+
+[data-theme="dark"] .menu-item {
+    background: #2a2a2a;
+    border-color: #444;
+}
+
+[data-theme="dark"] .menu-item:hover {
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .menu-item-desc {
+    color: #bbb;
+}
+
+/* Menu responsive */
+@media (max-width: 768px) {
+    .menu-page {
+        padding: 1.5rem 1rem;
+    }
+
+    .menu-item-header {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .menu-item-prices {
+        gap: 0.5rem;
+    }
+
+    .filter-buttons {
+        gap: 0.4rem;
+    }
+
+    .filter-btn {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.85rem;
+    }
+}
+
 /* Print Menu Button */
 .print-menu-btn {
     margin-bottom: 1.5rem;
@@ -1537,6 +1777,7 @@ footer {
     /* Hide non-essential elements */
     header, footer, .hamburger, .nav-overlay,
     .lang-toggle, .dark-toggle, .print-menu-btn,
+    .menu-filters, .allergen-badges,
     .mode-badge {
         display: none !important;
     }

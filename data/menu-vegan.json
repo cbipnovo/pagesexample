@@ -1,0 +1,129 @@
+{
+  "updated": "2026-06-04",
+  "sections": [
+    {
+      "id": "plant-based-pizzas",
+      "name": { "da": "Plantebaserede Pizzaer", "en": "Plant-Based Pizzas" },
+      "priceHeaders": { "da": ["Lille (30 cm)", "Stor (45 cm)"], "en": ["Small (30 cm)", "Large (45 cm)"] },
+      "items": [
+        {
+          "name": "Margherita Verde",
+          "prices": ["119 kr", "165 kr"],
+          "description": { "da": "San Marzano tomatsauce, cashew-mozzarella, frisk basilikum, olivenolie", "en": "San Marzano tomato sauce, cashew mozzarella, fresh basil, olive oil" },
+          "allergens": ["gluten", "nuts"]
+        },
+        {
+          "name": "The Gardener",
+          "prices": ["125 kr", "175 kr"],
+          "description": { "da": "Ristede peberfrugter, courgette, aubergine, cherrytomater, vegansk ost", "en": "Roasted peppers, courgette, aubergine, cherry tomatoes, vegan cheese" },
+          "allergens": ["gluten"]
+        },
+        {
+          "name": "Mushroom Truffle",
+          "prices": ["135 kr", "185 kr"],
+          "description": { "da": "Blandede vilde svampe, trøffelolie, cashewcreme, rucola", "en": "Mixed wild mushrooms, truffle oil, cashew cream, rocket" },
+          "allergens": ["gluten", "nuts"]
+        },
+        {
+          "name": "Spicy Arrabbiata",
+          "prices": ["119 kr", "165 kr"],
+          "description": { "da": "Krydret tomatsauce, chiliflager, ristet hvidløg, vegansk mozzarella", "en": "Spicy tomato sauce, chilli flakes, roasted garlic, vegan mozzarella" },
+          "allergens": ["gluten"]
+        }
+      ]
+    },
+    {
+      "id": "specialty-pizzas",
+      "name": { "da": "Specialpizzaer", "en": "Specialty Pizzas" },
+      "priceHeaders": { "da": ["Lille (30 cm)", "Stor (45 cm)"], "en": ["Small (30 cm)", "Large (45 cm)"] },
+      "items": [
+        {
+          "name": "BBQ Jackfruit",
+          "prices": ["135 kr", "185 kr"],
+          "description": { "da": "Pulled BBQ-jackfruit, rødløg, røget vegansk gouda, koriander", "en": "Pulled BBQ jackfruit, red onion, smoked vegan gouda, coriander" },
+          "allergens": ["gluten"]
+        },
+        {
+          "name": "Mediterranean",
+          "prices": ["129 kr", "179 kr"],
+          "description": { "da": "Soltørrede tomater, oliven, artiskokhjerter, kapers, oregano", "en": "Sun-dried tomatoes, olives, artichoke hearts, capers, oregano" },
+          "allergens": ["gluten"]
+        },
+        {
+          "name": "Pesto Supreme",
+          "prices": ["129 kr", "179 kr"],
+          "description": { "da": "Hjemmelavet basilikumpesto, cherrytomater, pinjekerner, rucola", "en": "House-made basil pesto, cherry tomatoes, pine nuts, rocket" },
+          "allergens": ["gluten", "nuts"]
+        },
+        {
+          "name": "Thai Chilli",
+          "prices": ["139 kr", "189 kr"],
+          "description": { "da": "Sød chilisauce, tofu, røde peberfrugter, forårsløg, sesam", "en": "Sweet chilli sauce, tofu, red peppers, spring onion, sesame" },
+          "allergens": ["gluten", "soy"]
+        }
+      ]
+    },
+    {
+      "id": "sides",
+      "name": { "da": "Tilbehør", "en": "Sides & Extras" },
+      "priceHeaders": { "da": ["Pris"], "en": ["Price"] },
+      "items": [
+        {
+          "name": "Garlic Bread (V)",
+          "prices": ["35 kr"],
+          "description": { "da": "Friskbagt med hvidløgsolivenolie og urter", "en": "Fresh-baked with garlic olive oil and herbs" },
+          "allergens": ["gluten"]
+        },
+        {
+          "name": "Crispy Cauliflower Wings",
+          "prices": ["55 kr"],
+          "description": { "da": "Paneret blomkål, buffalosauce, vegansk ranch", "en": "Battered cauliflower, buffalo sauce, vegan ranch" },
+          "allergens": ["gluten"]
+        },
+        {
+          "name": "Mixed Green Salad",
+          "prices": ["55 kr"],
+          "description": { "da": "Sæsonens grønt, avocado, kerner, citrondressing", "en": "Seasonal greens, avocado, seeds, lemon dressing" },
+          "allergens": []
+        },
+        {
+          "name": "Chocolate Avocado Mousse",
+          "prices": ["35 kr"],
+          "description": { "da": "Fyldig mørk chokolademousse med avocadobase", "en": "Rich dark chocolate mousse with avocado base" },
+          "allergens": []
+        }
+      ]
+    },
+    {
+      "id": "drinks",
+      "name": { "da": "Drikkevarer", "en": "Drinks" },
+      "priceHeaders": { "da": ["Pris"], "en": ["Price"] },
+      "items": [
+        {
+          "name": "Fresh Juice",
+          "prices": ["35 kr"],
+          "description": { "da": "Appelsin, æble eller gulerod-ingefær", "en": "Orange, apple, or carrot-ginger" },
+          "allergens": []
+        },
+        {
+          "name": "Oat Milk Latte",
+          "prices": ["40 kr"],
+          "description": { "da": "Espresso med økologisk havremælk", "en": "Espresso with organic oat milk" },
+          "allergens": []
+        },
+        {
+          "name": "Kombucha",
+          "prices": ["45 kr"],
+          "description": { "da": "Ingefær, bær eller original", "en": "Ginger, berry, or original" },
+          "allergens": []
+        },
+        {
+          "name": "Sparkling Water",
+          "prices": ["15 kr"],
+          "description": { "da": "Danskvand på flaske", "en": "Bottled sparkling water" },
+          "allergens": []
+        }
+      ]
+    }
+  ]
+}
