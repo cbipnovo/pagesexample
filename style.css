@@ -55,6 +55,94 @@
     background: #333;
 }
 
+/* High Contrast Mode (WCAG AAA - 7:1 ratio) */
+[data-contrast="high"] {
+    --bg: #ffffff;
+    --text: #000000;
+    --text-muted: #000000;
+    --card-bg: #ffffff;
+    --card-shadow: rgba(0, 0, 0, 0.3);
+    --input-border: #000000;
+    --accent: #b71c1c;
+    --accent-dark: #7f0000;
+}
+
+[data-contrast="high"][data-mode="vegan"] {
+    --accent: #1b5e20;
+    --accent-dark: #003300;
+}
+
+[data-contrast="high"][data-theme="dark"] {
+    --bg: #000000;
+    --text: #ffffff;
+    --text-muted: #ffffff;
+    --card-bg: #111111;
+    --input-border: #ffffff;
+    --header-bg: #000000;
+    --footer-bg: #000000;
+}
+
+[data-contrast="high"] body {
+    font-weight: 500;
+}
+
+[data-contrast="high"] p,
+[data-contrast="high"] li,
+[data-contrast="high"] td,
+[data-contrast="high"] span {
+    color: var(--text);
+}
+
+[data-contrast="high"] .menu-item,
+[data-contrast="high"] .event-card,
+[data-contrast="high"] .testimonial-card,
+[data-contrast="high"] .feature-card {
+    border: 2px solid var(--text);
+}
+
+[data-contrast="high"] .btn,
+[data-contrast="high"] .filter-btn,
+[data-contrast="high"] .builder-btn {
+    border: 2px solid currentColor;
+    font-weight: 600;
+}
+
+[data-contrast="high"] .menu-item-desc,
+[data-contrast="high"] .event-description,
+[data-contrast="high"] .events-subtitle,
+[data-contrast="high"] .menu-note {
+    color: var(--text);
+}
+
+[data-contrast="high"] .allergen-badge {
+    border: 1px solid #000;
+    font-weight: 700;
+}
+
+[data-contrast="high"] .allergen-badge.gluten { background: #fff3cd; color: #000; }
+[data-contrast="high"] .allergen-badge.dairy { background: #d1ecf1; color: #000; }
+[data-contrast="high"] .allergen-badge.nuts { background: #f8d7da; color: #000; }
+[data-contrast="high"] .allergen-badge.soy { background: #d4edda; color: #000; }
+
+/* Contrast toggle button */
+.contrast-toggle {
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 0.4rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 700;
+    transition: all 0.2s;
+    margin-right: 0.25rem;
+}
+
+.contrast-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
 * {
     margin: 0;
     padding: 0;
