@@ -329,6 +329,9 @@ createApp({
             if (darkMode.value) {
                 document.documentElement.setAttribute('data-theme', 'dark');
             }
+            if (highContrast.value) {
+                document.documentElement.setAttribute('data-contrast', 'high');
+            }
             fetch('data/testimonials.json')
                 .then(r => r.json())
                 .then(data => {
@@ -379,6 +382,7 @@ createApp({
 
         const mobileMenuOpen = ref(false);
         const darkMode = ref(localStorage.getItem('pizza2-dark') === 'true');
+        const highContrast = ref(localStorage.getItem('pizza2-highcontrast') === 'true');
         const contactForm = ref({ name: '', email: '', message: '' });
         const contactStatus = ref(null);
 
@@ -394,6 +398,7 @@ createApp({
             { key: 'events', issue: 27, name: { da: 'Begivenheder', en: 'Events' }, description: { da: 'Kalender med kommende begivenheder', en: 'Calendar of upcoming events' } },
             { key: 'allergenFilter', issue: 41, name: { da: 'Allergenfilter', en: 'Allergen Filter' }, description: { da: 'Filtrer menuen efter allergener', en: 'Filter menu by allergens' } },
             { key: 'keyboardNav', issue: 46, name: { da: 'Tastaturnavigation', en: 'Keyboard Navigation' }, description: { da: 'Fokusindikatorer og tastaturnavigation', en: 'Focus indicators and keyboard navigation' } },
+            { key: 'highContrast', issue: 48, name: { da: 'Høj kontrast', en: 'High Contrast' }, description: { da: 'Høj kontrast-tilstand for svagtseende', en: 'High-contrast mode for low vision users' } },
         ];
 
         const savedFeatures = JSON.parse(localStorage.getItem('pizza2-features') || '{}');
@@ -538,6 +543,16 @@ createApp({
             document.documentElement.setAttribute('data-theme', darkMode.value ? 'dark' : 'light');
         }
 
+        function toggleHighContrast() {
+            highContrast.value = !highContrast.value;
+            localStorage.setItem('pizza2-highcontrast', highContrast.value);
+            if (highContrast.value) {
+                document.documentElement.setAttribute('data-contrast', 'high');
+            } else {
+                document.documentElement.removeAttribute('data-contrast');
+            }
+        }
+
         function submitContact() {
             contactStatus.value = 'sending';
             const formData = new FormData();
@@ -560,7 +575,7 @@ createApp({
 
         function printMenu() { window.print(); }
 
-        return { page, mode, lang, menuData, menuFilters, filteredMenuData, allergenList, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, copied, shareUrl, zoomLevel, pizzaBuilder, builderIngredients, builderSizes, builderToppingPositions, featureRegistry, featureStates, eventsData, showPastEvents, upcomingEvents, pastEvents, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, onLightboxWheel, onLightboxTouchStart, onLightboxTouchMove, onLightboxDblClick, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact, builderFilteredIngredients, builderPrice, builderToggleTopping, builderReset, featureEnabled, toggleFeature, printMenu, toggleMenuFilter, clearMenuFilters, eventTypeIcon, formatEventDate };
+        return { page, mode, lang, menuData, menuFilters, filteredMenuData, allergenList, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, highContrast, contactForm, contactStatus, copied, shareUrl, zoomLevel, pizzaBuilder, builderIngredients, builderSizes, builderToppingPositions, featureRegistry, featureStates, eventsData, showPastEvents, upcomingEvents, pastEvents, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, onLightboxWheel, onLightboxTouchStart, onLightboxTouchMove, onLightboxDblClick, toggleMobileMenu, closeMobileMenu, toggleDarkMode, toggleHighContrast, submitContact, builderFilteredIngredients, builderPrice, builderToggleTopping, builderReset, featureEnabled, toggleFeature, printMenu, toggleMenuFilter, clearMenuFilters, eventTypeIcon, formatEventDate };
     },
 
     template: `
@@ -601,9 +616,10 @@ createApp({
                         <li v-if="featureEnabled('findus')"><a :class="{ active: page === 'findus' }" @click.prevent="navigate('findus')">{{ t('nav.findUs') }}</a></li>
                         <li><a :class="{ active: page === 'features' }" @click.prevent="navigate('features')">{{ t('nav.features') }}</a></li>
                         <li><a class="switch-link" @click.prevent="backToChoose">{{ t('switchStyle') }}</a></li>
-                        <li class="nav-lang-mobile"><button class="dark-toggle" @click="toggleDarkMode">{{ darkMode ? '☀' : '☾' }}</button> <button class="lang-toggle" @click="toggleLang">{{ lang === 'da' ? 'EN' : 'DA' }}</button></li>
+                        <li class="nav-lang-mobile"><button class="dark-toggle" @click="toggleDarkMode">{{ darkMode ? '☀' : '☾' }}</button> <button class="contrast-toggle" @click="toggleHighContrast" v-if="featureEnabled('highContrast')" :aria-label="highContrast ? (lang === 'da' ? 'Normal kontrast' : 'Normal contrast') : (lang === 'da' ? 'Høj kontrast' : 'High contrast')">{{ highContrast ? 'Ⓐ' : 'A' }}</button> <button class="lang-toggle" @click="toggleLang">{{ lang === 'da' ? 'EN' : 'DA' }}</button></li>
                     </ul>
                     <button class="dark-toggle" @click="toggleDarkMode" :aria-label="darkMode ? 'Light mode' : 'Dark mode'">{{ darkMode ? '☀' : '☾' }}</button>
+                    <button class="contrast-toggle" @click="toggleHighContrast" v-if="featureEnabled('highContrast')" :aria-label="highContrast ? (lang === 'da' ? 'Normal kontrast' : 'Normal contrast') : (lang === 'da' ? 'Høj kontrast' : 'High contrast')">{{ highContrast ? 'Ⓐ' : 'A' }}</button>
                     <button class="lang-toggle lang-toggle-desktop" @click="toggleLang">{{ lang === 'da' ? 'EN' : 'DA' }}</button>
                 </nav>
             </header>
