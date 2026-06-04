@@ -1,0 +1,129 @@
+{
+  "updated": "2026-06-04",
+  "sections": [
+    {
+      "id": "classic-pizzas",
+      "name": { "da": "Klassiske Pizzaer", "en": "Classic Pizzas" },
+      "priceHeaders": { "da": ["Lille (30 cm)", "Stor (45 cm)"], "en": ["Small (30 cm)", "Large (45 cm)"] },
+      "items": [
+        {
+          "name": "Margherita",
+          "prices": ["109 kr", "155 kr"],
+          "description": { "da": "San Marzano tomatsauce, frisk mozzarella, basilikum, olivenolie", "en": "San Marzano tomato sauce, fresh mozzarella, basil, olive oil" },
+          "allergens": ["gluten", "dairy"]
+        },
+        {
+          "name": "Pepperoni",
+          "prices": ["119 kr", "159 kr"],
+          "description": { "da": "Tomatsauce, mozzarella, cup-and-char pepperoni", "en": "Tomato sauce, mozzarella, cup-and-char pepperoni" },
+          "allergens": ["gluten", "dairy"]
+        },
+        {
+          "name": "Cheese",
+          "prices": ["99 kr", "139 kr"],
+          "description": { "da": "Klassisk ost — tomatsauce, mozzarella-blanding", "en": "Classic cheese — tomato sauce, mozzarella blend" },
+          "allergens": ["gluten", "dairy"]
+        },
+        {
+          "name": "Meat Lovers",
+          "prices": ["135 kr", "185 kr"],
+          "description": { "da": "Pepperoni, pølse, bacon, skinke, mozzarella", "en": "Pepperoni, sausage, bacon, ham, mozzarella" },
+          "allergens": ["gluten", "dairy"]
+        }
+      ]
+    },
+    {
+      "id": "specialty-pizzas",
+      "name": { "da": "Specialpizzaer", "en": "Specialty Pizzas" },
+      "priceHeaders": { "da": ["Lille (30 cm)", "Stor (45 cm)"], "en": ["Small (30 cm)", "Large (45 cm)"] },
+      "items": [
+        {
+          "name": "White Pie",
+          "prices": ["125 kr", "169 kr"],
+          "description": { "da": "Ricotta, mozzarella, hvidløg, olivenolie, friske urter", "en": "Ricotta, mozzarella, garlic, olive oil, fresh herbs" },
+          "allergens": ["gluten", "dairy"]
+        },
+        {
+          "name": "Grandma Slice",
+          "prices": ["139 kr", "189 kr"],
+          "description": { "da": "Firkantet pande, tynd bund, knust tomat, frisk mozz, basilikum", "en": "Square pan, thin crust, crushed tomato, fresh mozz, basil" },
+          "allergens": ["gluten", "dairy"]
+        },
+        {
+          "name": "Vodka Pie",
+          "prices": ["135 kr", "175 kr"],
+          "description": { "da": "Cremet vodkasauce, mozzarella, pecorino romano, basilikum", "en": "Creamy vodka sauce, mozzarella, pecorino romano, basil" },
+          "allergens": ["gluten", "dairy"]
+        },
+        {
+          "name": "BBQ Chicken",
+          "prices": ["135 kr", "175 kr"],
+          "description": { "da": "BBQ-sauce, grillet kylling, rødløg, koriander, røget gouda", "en": "BBQ sauce, grilled chicken, red onion, cilantro, smoked gouda" },
+          "allergens": ["gluten", "dairy"]
+        }
+      ]
+    },
+    {
+      "id": "sides",
+      "name": { "da": "Tilbehør", "en": "Sides & Extras" },
+      "priceHeaders": { "da": ["Pris"], "en": ["Price"] },
+      "items": [
+        {
+          "name": "Garlic Knots (6)",
+          "prices": ["35 kr"],
+          "description": { "da": "Friskbagte, vendt i hvidløgssmør og persille", "en": "Fresh-baked, tossed in garlic butter and parsley" },
+          "allergens": ["gluten", "dairy"]
+        },
+        {
+          "name": "Mozzarella Sticks (6)",
+          "prices": ["55 kr"],
+          "description": { "da": "Håndpanerede, serveret med marinara", "en": "Hand-breaded, served with marinara" },
+          "allergens": ["gluten", "dairy"]
+        },
+        {
+          "name": "Caesar Salad",
+          "prices": ["65 kr"],
+          "description": { "da": "Romaine, parmesan, croutoner, hjemmelavet caesardressing", "en": "Romaine, parmesan, croutons, house caesar dressing" },
+          "allergens": ["gluten", "dairy"]
+        },
+        {
+          "name": "Cannoli",
+          "prices": ["30 kr"],
+          "description": { "da": "Sprød skal, sød ricottafyld, chokoladestykker", "en": "Crispy shell, sweet ricotta filling, chocolate chips" },
+          "allergens": ["gluten", "dairy", "nuts"]
+        }
+      ]
+    },
+    {
+      "id": "drinks",
+      "name": { "da": "Drikkevarer", "en": "Drinks" },
+      "priceHeaders": { "da": ["Pris"], "en": ["Price"] },
+      "items": [
+        {
+          "name": "Fountain Soda",
+          "prices": ["20 kr"],
+          "description": { "da": "Coke, Diet Coke, Sprite, Faxe Kondi", "en": "Coke, Diet Coke, Sprite, Faxe Kondi" },
+          "allergens": []
+        },
+        {
+          "name": "Italian Soda",
+          "prices": ["30 kr"],
+          "description": { "da": "Blodappelsin, citron eller blandet bær", "en": "Blood orange, lemon, or mixed berry" },
+          "allergens": []
+        },
+        {
+          "name": "1.5L Bottle",
+          "prices": ["30 kr"],
+          "description": { "da": "Coke, Sprite eller Fanta", "en": "Coke, Sprite, or Fanta" },
+          "allergens": []
+        },
+        {
+          "name": "Water",
+          "prices": ["15 kr"],
+          "description": { "da": "Kildevand på flaske", "en": "Bottled spring water" },
+          "allergens": []
+        }
+      ]
+    }
+  ]
+}

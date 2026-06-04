@@ -32,6 +32,10 @@ const translations = {
             classic: { da: 'Stykker af alle pizzaer: 25 kr stk.', en: 'Slices available for all pies: 25 kr each.' },
             vegan: { da: 'Alle retter er 100% plantebaserede.', en: 'All items are 100% plant-based.' },
         },
+        filterTitle: { da: 'Undgå allergener', en: 'Avoid allergens' },
+        filterClear: { da: 'Ryd filtre', en: 'Clear filters' },
+        filterActive: { da: 'Viser retter uden:', en: 'Showing items free from:' },
+        noResults: { da: 'Ingen retter matcher dine filtre.', en: 'No items match your filters.' },
     },
     about: {
         title: { da: 'Vores historie', en: 'Our Story' },
@@ -107,7 +111,8 @@ createApp({
         const page = ref('choose');
         const mode = ref(localStorage.getItem('pizza2-mode') || null);
         const lang = ref(localStorage.getItem('pizza2-lang') || 'da');
-        const menuHtml = ref('');
+        const menuData = ref({ sections: [] });
+        const menuFilters = ref([]);
         const lightboxPhoto = ref(null);
         const pizzaOfTheWeek = ref(null);
 
@@ -148,6 +153,39 @@ createApp({
             const date = new Date(dateStr + 'T00:00:00');
             const options = { weekday: 'short', day: 'numeric', month: 'short' };
             return date.toLocaleDateString(lang.value === 'da' ? 'da-DK' : 'en-GB', options);
+        }
+
+        const allergenList = [
+            { key: 'gluten', icon: '🌾', name: { da: 'Gluten', en: 'Gluten' } },
+            { key: 'dairy', icon: '🥛', name: { da: 'Mælk', en: 'Dairy' } },
+            { key: 'nuts', icon: '🥜', name: { da: 'Nødder', en: 'Nuts' } },
+            { key: 'soy', icon: '🫘', name: { da: 'Soja', en: 'Soy' } },
+        ];
+
+        const filteredMenuData = computed(() => {
+            if (menuFilters.value.length === 0) return menuData.value;
+            return {
+                ...menuData.value,
+                sections: menuData.value.sections.map(section => ({
+                    ...section,
+                    items: section.items.filter(item =>
+                        !menuFilters.value.some(f => item.allergens.includes(f))
+                    )
+                })).filter(section => section.items.length > 0)
+            };
+        });
+
+        function toggleMenuFilter(key) {
+            const idx = menuFilters.value.indexOf(key);
+            if (idx >= 0) {
+                menuFilters.value = menuFilters.value.filter(f => f !== key);
+            } else {
+                menuFilters.value = [...menuFilters.value, key];
+            }
+        }
+
+        function clearMenuFilters() {
+            menuFilters.value = [];
         }
 
         function t(key) {
@@ -204,6 +242,7 @@ createApp({
             mode.value = m;
             localStorage.setItem('pizza2-mode', m);
             document.documentElement.setAttribute('data-mode', m);
+            clearMenuFilters();
             page.value = 'home';
         }
 
@@ -221,41 +260,10 @@ createApp({
 
         function loadMenu() {
             if (!mode.value) return;
-            fetch('menus/' + mode.value + '.md')
-                .then(r => r.text())
-                .then(md => { menuHtml.value = parseMarkdown(md); })
-                .catch(() => { menuHtml.value = '<p>Failed to load menu.</p>'; });
-        }
-
-        function parseMarkdown(md) {
-            let html = '';
-            let inTable = false;
-            const lines = md.split('\n');
-
-            for (let i = 0; i < lines.length; i++) {
-                const line = lines[i];
-                if (line.startsWith('# ')) {
-                    if (inTable) { html += '</tbody></table>'; inTable = false; }
-                    html += '<h2>' + line.slice(2) + '</h2>';
-                } else if (line.startsWith('|') && !line.match(/^\|[-\s|]+\|$/)) {
-                    const cells = line.split('|').filter(c => c.trim());
-                    if (!inTable) {
-                        html += '<table class="menu-table"><thead><tr>';
-                        cells.forEach(c => { html += '<th>' + c.trim() + '</th>'; });
-                        html += '</tr></thead><tbody>';
-                        inTable = true;
-                        i++;
-                    } else {
-                        html += '<tr>';
-                        cells.forEach(c => { html += '<td>' + c.trim() + '</td>'; });
-                        html += '</tr>';
-                    }
-                } else if (line.trim() === '') {
-                    if (inTable) { html += '</tbody></table>'; inTable = false; }
-                }
-            }
-            if (inTable) html += '</tbody></table>';
-            return html;
+            fetch('data/menu-' + mode.value + '.json')
+                .then(r => r.json())
+                .then(data => { menuData.value = data; })
+                .catch(() => { menuData.value = { sections: [] }; });
         }
 
         const copied = ref(false);
@@ -378,6 +386,7 @@ createApp({
             { key: 'findus', issue: null, name: { da: 'Find os', en: 'Find Us' }, description: { da: 'Kort og rutevejledning', en: 'Map and directions' } },
             { key: 'socials', issue: 29, name: { da: 'Sociale medier', en: 'Social Links' }, description: { da: 'Links til sociale medier i footer', en: 'Social media links in footer' } },
             { key: 'events', issue: 27, name: { da: 'Begivenheder', en: 'Events' }, description: { da: 'Kalender med kommende begivenheder', en: 'Calendar of upcoming events' } },
+            { key: 'allergenFilter', issue: 41, name: { da: 'Allergenfilter', en: 'Allergen Filter' }, description: { da: 'Filtrer menuen efter allergener', en: 'Filter menu by allergens' } },
         ];
 
         const savedFeatures = JSON.parse(localStorage.getItem('pizza2-features') || '{}');
@@ -544,7 +553,7 @@ createApp({
 
         function printMenu() { window.print(); }
 
-        return { page, mode, lang, menuHtml, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, copied, shareUrl, zoomLevel, pizzaBuilder, builderIngredients, builderSizes, builderToppingPositions, featureRegistry, featureStates, eventsData, showPastEvents, upcomingEvents, pastEvents, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, onLightboxWheel, onLightboxTouchStart, onLightboxTouchMove, onLightboxDblClick, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact, builderFilteredIngredients, builderPrice, builderToggleTopping, builderReset, featureEnabled, toggleFeature, printMenu, eventTypeIcon, formatEventDate };
+        return { page, mode, lang, menuData, menuFilters, filteredMenuData, allergenList, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, copied, shareUrl, zoomLevel, pizzaBuilder, builderIngredients, builderSizes, builderToppingPositions, featureRegistry, featureStates, eventsData, showPastEvents, upcomingEvents, pastEvents, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, onLightboxWheel, onLightboxTouchStart, onLightboxTouchMove, onLightboxDblClick, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact, builderFilteredIngredients, builderPrice, builderToggleTopping, builderReset, featureEnabled, toggleFeature, printMenu, toggleMenuFilter, clearMenuFilters, eventTypeIcon, formatEventDate };
     },
 
     template: `
@@ -647,10 +656,44 @@ createApp({
 
                 <!-- Menu -->
                 <template v-if="page === 'menu'">
-                    <h1>{{ t('menu.title') }}</h1>
-                    <button class="btn-outline print-menu-btn" @click="printMenu">🖨️ {{ t('menu.print') }}</button>
-                    <div v-html="menuHtml"></div>
-                    <p class="menu-note">{{ t('menu.note') }}</p>
+                    <section class="menu-page">
+                        <h1>{{ t('menu.title') }}</h1>
+                        <button class="btn-outline print-menu-btn" @click="printMenu">🖨️ {{ t('menu.print') }}</button>
+
+                        <div class="menu-filters" v-if="featureEnabled('allergenFilter')">
+                            <h3>{{ t('menu.filterTitle') }}</h3>
+                            <div class="filter-buttons">
+                                <button v-for="allergen in allergenList" :key="allergen.key" class="filter-btn" :class="{ active: menuFilters.includes(allergen.key) }" @click="toggleMenuFilter(allergen.key)">
+                                    <span class="filter-icon">{{ allergen.icon }}</span> {{ allergen.name[lang] }}
+                                </button>
+                                <button v-if="menuFilters.length > 0" class="filter-btn filter-clear" @click="clearMenuFilters">✕ {{ t('menu.filterClear') }}</button>
+                            </div>
+                            <p v-if="menuFilters.length > 0" class="filter-active-msg">{{ t('menu.filterActive') }} {{ menuFilters.map(f => allergenList.find(a => a.key === f).name[lang]).join(', ') }}</p>
+                        </div>
+
+                        <div class="menu-content" v-if="filteredMenuData.sections.length > 0">
+                            <div v-for="section in filteredMenuData.sections" :key="section.id" class="menu-section">
+                                <h2>{{ section.name[lang] }}</h2>
+                                <div class="menu-items">
+                                    <div v-for="item in section.items" :key="item.name" class="menu-item">
+                                        <div class="menu-item-header">
+                                            <h3 class="menu-item-name">{{ item.name }}</h3>
+                                            <div class="menu-item-prices">
+                                                <span v-for="(price, i) in item.prices" :key="i" class="menu-price">{{ price }}</span>
+                                            </div>
+                                        </div>
+                                        <p class="menu-item-desc">{{ item.description[lang] }}</p>
+                                        <div v-if="item.allergens.length > 0" class="allergen-badges">
+                                            <span v-for="a in item.allergens" :key="a" class="allergen-badge" :class="a">{{ allergenList.find(al => al.key === a)?.icon }} {{ allergenList.find(al => al.key === a)?.name[lang] }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p v-else class="menu-no-results">{{ t('menu.noResults') }}</p>
+
+                        <p class="menu-note">{{ t('menu.note') }}</p>
+                    </section>
                 </template>
 
                 <!-- Find Us -->
