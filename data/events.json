@@ -1,0 +1,101 @@
+{
+  "updated": "2026-06-04",
+  "events": [
+    {
+      "id": "evt-001",
+      "name": { "da": "Fredags Open-Mic", "en": "Friday Open-Mic" },
+      "description": { "da": "Tag din guitar, din stemme eller dit digt med — scenen er din! Gratis entre og hyggelig stemning.", "en": "Bring your guitar, your voice, or your poetry — the stage is yours! Free entry and cozy vibes." },
+      "date": "2026-06-06",
+      "time": "19:00",
+      "type": "music"
+    },
+    {
+      "id": "evt-002",
+      "name": { "da": "Sommer-pizza special: Limone e Basilico", "en": "Summer Pizza Special: Limone e Basilico" },
+      "description": { "da": "Prøv vores friske sommerpizza med citroncreme, burrata og basilikum. Kun denne weekend!", "en": "Try our fresh summer pizza with lemon cream, burrata, and basil. This weekend only!" },
+      "date": "2026-06-07",
+      "time": "11:00",
+      "type": "special"
+    },
+    {
+      "id": "evt-003",
+      "name": { "da": "Fredags Open-Mic", "en": "Friday Open-Mic" },
+      "description": { "da": "Tag din guitar, din stemme eller dit digt med — scenen er din! Gratis entre og hyggelig stemning.", "en": "Bring your guitar, your voice, or your poetry — the stage is yours! Free entry and cozy vibes." },
+      "date": "2026-06-13",
+      "time": "19:00",
+      "type": "music"
+    },
+    {
+      "id": "evt-004",
+      "name": { "da": "Børne-pizzaværksted", "en": "Kids' Pizza Workshop" },
+      "description": { "da": "Lad de små lave deres egen pizza fra bunden! Inkluderer dej, sauce og toppings. Alder 4-12.", "en": "Let the little ones make their own pizza from scratch! Includes dough, sauce, and toppings. Ages 4-12." },
+      "date": "2026-06-15",
+      "time": "14:00",
+      "type": "workshop"
+    },
+    {
+      "id": "evt-005",
+      "name": { "da": "Fredags Open-Mic", "en": "Friday Open-Mic" },
+      "description": { "da": "Tag din guitar, din stemme eller dit digt med — scenen er din! Gratis entre og hyggelig stemning.", "en": "Bring your guitar, your voice, or your poetry — the stage is yours! Free entry and cozy vibes." },
+      "date": "2026-06-20",
+      "time": "19:00",
+      "type": "music"
+    },
+    {
+      "id": "evt-006",
+      "name": { "da": "Velgørenhedsaften: Pizza for Alle", "en": "Charity Night: Pizza for Everyone" },
+      "description": { "da": "Vi donerer 20 kr fra hver solgt pizza til det lokale herberg. Spis godt og gør godt!", "en": "We donate 20 kr from every pizza sold to the local shelter. Eat well and do good!" },
+      "date": "2026-06-22",
+      "time": "17:00",
+      "type": "charity"
+    },
+    {
+      "id": "evt-007",
+      "name": { "da": "Fredags Open-Mic", "en": "Friday Open-Mic" },
+      "description": { "da": "Tag din guitar, din stemme eller dit digt med — scenen er din! Gratis entre og hyggelig stemning.", "en": "Bring your guitar, your voice, or your poetry — the stage is yours! Free entry and cozy vibes." },
+      "date": "2026-06-27",
+      "time": "19:00",
+      "type": "music"
+    },
+    {
+      "id": "evt-008",
+      "name": { "da": "Sommer-jazz aften", "en": "Summer Jazz Evening" },
+      "description": { "da": "Live jazz trio spiller fra kl. 20. Nyd en pizza og en kold øl til tonerne af smooth jazz.", "en": "Live jazz trio playing from 8 PM. Enjoy a pizza and a cold beer to the sounds of smooth jazz." },
+      "date": "2026-07-04",
+      "time": "20:00",
+      "type": "music"
+    },
+    {
+      "id": "evt-009",
+      "name": { "da": "Vegansk smagsprøve-aften", "en": "Vegan Tasting Night" },
+      "description": { "da": "Prøv 5 mini veganske pizzaer parret med naturvin. Begrænset antal pladser — kom tidligt!", "en": "Try 5 mini vegan pizzas paired with natural wine. Limited spots — arrive early!" },
+      "date": "2026-07-12",
+      "time": "18:00",
+      "type": "special"
+    },
+    {
+      "id": "evt-010",
+      "name": { "da": "Nabolagsfest", "en": "Neighbourhood Party" },
+      "description": { "da": "Årlig gadefest med gratis pizza til børn, live musik og ansigtsmaleri. Alle er velkomne!", "en": "Annual street party with free pizza for kids, live music, and face painting. Everyone welcome!" },
+      "date": "2026-07-19",
+      "time": "12:00",
+      "type": "charity"
+    },
+    {
+      "id": "evt-011",
+      "name": { "da": "Quiz-aften: Pizza Trivia", "en": "Quiz Night: Pizza Trivia" },
+      "description": { "da": "Test din pizza-viden! Hold på 2-5 personer. Vinderne får en gratis pizza. Tilmelding fra kl. 18.", "en": "Test your pizza knowledge! Teams of 2-5. Winners get a free pizza. Sign up from 6 PM." },
+      "date": "2026-05-30",
+      "time": "19:00",
+      "type": "workshop"
+    },
+    {
+      "id": "evt-012",
+      "name": { "da": "Fredags Open-Mic", "en": "Friday Open-Mic" },
+      "description": { "da": "Tag din guitar, din stemme eller dit digt med — scenen er din! Gratis entre og hyggelig stemning.", "en": "Bring your guitar, your voice, or your poetry — the stage is yours! Free entry and cozy vibes." },
+      "date": "2026-05-23",
+      "time": "19:00",
+      "type": "music"
+    }
+  ]
+}

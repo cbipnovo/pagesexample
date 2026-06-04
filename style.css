@@ -1358,6 +1358,172 @@ footer {
     }
 }
 
+/* Events Page */
+.events-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+.events-page h1 {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.events-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+.events-section-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--accent, #e63946);
+    border-bottom: 2px solid var(--accent, #e63946);
+    padding-bottom: 0.5rem;
+}
+
+.events-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.event-card {
+    display: flex;
+    gap: 1rem;
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.event-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.event-card-past {
+    opacity: 0.6;
+}
+
+.event-date-badge {
+    flex-shrink: 0;
+    width: 60px;
+    height: 60px;
+    background: var(--accent, #e63946);
+    color: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.event-day {
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.event-month {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.event-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.event-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.25rem;
+}
+
+.event-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.event-type-icon {
+    font-size: 1.2rem;
+}
+
+.event-time {
+    font-size: 0.85rem;
+    color: #888;
+    margin: 0.25rem 0 0.5rem;
+}
+
+.event-description {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #444;
+    line-height: 1.5;
+}
+
+.events-toggle {
+    display: block;
+    margin: 1rem auto 2rem;
+}
+
+.events-empty {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 2rem 0;
+}
+
+/* Events dark mode */
+[data-theme="dark"] .event-card {
+    background: #2a2a2a;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .event-card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .event-description {
+    color: #ccc;
+}
+
+[data-theme="dark"] .event-time {
+    color: #aaa;
+}
+
+[data-theme="dark"] .events-subtitle {
+    color: #aaa;
+}
+
+/* Events responsive */
+@media (max-width: 768px) {
+    .events-page {
+        padding: 1.5rem 1rem;
+    }
+
+    .event-card {
+        padding: 1rem;
+    }
+
+    .event-date-badge {
+        width: 50px;
+        height: 50px;
+    }
+
+    .event-day {
+        font-size: 1.25rem;
+    }
+}
+
 /* Print Menu Button */
 .print-menu-btn {
     margin-bottom: 1.5rem;
