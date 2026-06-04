@@ -521,6 +521,33 @@
       "category": "missed",
       "text": "Accessibility consultant from the council visited and tested the site. Said keyboard navigation is solid now but mentioned the contrast of some text in vegan mode could be improved for low-vision users.",
       "related_feature": "Add keyboard navigation & focus indicators (#46)"
+    },
+    {
+      "id": "FB-058",
+      "date": "2026-07-10",
+      "channel": "Google Reviews",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "The high-contrast button is exactly what I needed! I have macular degeneration and most websites are impossible to read. With the Ⓐ toggle everything is perfectly clear. Thank you for thinking of us.",
+      "related_feature": "Add high-contrast mode (#48)"
+    },
+    {
+      "id": "FB-059",
+      "date": "2026-07-12",
+      "channel": "in-store comment cards",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "My father-in-law (72) was able to read the menu on the website for the first time thanks to the high contrast mode. He picked his own pizza without asking us for help. Made his day.",
+      "related_feature": "Add high-contrast mode (#48)"
+    },
+    {
+      "id": "FB-060",
+      "date": "2026-07-14",
+      "channel": "Instagram DMs",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "The high contrast mode is great for reading but the pizza builder looks a bit odd — all the coloured sauce/topping dots become hard to distinguish. Maybe exclude the builder preview from contrast changes?",
+      "related_feature": "Add high-contrast mode (#48)"
     }
   ],
   "summary": {

@@ -425,6 +425,29 @@
       }
     },
     {
+      "event_name": "high_contrast_toggle",
+      "description": "User toggled high-contrast mode on or off",
+      "related_feature": "Add high-contrast mode (#48)",
+      "data": {
+        "total_toggles": 385,
+        "unique_users": 264,
+        "breakdown": [
+          { "to": "high", "count": 248 },
+          { "to": "normal", "count": 137 }
+        ],
+        "session_duration_comparison": {
+          "with_high_contrast": { "sessions": 264, "avg_seconds": 178.4 },
+          "without_high_contrast": { "sessions": 3580, "avg_seconds": 148.2 },
+          "improvement_percentage": 20.4
+        },
+        "weekly_trend": [
+          { "week": "2026-W27", "toggles": 110 },
+          { "week": "2026-W28", "toggles": 138 },
+          { "week": "2026-W29", "toggles": 137 }
+        ]
+      }
+    },
+    {
       "event_name": "lighthouse_accessibility_score",
       "description": "Lighthouse accessibility audit score tracked over time (automated CI run)",
       "related_feature": "Add keyboard navigation & focus indicators (#46)",
