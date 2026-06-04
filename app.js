@@ -1,7 +1,7 @@
 const { createApp, ref, reactive, computed, onMounted, watch, nextTick } = Vue;
 
 const translations = {
-    nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, builder: { da: 'Byg pizza', en: 'Build Pizza' }, gallery: { da: 'Galleri', en: 'Gallery' }, about: { da: 'Om os', en: 'About' }, contact: { da: 'Kontakt', en: 'Contact' }, findUs: { da: 'Find os', en: 'Find Us' }, features: { da: 'Funktioner', en: 'Features' } },
+    nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, builder: { da: 'Byg pizza', en: 'Build Pizza' }, gallery: { da: 'Galleri', en: 'Gallery' }, events: { da: 'Events', en: 'Events' }, about: { da: 'Om os', en: 'About' }, contact: { da: 'Kontakt', en: 'Contact' }, findUs: { da: 'Find os', en: 'Find Us' }, features: { da: 'Funktioner', en: 'Features' } },
     choose: {
         title: { da: 'Cool Pizza', en: 'Cool Pizza' },
         subtitle: { da: 'Vælg din oplevelse', en: 'Choose your experience' },
@@ -89,6 +89,15 @@ const translations = {
         on: { da: 'Til', en: 'On' },
         off: { da: 'Fra', en: 'Off' },
     },
+    events: {
+        title: { da: 'Begivenheder', en: 'Events' },
+        subtitle: { da: 'Se hvad der sker hos Cool Pizza', en: "See what's happening at Cool Pizza" },
+        upcoming: { da: 'Kommende', en: 'Upcoming' },
+        past: { da: 'Tidligere', en: 'Past' },
+        showPast: { da: 'Vis tidligere begivenheder', en: 'Show past events' },
+        hidePast: { da: 'Skjul tidligere begivenheder', en: 'Hide past events' },
+        noUpcoming: { da: 'Ingen kommende begivenheder endnu — tjek snart igen!', en: 'No upcoming events yet — check back soon!' },
+    },
     footer: { da: '© 2026 Cool Pizza. Alle rettigheder forbeholdes.', en: '© 2026 Cool Pizza. All rights reserved.' },
     switchStyle: { da: 'Skift stil', en: 'Switch Style' },
 };
@@ -103,6 +112,8 @@ createApp({
         const pizzaOfTheWeek = ref(null);
 
         const testimonials = ref([]);
+        const eventsData = ref([]);
+        const showPastEvents = ref(false);
 
         const galleryFilter = ref('all');
         const galleryPhotos = [
@@ -123,6 +134,21 @@ createApp({
             if (galleryFilter.value === 'all') return galleryPhotos;
             return galleryPhotos.filter(p => p.category === galleryFilter.value);
         });
+
+        const today = computed(() => new Date().toISOString().split('T')[0]);
+        const upcomingEvents = computed(() => eventsData.value.filter(e => e.date >= today.value).sort((a, b) => a.date.localeCompare(b.date)));
+        const pastEvents = computed(() => eventsData.value.filter(e => e.date < today.value).sort((a, b) => b.date.localeCompare(a.date)));
+
+        function eventTypeIcon(type) {
+            const icons = { music: '🎵', special: '🍕', charity: '❤️', workshop: '👨‍🍳' };
+            return icons[type] || '📅';
+        }
+
+        function formatEventDate(dateStr) {
+            const date = new Date(dateStr + 'T00:00:00');
+            const options = { weekday: 'short', day: 'numeric', month: 'short' };
+            return date.toLocaleDateString(lang.value === 'da' ? 'da-DK' : 'en-GB', options);
+        }
 
         function t(key) {
             const keys = key.split('.');
@@ -322,6 +348,10 @@ createApp({
                     pizzaOfTheWeek.value = entry;
                 })
                 .catch(() => {});
+            fetch('data/events.json')
+                .then(r => r.json())
+                .then(data => { eventsData.value = data.events; })
+                .catch(() => {});
             const hash = window.location.hash;
             if (hash.startsWith('#photo=')) {
                 const photoId = parseInt(hash.split('=')[1]);
@@ -347,6 +377,7 @@ createApp({
             { key: 'contact', issue: 23, name: { da: 'Kontakt', en: 'Contact' }, description: { da: 'Kontaktformular til forespørgsler', en: 'Contact form for enquiries' } },
             { key: 'findus', issue: null, name: { da: 'Find os', en: 'Find Us' }, description: { da: 'Kort og rutevejledning', en: 'Map and directions' } },
             { key: 'socials', issue: 29, name: { da: 'Sociale medier', en: 'Social Links' }, description: { da: 'Links til sociale medier i footer', en: 'Social media links in footer' } },
+            { key: 'events', issue: 27, name: { da: 'Begivenheder', en: 'Events' }, description: { da: 'Kalender med kommende begivenheder', en: 'Calendar of upcoming events' } },
         ];
 
         const savedFeatures = JSON.parse(localStorage.getItem('pizza2-features') || '{}');
@@ -513,7 +544,7 @@ createApp({
 
         function printMenu() { window.print(); }
 
-        return { page, mode, lang, menuHtml, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, copied, shareUrl, zoomLevel, pizzaBuilder, builderIngredients, builderSizes, builderToppingPositions, featureRegistry, featureStates, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, onLightboxWheel, onLightboxTouchStart, onLightboxTouchMove, onLightboxDblClick, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact, builderFilteredIngredients, builderPrice, builderToggleTopping, builderReset, featureEnabled, toggleFeature, printMenu };
+        return { page, mode, lang, menuHtml, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, contactForm, contactStatus, copied, shareUrl, zoomLevel, pizzaBuilder, builderIngredients, builderSizes, builderToppingPositions, featureRegistry, featureStates, eventsData, showPastEvents, upcomingEvents, pastEvents, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, onLightboxWheel, onLightboxTouchStart, onLightboxTouchMove, onLightboxDblClick, toggleMobileMenu, closeMobileMenu, toggleDarkMode, submitContact, builderFilteredIngredients, builderPrice, builderToggleTopping, builderReset, featureEnabled, toggleFeature, printMenu, eventTypeIcon, formatEventDate };
     },
 
     template: `
@@ -548,6 +579,7 @@ createApp({
                         <li><a :class="{ active: page === 'menu' }" @click.prevent="navigate('menu')">{{ t('nav.menu') }}</a></li>
                         <li v-if="featureEnabled('builder')"><a :class="{ active: page === 'builder' }" @click.prevent="navigate('builder')">{{ t('nav.builder') }}</a></li>
                         <li v-if="featureEnabled('gallery')"><a :class="{ active: page === 'gallery' }" @click.prevent="navigate('gallery')">{{ t('nav.gallery') }}</a></li>
+                        <li v-if="featureEnabled('events')"><a :class="{ active: page === 'events' }" @click.prevent="navigate('events')">{{ t('nav.events') }}</a></li>
                         <li><a :class="{ active: page === 'about' }" @click.prevent="navigate('about')">{{ t('nav.about') }}</a></li>
                         <li v-if="featureEnabled('contact')"><a :class="{ active: page === 'contact' }" @click.prevent="navigate('contact')">{{ t('nav.contact') }}</a></li>
                         <li v-if="featureEnabled('findus')"><a :class="{ active: page === 'findus' }" @click.prevent="navigate('findus')">{{ t('nav.findUs') }}</a></li>
@@ -657,6 +689,60 @@ createApp({
                             <button @click="copyShareLink" aria-label="Copy link">{{ copied ? (lang === 'da' ? 'Kopieret!' : 'Copied!') : (lang === 'da' ? 'Kopier link' : 'Copy link') }}</button>
                         </div>
                     </div>
+                </template>
+
+                <!-- Events -->
+                <template v-if="page === 'events' && featureEnabled('events')">
+                    <section class="events-page">
+                        <h1>{{ t('events.title') }}</h1>
+                        <p class="events-subtitle">{{ t('events.subtitle') }}</p>
+
+                        <div class="events-section" v-if="upcomingEvents.length">
+                            <h2 class="events-section-title">{{ t('events.upcoming') }}</h2>
+                            <div class="events-grid">
+                                <div class="event-card" v-for="event in upcomingEvents" :key="event.id">
+                                    <div class="event-date-badge">
+                                        <span class="event-day">{{ new Date(event.date + 'T00:00:00').getDate() }}</span>
+                                        <span class="event-month">{{ new Date(event.date + 'T00:00:00').toLocaleDateString(lang === 'da' ? 'da-DK' : 'en-GB', { month: 'short' }) }}</span>
+                                    </div>
+                                    <div class="event-content">
+                                        <div class="event-header">
+                                            <span class="event-type-icon">{{ eventTypeIcon(event.type) }}</span>
+                                            <h3>{{ event.name[lang] }}</h3>
+                                        </div>
+                                        <p class="event-time">🕐 {{ event.time }} · {{ formatEventDate(event.date) }}</p>
+                                        <p class="event-description">{{ event.description[lang] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p v-if="!upcomingEvents.length" class="events-empty">{{ t('events.noUpcoming') }}</p>
+
+                        <button class="btn-outline events-toggle" @click="showPastEvents = !showPastEvents" v-if="pastEvents.length">
+                            {{ showPastEvents ? t('events.hidePast') : t('events.showPast') }}
+                        </button>
+
+                        <div class="events-section events-past" v-if="showPastEvents && pastEvents.length">
+                            <h2 class="events-section-title">{{ t('events.past') }}</h2>
+                            <div class="events-grid">
+                                <div class="event-card event-card-past" v-for="event in pastEvents" :key="event.id">
+                                    <div class="event-date-badge">
+                                        <span class="event-day">{{ new Date(event.date + 'T00:00:00').getDate() }}</span>
+                                        <span class="event-month">{{ new Date(event.date + 'T00:00:00').toLocaleDateString(lang === 'da' ? 'da-DK' : 'en-GB', { month: 'short' }) }}</span>
+                                    </div>
+                                    <div class="event-content">
+                                        <div class="event-header">
+                                            <span class="event-type-icon">{{ eventTypeIcon(event.type) }}</span>
+                                            <h3>{{ event.name[lang] }}</h3>
+                                        </div>
+                                        <p class="event-time">🕐 {{ event.time }} · {{ formatEventDate(event.date) }}</p>
+                                        <p class="event-description">{{ event.description[lang] }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </template>
 
                 <!-- Pizza Builder -->
