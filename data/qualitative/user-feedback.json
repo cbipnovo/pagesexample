@@ -494,6 +494,33 @@
       "category": "missed",
       "text": "I use the nut filter every time but I'm never sure if 'may contain traces' is covered or just direct ingredients. Could you clarify that somewhere on the filter?",
       "related_feature": "Add allergen & dietary filter on menu (#41)"
+    },
+    {
+      "id": "FB-055",
+      "date": "2026-07-03",
+      "channel": "Instagram DMs",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "Just noticed the focus outlines when tabbing through your site! As someone who uses keyboard navigation due to RSI, this is really appreciated. Most restaurant sites completely ignore this.",
+      "related_feature": "Add keyboard navigation & focus indicators (#46)"
+    },
+    {
+      "id": "FB-056",
+      "date": "2026-07-05",
+      "channel": "Google Reviews",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "I can finally close the photo viewer with Escape! Before I had to find the tiny X button. Small thing but makes a big difference when browsing on the laptop without a mouse.",
+      "related_feature": "Add keyboard navigation & focus indicators (#46)"
+    },
+    {
+      "id": "FB-057",
+      "date": "2026-07-07",
+      "channel": "staff observations",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "Accessibility consultant from the council visited and tested the site. Said keyboard navigation is solid now but mentioned the contrast of some text in vegan mode could be improved for low-vision users.",
+      "related_feature": "Add keyboard navigation & focus indicators (#46)"
     }
   ],
   "summary": {

@@ -423,6 +423,30 @@
           { "week": "2026-W27", "toggles": 85 }
         ]
       }
+    },
+    {
+      "event_name": "lighthouse_accessibility_score",
+      "description": "Lighthouse accessibility audit score tracked over time (automated CI run)",
+      "related_feature": "Add keyboard navigation & focus indicators (#46)",
+      "data": {
+        "current_score": 92,
+        "previous_score": 78,
+        "improvement": 14,
+        "weekly_scores": [
+          { "week": "2026-W25", "score": 78, "note": "Pre-keyboard-nav baseline" },
+          { "week": "2026-W26", "score": 78, "note": "Pre-keyboard-nav baseline" },
+          { "week": "2026-W27", "score": 92, "note": "Post-keyboard-nav deployment" }
+        ],
+        "issues_resolved": [
+          "Interactive elements not keyboard accessible",
+          "Focus not visible on interactive elements",
+          "No mechanism to dismiss modal dialogs"
+        ],
+        "remaining_issues": [
+          "Some color contrast ratios below AAA threshold in vegan mode",
+          "Missing skip-to-content link"
+        ]
+      }
     }
   ],
   "visitor_summary": {
