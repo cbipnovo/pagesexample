@@ -1,0 +1,446 @@
+{
+  "export_metadata": {
+    "source": "Pendo",
+    "exported_at": "2026-07-02T08:00:00Z",
+    "period": {
+      "start": "2026-04-01",
+      "end": "2026-07-01"
+    },
+    "app": "Cool Pizza Website"
+  },
+  "events": [
+    {
+      "event_name": "page_view",
+      "description": "Page navigation within the SPA",
+      "related_feature": "Multipage in one setup (#12)",
+      "data": [
+        { "page": "home", "views": 12480, "unique_visitors": 4320 },
+        { "page": "menu", "views": 9870, "unique_visitors": 3890 },
+        { "page": "about", "views": 3210, "unique_visitors": 2105 },
+        { "page": "findus", "views": 4560, "unique_visitors": 2780 },
+        { "page": "choose", "views": 14200, "unique_visitors": 5100 }
+      ]
+    },
+    {
+      "event_name": "language_toggle",
+      "description": "User switched between DA and EN",
+      "related_feature": "Implement language switching (#10)",
+      "data": {
+        "total_toggles": 3842,
+        "unique_users": 1620,
+        "breakdown": [
+          { "from": "da", "to": "en", "count": 2890 },
+          { "from": "en", "to": "da", "count": 952 }
+        ],
+        "weekly_trend": [
+          { "week": "2026-W14", "toggles": 380 },
+          { "week": "2026-W15", "toggles": 412 },
+          { "week": "2026-W16", "toggles": 445 },
+          { "week": "2026-W17", "toggles": 489 },
+          { "week": "2026-W18", "toggles": 510 },
+          { "week": "2026-W19", "toggles": 523 },
+          { "week": "2026-W20", "toggles": 540 },
+          { "week": "2026-W21", "toggles": 543 }
+        ]
+      }
+    },
+    {
+      "event_name": "mode_selection",
+      "description": "User selected classic or vegan mode from the choose page",
+      "related_feature": "Multipage in one setup (#12)",
+      "data": {
+        "total_selections": 9840,
+        "breakdown": [
+          { "mode": "classic", "count": 7250, "percentage": 73.7 },
+          { "mode": "vegan", "count": 2590, "percentage": 26.3 }
+        ],
+        "weekly_trend": [
+          { "week": "2026-W14", "classic": 720, "vegan": 240 },
+          { "week": "2026-W15", "classic": 780, "vegan": 260 },
+          { "week": "2026-W16", "classic": 810, "vegan": 285 },
+          { "week": "2026-W17", "classic": 850, "vegan": 310 },
+          { "week": "2026-W18", "classic": 900, "vegan": 330 },
+          { "week": "2026-W19", "classic": 940, "vegan": 355 },
+          { "week": "2026-W20", "classic": 1020, "vegan": 390 },
+          { "week": "2026-W21", "classic": 1230, "vegan": 420 }
+        ]
+      }
+    },
+    {
+      "event_name": "map_interaction",
+      "description": "User interacted with the Leaflet map on the Find Us page",
+      "related_feature": "Add interactive map on Find Us page (#16)",
+      "data": {
+        "total_interactions": 5230,
+        "unique_users": 2410,
+        "interaction_types": [
+          { "type": "zoom_in", "count": 2100 },
+          { "type": "zoom_out", "count": 890 },
+          { "type": "pan", "count": 1540 },
+          { "type": "marker_click", "count": 700 }
+        ],
+        "avg_time_on_map_seconds": 18.4,
+        "weekly_trend": [
+          { "week": "2026-W18", "interactions": 580 },
+          { "week": "2026-W19", "interactions": 720 },
+          { "week": "2026-W20", "interactions": 890 },
+          { "week": "2026-W21", "interactions": 1040 }
+        ]
+      }
+    },
+    {
+      "event_name": "about_page_scroll_depth",
+      "description": "How far users scroll on the About/history page",
+      "related_feature": "Create a page with the history of the pizzaria (#8)",
+      "data": {
+        "total_visits": 3210,
+        "scroll_depth_distribution": [
+          { "depth": "25%", "users": 2890, "percentage": 90.0 },
+          { "depth": "50%", "users": 2250, "percentage": 70.1 },
+          { "depth": "75%", "users": 1540, "percentage": 48.0 },
+          { "depth": "100%", "users": 980, "percentage": 30.5 }
+        ],
+        "avg_time_on_page_seconds": 42.3
+      }
+    },
+    {
+      "event_name": "menu_view_duration",
+      "description": "Time spent viewing the menu page",
+      "related_feature": "Multipage in one setup (#12)",
+      "data": {
+        "total_visits": 9870,
+        "avg_time_seconds": 65.2,
+        "duration_buckets": [
+          { "range": "0-15s", "users": 1200, "percentage": 12.2 },
+          { "range": "15-30s", "users": 2100, "percentage": 21.3 },
+          { "range": "30-60s", "users": 3050, "percentage": 30.9 },
+          { "range": "60-120s", "users": 2340, "percentage": 23.7 },
+          { "range": "120s+", "users": 1180, "percentage": 12.0 }
+        ]
+      }
+    },
+    {
+      "event_name": "choose_page_bounce",
+      "description": "Users who landed on the choose page but left without selecting a mode",
+      "related_feature": "Multipage in one setup (#12)",
+      "data": {
+        "total_landings": 14200,
+        "bounced_without_selection": 4360,
+        "bounce_rate_percentage": 30.7,
+        "weekly_trend": [
+          { "week": "2026-W14", "bounce_rate": 38.2 },
+          { "week": "2026-W15", "bounce_rate": 36.5 },
+          { "week": "2026-W16", "bounce_rate": 34.1 },
+          { "week": "2026-W17", "bounce_rate": 32.8 },
+          { "week": "2026-W18", "bounce_rate": 31.4 },
+          { "week": "2026-W19", "bounce_rate": 30.2 },
+          { "week": "2026-W20", "bounce_rate": 29.1 },
+          { "week": "2026-W21", "bounce_rate": 28.5 }
+        ]
+      }
+    },
+    {
+      "event_name": "navigation_click",
+      "description": "Clicks on nav links in the header",
+      "related_feature": "Migrate site to Vue.js (CDN) (#14)",
+      "data": {
+        "total_clicks": 28400,
+        "breakdown": [
+          { "link": "home", "clicks": 5200 },
+          { "link": "menu", "clicks": 9800 },
+          { "link": "about", "clicks": 3100 },
+          { "link": "findus", "clicks": 4400 },
+          { "link": "switch_style", "clicks": 5900 }
+        ],
+        "device_split": {
+          "desktop": 16200,
+          "mobile": 12200
+        }
+      }
+    },
+    {
+      "event_name": "view_menu_button_click",
+      "description": "Clicks on the 'View Our Menu' CTA button on the home page hero",
+      "related_feature": "Multipage in one setup (#12)",
+      "data": {
+        "total_clicks": 4120,
+        "click_through_rate_percentage": 33.0,
+        "weekly_trend": [
+          { "week": "2026-W14", "clicks": 390 },
+          { "week": "2026-W15", "clicks": 420 },
+          { "week": "2026-W16", "clicks": 445 },
+          { "week": "2026-W17", "clicks": 480 },
+          { "week": "2026-W18", "clicks": 510 },
+          { "week": "2026-W19", "clicks": 550 },
+          { "week": "2026-W20", "clicks": 610 },
+          { "week": "2026-W21", "clicks": 715 }
+        ]
+      }
+    },
+    {
+      "event_name": "gallery_page_view",
+      "description": "User visited the Gallery page",
+      "related_feature": "Add photo gallery of pizzas (#20)",
+      "data": {
+        "total_views": 3420,
+        "unique_visitors": 2180,
+        "weekly_trend": [
+          { "week": "2026-W22", "views": 780 },
+          { "week": "2026-W23", "views": 920 },
+          { "week": "2026-W24", "views": 1720 }
+        ]
+      }
+    },
+    {
+      "event_name": "gallery_lightbox_open",
+      "description": "User clicked a photo to open the lightbox viewer",
+      "related_feature": "Add photo gallery of pizzas (#20)",
+      "data": {
+        "total_opens": 5640,
+        "unique_users": 1720,
+        "avg_photos_viewed_per_session": 3.3,
+        "most_viewed_photos": [
+          { "alt": "Margherita with fresh basil", "opens": 980 },
+          { "alt": "Classic pepperoni", "opens": 870 },
+          { "alt": "Our coal-fired oven", "opens": 820 },
+          { "alt": "Fresh pizza from the oven", "opens": 760 }
+        ]
+      }
+    },
+    {
+      "event_name": "potw_card_view",
+      "description": "User saw the Pizza of the Week card on the home page",
+      "related_feature": "Add Pizza of the Week highlight (#22)",
+      "data": {
+        "total_impressions": 8200,
+        "unique_viewers": 3950,
+        "weekly_trend": [
+          { "week": "2026-W23", "impressions": 3100 },
+          { "week": "2026-W24", "impressions": 5100 }
+        ]
+      }
+    },
+    {
+      "event_name": "hamburger_menu_toggle",
+      "description": "User tapped the hamburger menu icon on mobile",
+      "related_feature": "Add mobile hamburger menu (#24)",
+      "data": {
+        "total_toggles": 4280,
+        "unique_users": 1890,
+        "open_count": 3150,
+        "close_via_x": 980,
+        "close_via_overlay": 1420,
+        "close_via_nav_click": 750,
+        "weekly_trend": [
+          { "week": "2026-W23", "toggles": 1650 },
+          { "week": "2026-W24", "toggles": 2630 }
+        ]
+      }
+    },
+    {
+      "event_name": "testimonial_scroll_into_view",
+      "description": "User scrolled to the testimonials section on the home page",
+      "related_feature": "Add customer testimonials section (#25)",
+      "data": {
+        "total_impressions": 6100,
+        "unique_viewers": 3200,
+        "avg_time_visible_seconds": 8.7,
+        "scroll_past_rate_percentage": 72.4
+      }
+    },
+    {
+      "event_name": "social_link_click",
+      "description": "User clicked a social media icon in the footer",
+      "related_feature": "Add social media links and Instagram feed (#29)",
+      "data": {
+        "total_clicks": 2840,
+        "unique_users": 1620,
+        "breakdown": [
+          { "platform": "instagram", "clicks": 1480 },
+          { "platform": "facebook", "clicks": 820 },
+          { "platform": "tripadvisor", "clicks": 540 }
+        ],
+        "weekly_trend": [
+          { "week": "2026-W22", "clicks": 420 },
+          { "week": "2026-W23", "clicks": 610 },
+          { "week": "2026-W24", "clicks": 810 },
+          { "week": "2026-W25", "clicks": 340 },
+          { "week": "2026-W26", "clicks": 360 },
+          { "week": "2026-W27", "clicks": 300 }
+        ]
+      }
+    },
+    {
+      "event_name": "dark_mode_toggle",
+      "description": "User toggled dark/light mode",
+      "related_feature": "Add dark mode toggle (#21)",
+      "data": {
+        "total_toggles": 2180,
+        "unique_users": 1450,
+        "breakdown": [
+          { "to": "dark", "count": 1340 },
+          { "to": "light", "count": 840 }
+        ],
+        "weekly_trend": [
+          { "week": "2026-W25", "toggles": 680 },
+          { "week": "2026-W26", "toggles": 780 },
+          { "week": "2026-W27", "toggles": 720 }
+        ]
+      }
+    },
+    {
+      "event_name": "print_menu_click",
+      "description": "User clicked the Print Menu button",
+      "related_feature": "Add print-friendly menu (#26)",
+      "data": {
+        "total_clicks": 342,
+        "unique_users": 298,
+        "weekly_trend": [
+          { "week": "2026-W25", "clicks": 95 },
+          { "week": "2026-W26", "clicks": 118 },
+          { "week": "2026-W27", "clicks": 129 }
+        ]
+      }
+    },
+    {
+      "event_name": "events_page_view",
+      "description": "User visited the Events page",
+      "related_feature": "Add event calendar (#27)",
+      "data": {
+        "total_views": 1890,
+        "unique_visitors": 1240,
+        "avg_time_on_page_seconds": 34.2,
+        "weekly_trend": [
+          { "week": "2026-W25", "views": 520 },
+          { "week": "2026-W26", "views": 640 },
+          { "week": "2026-W27", "views": 730 }
+        ]
+      }
+    },
+    {
+      "event_name": "event_show_past_toggle",
+      "description": "User clicked Show/Hide past events toggle on the Events page",
+      "related_feature": "Add event calendar (#27)",
+      "data": {
+        "total_toggles": 410,
+        "unique_users": 320,
+        "weekly_trend": [
+          { "week": "2026-W25", "toggles": 105 },
+          { "week": "2026-W26", "toggles": 140 },
+          { "week": "2026-W27", "toggles": 165 }
+        ]
+      }
+    },
+    {
+      "event_name": "contact_form_submit",
+      "description": "User submitted the contact form",
+      "related_feature": "Add contact form (#23)",
+      "data": {
+        "total_submissions": 89,
+        "unique_users": 82,
+        "success_rate_percentage": 94.4,
+        "weekly_trend": [
+          { "week": "2026-W25", "submissions": 24 },
+          { "week": "2026-W26", "submissions": 31 },
+          { "week": "2026-W27", "submissions": 34 }
+        ]
+      }
+    },
+    {
+      "event_name": "builder_page_view",
+      "description": "User visited the Pizza Builder page",
+      "related_feature": "Add interactive pizza builder preview (#28)",
+      "data": {
+        "total_views": 2640,
+        "unique_visitors": 1780,
+        "avg_time_on_page_seconds": 92.5,
+        "weekly_trend": [
+          { "week": "2026-W25", "views": 780 },
+          { "week": "2026-W26", "views": 890 },
+          { "week": "2026-W27", "views": 970 }
+        ]
+      }
+    },
+    {
+      "event_name": "allergen_filter_usage",
+      "description": "User activated an allergen filter on the menu page",
+      "related_feature": "Add allergen & dietary filter on menu (#41)",
+      "data": {
+        "total_filter_activations": 1420,
+        "unique_users": 890,
+        "filter_usage_rate_percentage": 22.8,
+        "breakdown": [
+          { "allergen": "gluten", "activations": 480 },
+          { "allergen": "dairy", "activations": 520 },
+          { "allergen": "nuts", "activations": 310 },
+          { "allergen": "soy", "activations": 110 }
+        ],
+        "multi_filter_sessions": 340,
+        "avg_filters_per_session": 1.4,
+        "weekly_trend": [
+          { "week": "2026-W25", "activations": 380 },
+          { "week": "2026-W26", "activations": 480 },
+          { "week": "2026-W27", "activations": 560 }
+        ]
+      }
+    },
+    {
+      "event_name": "menu_session_duration_with_filters",
+      "description": "Menu page session duration comparing users who use allergen filters vs those who don't",
+      "related_feature": "Add allergen & dietary filter on menu (#41)",
+      "data": {
+        "with_filters": {
+          "sessions": 890,
+          "avg_time_seconds": 48.3,
+          "bounce_rate_percentage": 12.1
+        },
+        "without_filters": {
+          "sessions": 3020,
+          "avg_time_seconds": 38.7,
+          "bounce_rate_percentage": 24.6
+        },
+        "improvement": {
+          "session_duration_increase_percentage": 24.8,
+          "bounce_rate_reduction_percentage": 50.8
+        }
+      }
+    },
+    {
+      "event_name": "feature_toggle_change",
+      "description": "User toggled a feature on/off on the Features page",
+      "related_feature": "Add feature toggles page (#83)",
+      "data": {
+        "total_toggles": 245,
+        "unique_users": 142,
+        "most_toggled_off": [
+          { "feature": "builder", "off_count": 68 },
+          { "feature": "testimonials", "off_count": 52 },
+          { "feature": "socials", "off_count": 45 }
+        ],
+        "weekly_trend": [
+          { "week": "2026-W25", "toggles": 72 },
+          { "week": "2026-W26", "toggles": 88 },
+          { "week": "2026-W27", "toggles": 85 }
+        ]
+      }
+    }
+  ],
+  "visitor_summary": {
+    "total_unique_visitors": 9850,
+    "total_sessions": 38200,
+    "avg_session_duration_seconds": 156.8,
+    "avg_pages_per_session": 4.2,
+    "device_breakdown": {
+      "desktop": 3940,
+      "mobile": 5120,
+      "tablet": 790
+    },
+    "top_referrers": [
+      { "source": "google", "visitors": 4120 },
+      { "source": "direct", "visitors": 2680 },
+      { "source": "instagram", "visitors": 1740 },
+      { "source": "facebook", "visitors": 820 },
+      { "source": "tripadvisor", "visitors": 490 }
+    ]
+  }
+}

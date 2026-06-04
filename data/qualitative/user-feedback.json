@@ -1,0 +1,548 @@
+{
+  "export_metadata": {
+    "source": "User Feedback Collection",
+    "exported_at": "2026-07-02T08:00:00Z",
+    "period": {
+      "start": "2026-03-15",
+      "end": "2026-07-01"
+    },
+    "channels": ["in-store comment cards", "Google Reviews", "Instagram DMs", "staff observations"]
+  },
+  "feedback": [
+    {
+      "id": "FB-001",
+      "date": "2026-03-18",
+      "channel": "Google Reviews",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "Love that you have a full vegan menu! Most pizza places just throw one option on the menu as an afterthought. The separate experience feels premium.",
+      "related_feature": "Multipage in one setup (#12)"
+    },
+    {
+      "id": "FB-002",
+      "date": "2026-03-22",
+      "channel": "in-store comment cards",
+      "sentiment": "negative",
+      "category": "didnt_like",
+      "text": "The website looks nice but I couldn't figure out how to actually order online. Ended up calling instead.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-003",
+      "date": "2026-03-25",
+      "channel": "Instagram DMs",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "The map on your site is really handy! Found you easily on my first visit. Nice touch with the popup showing the address.",
+      "related_feature": "Add interactive map on Find Us page (#16)"
+    },
+    {
+      "id": "FB-004",
+      "date": "2026-03-28",
+      "channel": "staff observations",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "Customer at table 4 asked if we have photos of the pizzas on the website. She wanted to show her friend what to expect. I told her not yet.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-005",
+      "date": "2026-04-02",
+      "channel": "Google Reviews",
+      "sentiment": "negative",
+      "category": "didnt_like",
+      "text": "Tried to check the menu on my phone while on the bus but had no signal. Would be nice if the site worked offline somehow.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-006",
+      "date": "2026-04-05",
+      "channel": "in-store comment cards",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "My Danish isn't great so I really appreciate the English option on the website! Made it so easy to read the menu before coming in.",
+      "related_feature": "Implement language switching (#10)"
+    },
+    {
+      "id": "FB-007",
+      "date": "2026-04-08",
+      "channel": "Instagram DMs",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "Do you guys have any deals or a pizza of the week? Would love something to look forward to each time I visit your site.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-008",
+      "date": "2026-04-11",
+      "channel": "staff observations",
+      "sentiment": "negative",
+      "category": "didnt_like",
+      "text": "Group of tourists at table 7 couldn't navigate the site on their phones. They said the menu was hard to tap and the nav was confusing on a small screen.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-009",
+      "date": "2026-04-14",
+      "channel": "Google Reviews",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "Charming story on the About page. Love learning about the family history. Made me feel connected to the place before I even walked in.",
+      "related_feature": "Create a page with the history of the pizzaria (#8)"
+    },
+    {
+      "id": "FB-010",
+      "date": "2026-04-17",
+      "channel": "in-store comment cards",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "Would be great if you had customer reviews on your website. I always check reviews before trying a new restaurant.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-011",
+      "date": "2026-04-19",
+      "channel": "Instagram DMs",
+      "sentiment": "negative",
+      "category": "didnt_like",
+      "text": "I have a nut allergy and couldn't tell which pizzas are safe from your menu. Had to call and ask. Please add allergen info!",
+      "related_feature": null
+    },
+    {
+      "id": "FB-012",
+      "date": "2026-04-22",
+      "channel": "staff observations",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "Regular customer Marco mentioned he checks the site every week. Said the vegan section convinced his daughter to try us — she's now a regular too.",
+      "related_feature": "Multipage in one setup (#12)"
+    },
+    {
+      "id": "FB-013",
+      "date": "2026-04-25",
+      "channel": "Google Reviews",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "Nice website but there's no way to contact you other than calling. Would be handy to have a contact form for questions about catering.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-014",
+      "date": "2026-04-28",
+      "channel": "in-store comment cards",
+      "sentiment": "negative",
+      "category": "didnt_like",
+      "text": "The site was hard to read at night on my phone. Too bright. A dark mode would be appreciated.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-015",
+      "date": "2026-05-01",
+      "channel": "Instagram DMs",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "Just discovered you can switch between classic and vegan! My partner and I always argue about this — now we can each browse our own menu. Genius.",
+      "related_feature": "Multipage in one setup (#12)"
+    },
+    {
+      "id": "FB-016",
+      "date": "2026-05-03",
+      "channel": "staff observations",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "A family with a wheelchair user struggled to find accessibility info on the site. They asked if we have step-free access and couldn't find it online.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-017",
+      "date": "2026-05-06",
+      "channel": "Google Reviews",
+      "sentiment": "negative",
+      "category": "didnt_like",
+      "text": "When I share the link to friends on WhatsApp it just shows a plain URL with no preview image or description. Looks dodgy compared to other restaurants.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-018",
+      "date": "2026-05-09",
+      "channel": "in-store comment cards",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "It would be fun if you had some kind of game or quiz on the site. My kids always grab my phone while we wait for the food.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-019",
+      "date": "2026-05-12",
+      "channel": "Instagram DMs",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "The font is really clean and easy to read. Way better than those fancy cursive fonts other restaurants use that I can never decipher.",
+      "related_feature": "Change the font styling to not use serifs (#5)"
+    },
+    {
+      "id": "FB-020",
+      "date": "2026-05-14",
+      "channel": "staff observations",
+      "sentiment": "negative",
+      "category": "didnt_like",
+      "text": "Overheard a couple at table 2 complaining they wanted to see what the pizzas actually look like. 'How can they not have photos?' they said.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-021",
+      "date": "2026-05-17",
+      "channel": "Google Reviews",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "Would love to know about events and live music ahead of time. Maybe an events page? I only found out about Friday open-mic by accident.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-022",
+      "date": "2026-05-19",
+      "channel": "in-store comment cards",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "The directions on the Find Us page saying 5 mins from Central Station was spot on. Found you without Google Maps!",
+      "related_feature": "Add interactive map on Find Us page (#16)"
+    },
+    {
+      "id": "FB-023",
+      "date": "2026-05-21",
+      "channel": "Instagram DMs",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "Do you deliver? I couldn't find any info about delivery zones on your site. We're just on Istedgade, would love to order from home.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-024",
+      "date": "2026-05-23",
+      "channel": "staff observations",
+      "sentiment": "negative",
+      "category": "didnt_like",
+      "text": "Table 9 tried to print the menu from the website to bring to a party planning session. Said it came out looking awful with all the navigation and colors.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-025",
+      "date": "2026-05-26",
+      "channel": "Google Reviews",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "Cool name btw. Cool Pizza. Makes me smile every time. The whole site has a nice modern vibe without being pretentious.",
+      "related_feature": "Change the name to Cool Pizza (#18)"
+    },
+    {
+      "id": "FB-026",
+      "date": "2026-05-27",
+      "channel": "in-store comment cards",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "My friend recommended this place but when I looked up 'Cool Pizza Copenhagen' nothing came up on Google. Only found it through the direct link she sent.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-027",
+      "date": "2026-05-28",
+      "channel": "Instagram DMs",
+      "sentiment": "negative",
+      "category": "didnt_like",
+      "text": "I'm visually impaired and use a screen reader. The site is mostly okay but some buttons don't have labels and the page changes don't announce properly.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-028",
+      "date": "2026-05-31",
+      "channel": "Google Reviews",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "The photo gallery is great! Finally I can show my colleagues what the pizzas look like. The truffle one looks amazing — definitely ordering that next time.",
+      "related_feature": "Add photo gallery of pizzas (#20)"
+    },
+    {
+      "id": "FB-029",
+      "date": "2026-06-01",
+      "channel": "staff observations",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "Multiple customers this week mentioned they saw the Pizza of the Week on the website before coming in. Two specifically asked for the Tartufo Bianco.",
+      "related_feature": "Add Pizza of the Week highlight (#22)"
+    },
+    {
+      "id": "FB-030",
+      "date": "2026-06-02",
+      "channel": "Instagram DMs",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "Love that I can tap the hamburger menu now! Before it was impossible to navigate on my phone without accidentally tapping the wrong link. So much better.",
+      "related_feature": "Add mobile hamburger menu (#24)"
+    },
+    {
+      "id": "FB-031",
+      "date": "2026-06-03",
+      "channel": "in-store comment cards",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "The gallery photos are nice but they all look the same — just the pizza. Would love to see photos of the restaurant interior, the staff, or people enjoying the food.",
+      "related_feature": "Add photo gallery of pizzas (#20)"
+    },
+    {
+      "id": "FB-032",
+      "date": "2026-06-04",
+      "channel": "Google Reviews",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "Clicked through to your Instagram from the website. Great feed! Makes me want to follow and see what's cooking each day. Smart to put those links in the footer.",
+      "related_feature": "Add social media links and Instagram feed (#29)"
+    },
+    {
+      "id": "FB-033",
+      "date": "2026-06-05",
+      "channel": "staff observations",
+      "sentiment": "negative",
+      "category": "didnt_like",
+      "text": "Customer asked why the Pizza of the Week hasn't changed in over a week. They expected it to update every Monday. We need a process for keeping this fresh.",
+      "related_feature": "Add Pizza of the Week highlight (#22)"
+    },
+    {
+      "id": "FB-034",
+      "date": "2026-06-06",
+      "channel": "Instagram DMs",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "The testimonials on the home page convinced me to try you guys. When I saw that other people praised the vegan menu, I knew I had to check it out. Wasn't disappointed!",
+      "related_feature": "Add customer testimonials section (#25)"
+    },
+    {
+      "id": "FB-035",
+      "date": "2026-06-07",
+      "channel": "in-store comment cards",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "Tried to zoom in on a gallery photo on my phone to see the toppings more clearly but the lightbox image was still pretty small. Pinch to zoom would be nice.",
+      "related_feature": "Add photo gallery of pizzas (#20)"
+    },
+    {
+      "id": "FB-036",
+      "date": "2026-06-08",
+      "channel": "Google Reviews",
+      "sentiment": "negative",
+      "category": "didnt_like",
+      "text": "The hamburger menu is fine but when I open it, I can still scroll the page behind it. Feels janky. Also the menu covers the language toggle on desktop when I resize my browser.",
+      "related_feature": "Add mobile hamburger menu (#24)"
+    },
+    {
+      "id": "FB-037",
+      "date": "2026-06-09",
+      "channel": "staff observations",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "A couple at table 6 said they found us through the Instagram link on someone else's share of our site. The social links are driving word-of-mouth.",
+      "related_feature": "Add social media links and Instagram feed (#29)"
+    },
+    {
+      "id": "FB-038",
+      "date": "2026-06-10",
+      "channel": "Instagram DMs",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "Could you add a way to share a specific gallery photo directly to Instagram stories? I wanted to show my friends the truffle pizza but had to screenshot instead.",
+      "related_feature": "Add photo gallery of pizzas (#20)"
+    },
+    {
+      "id": "FB-039",
+      "date": "2026-06-11",
+      "channel": "in-store comment cards",
+      "sentiment": "negative",
+      "category": "didnt_like",
+      "text": "The testimonials section only shows 5 reviews and they're all positive. Feels a bit fake honestly. Real restaurants have some mixed feedback too.",
+      "related_feature": "Add customer testimonials section (#25)"
+    },
+    {
+      "id": "FB-040",
+      "date": "2026-06-14",
+      "channel": "Google Reviews",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "The dark mode is a lifesaver! I always check the menu late at night when planning tomorrow's lunch and the bright white screen used to blind me. Love it.",
+      "related_feature": "Add dark mode toggle (#21)"
+    },
+    {
+      "id": "FB-041",
+      "date": "2026-06-16",
+      "channel": "in-store comment cards",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "My daughter has a dairy allergy and the new filter on your menu is AMAZING. We could instantly see what's safe. First time we didn't have to ask the waiter about every single item.",
+      "related_feature": "Add allergen & dietary filter on menu (#41)"
+    },
+    {
+      "id": "FB-042",
+      "date": "2026-06-17",
+      "channel": "Instagram DMs",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "The allergen filter is great but I wish there was an egg allergy option too. Some of the doughs use egg and I can't tell from the current tags.",
+      "related_feature": "Add allergen & dietary filter on menu (#41)"
+    },
+    {
+      "id": "FB-043",
+      "date": "2026-06-19",
+      "channel": "staff observations",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "Table 3 printed the menu from the website to plan their office pizza order. Said the printout looked clean and professional. They ordered 8 pizzas.",
+      "related_feature": "Add print-friendly menu (#26)"
+    },
+    {
+      "id": "FB-044",
+      "date": "2026-06-20",
+      "channel": "Google Reviews",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "Found out about the Friday open-mic through your events page! Brought my guitar and had a blast. Please keep that page updated — I check it every week now.",
+      "related_feature": "Add event calendar (#27)"
+    },
+    {
+      "id": "FB-045",
+      "date": "2026-06-21",
+      "channel": "in-store comment cards",
+      "sentiment": "negative",
+      "category": "didnt_like",
+      "text": "I used the contact form to ask about catering last week but never got a reply. Is anyone actually reading those messages?",
+      "related_feature": "Add contact form (#23)"
+    },
+    {
+      "id": "FB-046",
+      "date": "2026-06-23",
+      "channel": "Instagram DMs",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "My kids spent 10 minutes on the pizza builder deciding what they want. It actually made the wait for a table fun instead of chaotic. Smart feature!",
+      "related_feature": "Add interactive pizza builder preview (#28)"
+    },
+    {
+      "id": "FB-047",
+      "date": "2026-06-24",
+      "channel": "staff observations",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "A customer at table 11 showed me the allergen filter on her phone. She said she's been to 3 other pizza places in Copenhagen and none have this. Called it 'how it should be everywhere'.",
+      "related_feature": "Add allergen & dietary filter on menu (#41)"
+    },
+    {
+      "id": "FB-048",
+      "date": "2026-06-25",
+      "channel": "Google Reviews",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "The events page is nice but I'd love to get a notification or email when new events are posted. I keep forgetting to check.",
+      "related_feature": "Add event calendar (#27)"
+    },
+    {
+      "id": "FB-049",
+      "date": "2026-06-26",
+      "channel": "in-store comment cards",
+      "sentiment": "negative",
+      "category": "didnt_like",
+      "text": "Tried to use the allergen filter for 'gluten free' options but literally everything disappeared except the drinks. Is there really nothing gluten-free to eat here?",
+      "related_feature": "Add allergen & dietary filter on menu (#41)"
+    },
+    {
+      "id": "FB-050",
+      "date": "2026-06-27",
+      "channel": "Instagram DMs",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "The events page convinced my flatmates to come for the charity night. We ended up being 6 people who wouldn't have known about it otherwise. Great initiative!",
+      "related_feature": "Add event calendar (#27)"
+    },
+    {
+      "id": "FB-051",
+      "date": "2026-06-28",
+      "channel": "staff observations",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "Multiple customers this week asked if we could add their pizza to some kind of favourites list. They want to remember what they ordered last time.",
+      "related_feature": null
+    },
+    {
+      "id": "FB-052",
+      "date": "2026-06-29",
+      "channel": "Google Reviews",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "Printed the menu to bring to a birthday party planning session. Everyone could see the options and vote. The fact that it came out looking nice (no website junk) was a big plus.",
+      "related_feature": "Add print-friendly menu (#26)"
+    },
+    {
+      "id": "FB-053",
+      "date": "2026-06-30",
+      "channel": "in-store comment cards",
+      "sentiment": "negative",
+      "category": "didnt_like",
+      "text": "The pizza builder is fun but misleading — my kid thought she was actually ordering when she pressed buttons. Maybe make it clearer it's just for fun.",
+      "related_feature": "Add interactive pizza builder preview (#28)"
+    },
+    {
+      "id": "FB-054",
+      "date": "2026-07-01",
+      "channel": "Instagram DMs",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "I use the nut filter every time but I'm never sure if 'may contain traces' is covered or just direct ingredients. Could you clarify that somewhere on the filter?",
+      "related_feature": "Add allergen & dietary filter on menu (#41)"
+    }
+  ],
+  "summary": {
+    "total_entries": 54,
+    "by_sentiment": {
+      "positive": 24,
+      "negative": 14,
+      "neutral": 16
+    },
+    "by_category": {
+      "liked": 24,
+      "didnt_like": 14,
+      "missed": 16
+    },
+    "top_themes_liked": [
+      "Allergen filter safety/confidence",
+      "Events page driving footfall",
+      "Vegan/classic dual mode",
+      "Photo gallery",
+      "Pizza of the Week driving orders",
+      "Hamburger menu mobile UX",
+      "Social media links driving discovery",
+      "Testimonials building trust",
+      "Language switching",
+      "Interactive map",
+      "About page story",
+      "Clean font/modern design"
+    ],
+    "top_themes_didnt_like": [
+      "No online ordering",
+      "No offline access",
+      "Pizza of the Week not updating frequently",
+      "Hamburger menu scroll-behind bug",
+      "No dark mode",
+      "No allergen info",
+      "Bad social sharing preview",
+      "Screen reader issues",
+      "Testimonials feel curated/fake"
+    ],
+    "top_themes_missed": [
+      "Restaurant/people photos in gallery",
+      "Share gallery photos to social",
+      "Pinch-to-zoom on lightbox",
+      "Contact form",
+      "Events/calendar",
+      "Delivery info",
+      "Kids entertainment/games",
+      "Accessibility info",
+      "SEO/discoverability"
+    ]
+  }
+}
