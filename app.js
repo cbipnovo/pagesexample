@@ -1,7 +1,7 @@
 const { createApp, ref, reactive, computed, onMounted, watch, nextTick } = Vue;
 
 const translations = {
-    nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, builder: { da: 'Byg pizza', en: 'Build Pizza' }, gallery: { da: 'Galleri', en: 'Gallery' }, events: { da: 'Events', en: 'Events' }, about: { da: 'Om os', en: 'About' }, contact: { da: 'Kontakt', en: 'Contact' }, findUs: { da: 'Find os', en: 'Find Us' }, features: { da: 'Funktioner', en: 'Features' } },
+    nav: { home: { da: 'Hjem', en: 'Home' }, menu: { da: 'Menu', en: 'Menu' }, builder: { da: 'Byg pizza', en: 'Build Pizza' }, gallery: { da: 'Galleri', en: 'Gallery' }, events: { da: 'Events', en: 'Events' }, about: { da: 'Om os', en: 'About' }, contact: { da: 'Kontakt', en: 'Contact' }, findUs: { da: 'Find os', en: 'Find Us' }, favourites: { da: 'Favoritter', en: 'Favourites' }, features: { da: 'Funktioner', en: 'Features' } },
     choose: {
         title: { da: 'Cool Pizza', en: 'Cool Pizza' },
         subtitle: { da: 'Vælg din oplevelse', en: 'Choose your experience' },
@@ -85,6 +85,16 @@ const translations = {
         preview: { da: 'Din pizza', en: 'Your Pizza' },
         reset: { da: 'Start forfra', en: 'Start Over' },
         note: { da: 'Kun til sjov — ingen bestilling. Kom forbi og bestil din drømmepizza!', en: 'For fun only — no ordering. Come visit and order your dream pizza!' },
+    },
+    favourites: {
+        title: { da: 'Mine favoritter', en: 'My Picks' },
+        subtitle: { da: 'Dine gemte favoritter fra menuen', en: 'Your saved favourites from the menu' },
+        empty: { da: 'Du har ingen favoritter endnu. Gå til menuen og tryk ❤️ for at gemme dine yndlingsretter!', en: "You haven't saved any favourites yet. Head to the menu and tap ❤️ to save your favourite items!" },
+        remove: { da: 'Fjern', en: 'Remove' },
+        clearAll: { da: 'Ryd alle', en: 'Clear all' },
+        addedToast: { da: 'Tilføjet til favoritter', en: 'Added to favourites' },
+        removedToast: { da: 'Fjernet fra favoritter', en: 'Removed from favourites' },
+        nav: { da: 'Favoritter', en: 'Favourites' },
     },
     features: {
         title: { da: 'Funktioner', en: 'Features' },
@@ -214,7 +224,7 @@ createApp({
         function navigate(p) {
             page.value = p;
             mobileMenuOpen.value = false;
-            if (p === 'menu') loadMenu();
+            if (p === 'menu' || p === 'favourites') loadMenu();
             if (p === 'findus') {
                 nextTick(() => { initMap(); });
             }
@@ -399,6 +409,7 @@ createApp({
             { key: 'allergenFilter', issue: 41, name: { da: 'Allergenfilter', en: 'Allergen Filter' }, description: { da: 'Filtrer menuen efter allergener', en: 'Filter menu by allergens' } },
             { key: 'keyboardNav', issue: 46, name: { da: 'Tastaturnavigation', en: 'Keyboard Navigation' }, description: { da: 'Fokusindikatorer og tastaturnavigation', en: 'Focus indicators and keyboard navigation' } },
             { key: 'highContrast', issue: 48, name: { da: 'Høj kontrast', en: 'High Contrast' }, description: { da: 'Høj kontrast-tilstand for svagtseende', en: 'High-contrast mode for low vision users' } },
+            { key: 'favourites', issue: 39, name: { da: 'Favoritter', en: 'Favourites' }, description: { da: 'Gem og se dine yndlingsretter fra menuen', en: 'Save and view your favourite menu items' } },
         ];
 
         const savedFeatures = JSON.parse(localStorage.getItem('pizza2-features') || '{}');
@@ -416,6 +427,57 @@ createApp({
             if (!featureEnabled(page.value)) {
                 page.value = 'home';
             }
+        }
+
+        // Favourites / Wishlist
+        const favourites = ref(JSON.parse(localStorage.getItem('pizza2-favourites') || '[]'));
+        const favouriteToast = ref(null);
+        let favouriteToastTimeout = null;
+
+        function isFavourite(itemName, menuMode) {
+            return favourites.value.some(f => f.name === itemName && f.mode === menuMode);
+        }
+
+        function toggleFavourite(item, sectionName) {
+            const idx = favourites.value.findIndex(f => f.name === item.name && f.mode === mode.value);
+            if (idx >= 0) {
+                favourites.value.splice(idx, 1);
+                showFavouriteToast('removed');
+            } else {
+                favourites.value.push({
+                    name: item.name,
+                    description: item.description,
+                    prices: item.prices,
+                    allergens: item.allergens,
+                    section: sectionName,
+                    mode: mode.value,
+                    addedAt: new Date().toISOString(),
+                });
+                showFavouriteToast('added');
+            }
+            localStorage.setItem('pizza2-favourites', JSON.stringify(favourites.value));
+        }
+
+        function removeFavourite(index) {
+            favourites.value.splice(index, 1);
+            localStorage.setItem('pizza2-favourites', JSON.stringify(favourites.value));
+        }
+
+        function clearFavourites() {
+            favourites.value = [];
+            localStorage.setItem('pizza2-favourites', JSON.stringify(favourites.value));
+        }
+
+        const currentFavourites = computed(() => {
+            return favourites.value.filter(f => f.mode === mode.value);
+        });
+
+        const favouriteCount = computed(() => currentFavourites.value.length);
+
+        function showFavouriteToast(type) {
+            if (favouriteToastTimeout) clearTimeout(favouriteToastTimeout);
+            favouriteToast.value = type;
+            favouriteToastTimeout = setTimeout(() => { favouriteToast.value = null; }, 2000);
         }
 
         // Pizza Builder
@@ -575,7 +637,7 @@ createApp({
 
         function printMenu() { window.print(); }
 
-        return { page, mode, lang, menuData, menuFilters, filteredMenuData, allergenList, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, highContrast, contactForm, contactStatus, copied, shareUrl, zoomLevel, pizzaBuilder, builderIngredients, builderSizes, builderToppingPositions, featureRegistry, featureStates, eventsData, showPastEvents, upcomingEvents, pastEvents, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, onLightboxWheel, onLightboxTouchStart, onLightboxTouchMove, onLightboxDblClick, toggleMobileMenu, closeMobileMenu, toggleDarkMode, toggleHighContrast, submitContact, builderFilteredIngredients, builderPrice, builderToggleTopping, builderReset, featureEnabled, toggleFeature, printMenu, toggleMenuFilter, clearMenuFilters, eventTypeIcon, formatEventDate };
+        return { page, mode, lang, menuData, menuFilters, filteredMenuData, allergenList, testimonials, testimonialsUpdated, galleryPhotos, filteredPhotos, galleryFilter, lightboxPhoto, pizzaOfTheWeek, mobileMenuOpen, darkMode, highContrast, contactForm, contactStatus, copied, shareUrl, zoomLevel, pizzaBuilder, builderIngredients, builderSizes, builderToppingPositions, featureRegistry, featureStates, eventsData, showPastEvents, upcomingEvents, pastEvents, favourites, favouriteToast, currentFavourites, favouriteCount, t, relativeDate, navigate, selectMode, toggleLang, backToChoose, openLightbox, closeLightbox, copyShareLink, onLightboxWheel, onLightboxTouchStart, onLightboxTouchMove, onLightboxDblClick, toggleMobileMenu, closeMobileMenu, toggleDarkMode, toggleHighContrast, submitContact, builderFilteredIngredients, builderPrice, builderToggleTopping, builderReset, featureEnabled, toggleFeature, printMenu, toggleMenuFilter, clearMenuFilters, eventTypeIcon, formatEventDate, isFavourite, toggleFavourite, removeFavourite, clearFavourites };
     },
 
     template: `
@@ -611,6 +673,7 @@ createApp({
                         <li v-if="featureEnabled('builder')"><a :class="{ active: page === 'builder' }" @click.prevent="navigate('builder')">{{ t('nav.builder') }}</a></li>
                         <li v-if="featureEnabled('gallery')"><a :class="{ active: page === 'gallery' }" @click.prevent="navigate('gallery')">{{ t('nav.gallery') }}</a></li>
                         <li v-if="featureEnabled('events')"><a :class="{ active: page === 'events' }" @click.prevent="navigate('events')">{{ t('nav.events') }}</a></li>
+                        <li v-if="featureEnabled('favourites')"><a :class="{ active: page === 'favourites' }" @click.prevent="navigate('favourites')">{{ t('nav.favourites') }} <span v-if="favouriteCount" class="fav-badge-nav">{{ favouriteCount }}</span></a></li>
                         <li><a :class="{ active: page === 'about' }" @click.prevent="navigate('about')">{{ t('nav.about') }}</a></li>
                         <li v-if="featureEnabled('contact')"><a :class="{ active: page === 'contact' }" @click.prevent="navigate('contact')">{{ t('nav.contact') }}</a></li>
                         <li v-if="featureEnabled('findus')"><a :class="{ active: page === 'findus' }" @click.prevent="navigate('findus')">{{ t('nav.findUs') }}</a></li>
@@ -701,8 +764,13 @@ createApp({
                                     <div v-for="item in section.items" :key="item.name" class="menu-item">
                                         <div class="menu-item-header">
                                             <h3 class="menu-item-name">{{ item.name }}</h3>
-                                            <div class="menu-item-prices">
-                                                <span v-for="(price, i) in item.prices" :key="i" class="menu-price">{{ price }}</span>
+                                            <div class="menu-item-actions">
+                                                <button v-if="featureEnabled('favourites')" class="fav-btn" :class="{ active: isFavourite(item.name, mode) }" @click="toggleFavourite(item, section.name[lang])" :aria-label="isFavourite(item.name, mode) ? (lang === 'da' ? 'Fjern fra favoritter' : 'Remove from favourites') : (lang === 'da' ? 'Tilføj til favoritter' : 'Add to favourites')">
+                                                    <span class="fav-heart">{{ isFavourite(item.name, mode) ? '❤️' : '🤍' }}</span>
+                                                </button>
+                                                <div class="menu-item-prices">
+                                                    <span v-for="(price, i) in item.prices" :key="i" class="menu-price">{{ price }}</span>
+                                                </div>
                                             </div>
                                         </div>
                                         <p class="menu-item-desc">{{ item.description[lang] }}</p>
@@ -807,6 +875,41 @@ createApp({
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </section>
+                </template>
+
+                <!-- Favourites / My Picks -->
+                <template v-if="page === 'favourites' && featureEnabled('favourites')">
+                    <section class="favourites-page">
+                        <h1>{{ t('favourites.title') }}</h1>
+                        <p class="favourites-subtitle">{{ t('favourites.subtitle') }}</p>
+
+                        <div v-if="currentFavourites.length > 0" class="favourites-content">
+                            <div class="favourites-header">
+                                <span class="favourites-count">{{ currentFavourites.length }} {{ currentFavourites.length === 1 ? (lang === 'da' ? 'ret' : 'item') : (lang === 'da' ? 'retter' : 'items') }}</span>
+                                <button class="btn-outline favourites-clear" @click="clearFavourites">{{ t('favourites.clearAll') }}</button>
+                            </div>
+                            <div class="favourites-list">
+                                <div v-for="(fav, index) in currentFavourites" :key="fav.name + fav.mode" class="favourite-card">
+                                    <div class="favourite-info">
+                                        <h3>{{ fav.name }}</h3>
+                                        <p class="favourite-desc">{{ fav.description[lang] }}</p>
+                                        <span class="favourite-section">{{ fav.section }}</span>
+                                    </div>
+                                    <div class="favourite-actions">
+                                        <div class="favourite-prices">
+                                            <span v-for="(price, i) in fav.prices" :key="i" class="menu-price">{{ price }}</span>
+                                        </div>
+                                        <button class="fav-remove-btn" @click="removeFavourite(favourites.indexOf(fav))" :aria-label="t('favourites.remove')">✕</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div v-else class="favourites-empty">
+                            <p>{{ t('favourites.empty') }}</p>
+                            <button class="btn" @click="navigate('menu')">{{ t('home.viewMenu') }}</button>
                         </div>
                     </section>
                 </template>
@@ -968,6 +1071,10 @@ createApp({
                     </section>
                 </template>
             </main>
+
+            <div class="fav-toast" v-if="favouriteToast" :class="favouriteToast">
+                {{ favouriteToast === 'added' ? t('favourites.addedToast') : t('favourites.removedToast') }}
+            </div>
 
             <footer>
                 <div class="social-links" v-if="featureEnabled('socials')">
