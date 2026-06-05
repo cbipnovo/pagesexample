@@ -41,7 +41,7 @@ After merging, generate post-delivery analytics data:
 - Commit directly to main.
 
 ## 3. Create Feature Report
-Generate a report at `claude_reports/feature-{number}-{short-name}.md` with this structure:
+Generate a report at `claude_reports/delivery/feature-{number}-{short-name}.md` with this structure:
 
 1. **Feature Details** — table with Epic, Status, Delivered date, PR link, Description
 2. **Acceptance Criteria** — all items checked off
