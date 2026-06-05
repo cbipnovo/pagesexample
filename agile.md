@@ -310,7 +310,19 @@ Product management reviewed SSO in demo, confirmed it meets acceptance criteria,
 
 ## Product Reports
 
-Two report types support product management decision-making at different stages of the lifecycle. Both are generated on demand by the Product AI and stored alongside the codebase.
+Three report types support product management decision-making at different stages of the lifecycle. They are stored alongside the codebase in `claude_reports/`.
+
+### Feature Delivery Reports (`claude_reports/delivery/feature-{number}-{short-name}.md`)
+
+A feature delivery report is created **once, at delivery time**, as part of the feature delivery lifecycle (step 3). It captures the feature's initial performance snapshot using data generated immediately after launch.
+
+**When created:** Automatically during the delivery lifecycle — not requested separately.
+
+**Purpose:** Documents what was delivered, confirms acceptance criteria were met, and records the feature's first 3 weeks of leading indicator performance.
+
+This report is the baseline. It establishes the initial data point against which future delivery reports can compare.
+
+---
 
 ### Proposals (`claude_reports/proposals/`)
 
@@ -346,9 +358,9 @@ flowchart LR
 
 ---
 
-### Delivery Reports (`claude_reports/delivery/`)
+### Delivery Reports (`claude_reports/delivery/delivery-report-{number}-{short-name}.md`)
 
-A delivery report validates whether a delivered feature is performing against its proposed value and leading indicators. It is a post-delivery health check that product management can request at any time after a feature reaches production.
+A delivery report is an on-demand validation that uses **current** product data to assess whether a delivered feature is still performing against its proposed value. Unlike the feature delivery report (created once at launch), a delivery report can be requested at any point after delivery to get a fresh assessment with up-to-date data.
 
 **When generated:** On demand — product management requests a delivery report for any closed feature they want to validate.
 
@@ -359,10 +371,10 @@ A delivery report validates whether a delivered feature is performing against it
 
 **Structure:**
 1. **Feature details** — epic, status, delivery date, PR link, description.
-2. **Acceptance criteria** — confirmed as met.
-3. **Supporting data (pre-delivery)** — the evidence that originally justified building it.
-4. **Leading indicator results (post-delivery)** — metrics from analytics data, with tables, trends, and interpretation.
-5. **Assessment** — indicators compared to targets with verdicts (✅/❌), overall rating (🟢 green / 🟡 yellow / 🔴 red), and improvement opportunities.
+2. **Leading indicators** — the indicators defined for this feature.
+3. **Current performance** — latest metrics from analytics data, with tables, trends, and interpretation.
+4. **User sentiment** — relevant feedback entries referencing this feature.
+5. **Assessment** — indicators compared to targets with verdicts (✅/❌), overall rating (🟢 green / 🟡 yellow / 🔴 red), and recommended actions.
 
 **Consequences:**
 - A 🟢 green report confirms the feature is delivering value — no action required.

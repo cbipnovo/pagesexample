@@ -40,8 +40,8 @@ After merging, generate post-delivery analytics data:
 - Validate both JSON files after editing.
 - Commit directly to main.
 
-## 3. Create Feature Report
-Generate a report at `claude_reports/delivery/feature-{number}-{short-name}.md` with this structure:
+## 3. Create Feature Delivery Report
+Generate a feature delivery report at `claude_reports/delivery/feature-{number}-{short-name}.md` with this structure:
 
 1. **Feature Details** — table with Epic, Status, Delivered date, PR link, Description
 2. **Acceptance Criteria** — all items checked off
@@ -51,7 +51,11 @@ Generate a report at `claude_reports/delivery/feature-{number}-{short-name}.md` 
 
 When a leading indicator is explicitly "No quantitative leading indicator available", note this in the report and explain the qualitative-only measurement approach.
 
+This report is created once, at delivery time, using the mock data generated in step 2. It captures the feature's initial performance snapshot.
+
 # Product Reports
+
+There are two on-demand report types that product management can request at any time. These are distinct from the **Feature Delivery Report** above (which is generated automatically as part of the delivery lifecycle).
 
 ## When asked for a Proposal
 
@@ -78,23 +82,25 @@ Generate a proposal at `claude_reports/proposals/pm-proposal-{n}.md` (increment 
 
 ## When asked for a Delivery Report
 
-Generate or update a report at `claude_reports/delivery/feature-{number}-{short-name}.md`.
+A delivery report is an on-demand validation check that uses *current* product data to assess whether a delivered feature is still performing against its proposed value. This is different from the Feature Delivery Report (created once at delivery time) — a delivery report can be requested at any point after delivery to get a fresh assessment.
+
+Generate or update a report at `claude_reports/delivery/delivery-report-{number}-{short-name}.md`.
 
 ### Steps:
 1. Identify which delivered feature(s) to assess (ask if ambiguous)
 2. Read the feature's leading indicators from the GitHub issue body
-3. Read `data/quantitative/pendo-data.json` for post-delivery metrics
-4. Read `data/qualitative/user-feedback.json` for user reactions
-5. Generate the delivery report
+3. Read `data/quantitative/pendo-data.json` for current metrics
+4. Read `data/qualitative/user-feedback.json` for current user reactions
+5. Generate the delivery report with a fresh assessment based on current data
 
 ### Structure:
 1. **Feature Details** — table with Epic, Status, Delivered date, PR link, Description
-2. **Acceptance Criteria** — all items checked off
-3. **Supporting Data (Pre-delivery)** — the quantitative + qualitative evidence that justified building it
-4. **Leading Indicator Results (Post-delivery)** — metrics from mock data with tables, trends, and interpretation
-5. **Assessment** — indicators vs targets with verdicts (✅/❌), overall rating (🟢/🟡/🔴), and improvement opportunities
+2. **Leading Indicators** — the indicators defined for this feature
+3. **Current Performance** — latest metrics from analytics data with tables, trends, and interpretation
+4. **User Sentiment** — relevant feedback entries referencing this feature
+5. **Assessment** — indicators vs targets with verdicts (✅/❌), overall rating (🟢/🟡/🔴), and recommended actions
 
 ### Rating guide:
-- 🟢 **Green** — feature delivering expected or above-expected value
-- 🟡 **Yellow** — partial delivery, some indicators below target — may need iteration
+- 🟢 **Green** — feature delivering expected or above-expected value — no action needed
+- 🟡 **Yellow** — partial delivery, some indicators below target — may trigger a follow-up proposal
 - 🔴 **Red** — underperforming against leading indicators — warrants rework or removal
