@@ -548,23 +548,51 @@
       "category": "missed",
       "text": "The high contrast mode is great for reading but the pizza builder looks a bit odd — all the coloured sauce/topping dots become hard to distinguish. Maybe exclude the builder preview from contrast changes?",
       "related_feature": "Add high-contrast mode (#48)"
+    },
+    {
+      "id": "FB-061",
+      "date": "2026-06-12",
+      "channel": "Google Reviews",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "The favourites feature is brilliant! We usually order as a group and now everyone saves their picks beforehand. When we meet up, we just look at everyone's list and decide together. So much faster than scrolling through the whole menu every time.",
+      "related_feature": "Add favourites/wishlist (#39)"
+    },
+    {
+      "id": "FB-062",
+      "date": "2026-06-15",
+      "channel": "staff observations",
+      "sentiment": "positive",
+      "category": "liked",
+      "text": "A regular showed me her 'My Picks' on her phone — she had 6 items saved and said she rotates between them each week. She used to ask us 'what did I have last time?' every visit. Now she just checks her list.",
+      "related_feature": "Add favourites/wishlist (#39)"
+    },
+    {
+      "id": "FB-063",
+      "date": "2026-06-18",
+      "channel": "in-store comment cards",
+      "sentiment": "neutral",
+      "category": "missed",
+      "text": "I saved favourites on my phone but when I checked the site on my laptop they weren't there. Would be nice if favourites synced between devices somehow.",
+      "related_feature": "Add favourites/wishlist (#39)"
     }
   ],
   "summary": {
-    "total_entries": 54,
+    "total_entries": 57,
     "by_sentiment": {
-      "positive": 24,
+      "positive": 26,
       "negative": 14,
-      "neutral": 16
+      "neutral": 17
     },
     "by_category": {
-      "liked": 24,
+      "liked": 26,
       "didnt_like": 14,
-      "missed": 16
+      "missed": 17
     },
     "top_themes_liked": [
       "Allergen filter safety/confidence",
       "Events page driving footfall",
+      "Favourites/wishlist for group planning",
       "Vegan/classic dual mode",
       "Photo gallery",
       "Pizza of the Week driving orders",

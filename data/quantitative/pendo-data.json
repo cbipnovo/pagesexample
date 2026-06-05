@@ -448,6 +448,74 @@
       }
     },
     {
+      "event_name": "favourite_action",
+      "description": "User favourited or unfavourited a menu item",
+      "related_feature": "Add favourites/wishlist (#39)",
+      "data": {
+        "total_actions": 2840,
+        "unique_users": 1120,
+        "breakdown": [
+          { "action": "add", "count": 2180 },
+          { "action": "remove", "count": 660 }
+        ],
+        "avg_favourites_per_user": 3.4,
+        "mode_split": {
+          "classic": { "actions": 2050, "unique_users": 820 },
+          "vegan": { "actions": 790, "unique_users": 300 }
+        },
+        "top_favourited_items": [
+          { "item": "Margherita", "count": 340 },
+          { "item": "Pepperoni", "count": 290 },
+          { "item": "Vodka Pie", "count": 245 },
+          { "item": "BBQ Chicken", "count": 210 },
+          { "item": "Meat Lovers", "count": 185 }
+        ],
+        "weekly_trend": [
+          { "week": "2026-W23", "actions": 680, "unique_users": 340 },
+          { "week": "2026-W24", "actions": 980, "unique_users": 420 },
+          { "week": "2026-W25", "actions": 1180, "unique_users": 360 }
+        ]
+      }
+    },
+    {
+      "event_name": "favourites_return_visits",
+      "description": "Return visit rate for users who have saved at least one favourite vs those who haven't",
+      "related_feature": "Add favourites/wishlist (#39)",
+      "data": {
+        "users_with_favourites": {
+          "total": 1120,
+          "returned_within_7_days": 740,
+          "return_rate_percentage": 66.1
+        },
+        "users_without_favourites": {
+          "total": 4230,
+          "returned_within_7_days": 1690,
+          "return_rate_percentage": 40.0
+        },
+        "lift_percentage": 65.3,
+        "weekly_trend": [
+          { "week": "2026-W23", "with_favs_return_rate": 58.2, "without_return_rate": 39.4 },
+          { "week": "2026-W24", "with_favs_return_rate": 64.8, "without_return_rate": 40.1 },
+          { "week": "2026-W25", "with_favs_return_rate": 66.1, "without_return_rate": 40.0 }
+        ]
+      }
+    },
+    {
+      "event_name": "favourites_page_view",
+      "description": "User visited the My Picks / Favourites page",
+      "related_feature": "Add favourites/wishlist (#39)",
+      "data": {
+        "total_views": 1640,
+        "unique_visitors": 890,
+        "avg_time_on_page_seconds": 22.4,
+        "weekly_trend": [
+          { "week": "2026-W23", "views": 380 },
+          { "week": "2026-W24", "views": 560 },
+          { "week": "2026-W25", "views": 700 }
+        ]
+      }
+    },
+    {
       "event_name": "lighthouse_accessibility_score",
       "description": "Lighthouse accessibility audit score tracked over time (automated CI run)",
       "related_feature": "Add keyboard navigation & focus indicators (#46)",
