@@ -50,3 +50,51 @@ Generate a report at `claude_reports/delivery/feature-{number}-{short-name}.md` 
 5. **Assessment** — table comparing indicators to targets with verdicts (✅/❌), overall green/yellow/red rating, and opportunities for improvement based on feedback
 
 When a leading indicator is explicitly "No quantitative leading indicator available", note this in the report and explain the qualitative-only measurement approach.
+
+# Product Reports
+
+## When asked for a Proposal
+
+Generate a proposal at `claude_reports/proposals/pm-proposal-{n}.md` (increment `n` from the highest existing proposal number).
+
+### Steps:
+1. Read current epics, delivered features, and proposed features from the GitHub Project board
+2. Read `data/quantitative/pendo-data.json` for analytics trends
+3. Read `data/qualitative/user-feedback.json` for user sentiment and unmet needs
+4. Identify the optimal product direction given the current state
+5. Generate the proposal document
+
+### Structure:
+1. **Current state summary** — delivered count, active epics, key metric movements
+2. **Strategic direction** — why this direction is right, grounded in data trends
+3. **Proposed epics/features** — each with description, acceptance criteria, leading indicators, and data support (minimum one quantitative + one qualitative cite per feature)
+4. **Roadmap impact** — how new work fits alongside existing commitments
+
+### On acceptance:
+- Create approved features as GitHub issues linked to their epics as sub-issues
+- Add approved features to the project board in **Proposed** state
+- Create any new epics on the project board
+- Re-order project board prioritisation if the proposal specifies a new direction
+
+## When asked for a Delivery Report
+
+Generate or update a report at `claude_reports/delivery/feature-{number}-{short-name}.md`.
+
+### Steps:
+1. Identify which delivered feature(s) to assess (ask if ambiguous)
+2. Read the feature's leading indicators from the GitHub issue body
+3. Read `data/quantitative/pendo-data.json` for post-delivery metrics
+4. Read `data/qualitative/user-feedback.json` for user reactions
+5. Generate the delivery report
+
+### Structure:
+1. **Feature Details** — table with Epic, Status, Delivered date, PR link, Description
+2. **Acceptance Criteria** — all items checked off
+3. **Supporting Data (Pre-delivery)** — the quantitative + qualitative evidence that justified building it
+4. **Leading Indicator Results (Post-delivery)** — metrics from mock data with tables, trends, and interpretation
+5. **Assessment** — indicators vs targets with verdicts (✅/❌), overall rating (🟢/🟡/🔴), and improvement opportunities
+
+### Rating guide:
+- 🟢 **Green** — feature delivering expected or above-expected value
+- 🟡 **Yellow** — partial delivery, some indicators below target — may need iteration
+- 🔴 **Red** — underperforming against leading indicators — warrants rework or removal
